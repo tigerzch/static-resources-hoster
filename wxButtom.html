@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <title>wx.createUserInfoButton 样式实验室</title>
+  <style>
+    body{display:flex;height:100vh;margin:0;font:14px/1.4 sans-serif}
+    #code{flex:1;padding:10px;border-right:1px solid #ccc}
+    #phone{position:relative;width:375px;height:667px;margin:20px auto;
+           box-shadow:0 0 0 6px #111;border-radius:36px;overflow:hidden;
+           background:url(https://i.loli.net/2021/04/26/UTkC8zHXKq3nVsj.jpg) center/cover}
+    #canvas{position:absolute;left:0;top:0;width:100%;height:100%}
+    #btn{position:absolute;display:none}
+  </style>
+</head>
+<body>
+  <textarea id="code">{
+"type": "text",
+"text": "微信登录",
+"style": {
+  "left": 87.5,
+  "top": 400,
+  "width": 200,
+  "height": 48,
+  "lineHeight": 48,
+  "backgroundColor": "#07C160",
+  "color": "#ffffff",
+  "fontSize": 16,
+  "borderRadius": 24,
+  "textAlign": "center"
+}
+}</textarea>
+  <div id="phone">
+    <canvas id="canvas"></canvas>
+    <div id="btn"></div>
+  </div>
+
+  <script>
+    /* ---------- mock wx ---------- */
+    window.wx = {
+      createUserInfoButton(obj){
+        const b = document.getElementById('btn');
+        b.style.cssText = `
+          left:${obj.style.left}px;
+          top:${obj.style.top}px;
+          width:${obj.style.width}px;
+          height:${obj.style.height}px;
+          line-height:${obj.style.height}px;
+          background:${obj.style.backgroundColor||'#07C160'};
+          color:${obj.style.color||'#fff'};
+          font-size:${obj.style.fontSize}px;
+          border-radius:${obj.style.borderRadius||0}px;
+          text-align:${obj.style.textAlign||'center'};
+          position:absolute;cursor:pointer;display:block`;
+        b.innerText = obj.text||obj.imageUrl||'';
+        b.onclick = ()=> obj.onTap&&obj.onTap({userInfo:{nickName:'测试',avatarUrl:'//thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nK0YrkYJ8TI8X6T8e8kK8f8a8c8c8c8/0'}});
+        return { show:()=>b.style.display='block', hide:()=>b.style.display='none', destroy:()=>b.remove() };
+      }
+    };
+    /* ---------- 实时刷新 ---------- */
+    const ta = document.getElementById('code');
+    function run(){ try{ wx.createUserInfoButton(JSON.parse(ta.value)); }catch(e){} }
+    ta.oninput = ()=>{ document.getElementById('btn').style.display='none'; run(); };
+    run();
+  </script>
+</body>
+</html>
