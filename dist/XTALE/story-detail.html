@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑故事 - XTALE</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 面包屑导航 -->
+        <div class="breadcrumb">
+            <a href="story-manager.html" class="breadcrumb-item">故事管理</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-item active">编辑故事</span>
+        </div>
+
+        <!-- 页面头部 -->
+        <div class="detail-header">
+            <div class="detail-title-section">
+                <h1 class="detail-title">小雷音寺</h1>
+                <span class="tag tag-type">仙侠武林</span>
+            </div>
+            <div class="detail-actions">
+                <button class="btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    预览
+                </button>
+                <button class="btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    保存
+                </button>
+            </div>
+        </div>
+
+        <!-- 基本信息卡片 -->
+        <div class="detail-card">
+            <div class="card-header">
+                <h2 class="card-title">故事基本信息</h2>
+            </div>
+            <div class="card-body">
+                <div class="detail-layout">
+                    <div class="detail-form">
+                        <div class="form-group">
+                            <label class="form-label">故事标题 <span class="required">*</span></label>
+                            <input type="text" class="form-input" value="小雷音寺">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">所属世界观 <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option value="">请选择世界观</option>
+                                <option value="xianxia" selected>仙侠武林</option>
+                                <option value="xuanhuan">玄幻</option>
+                                <option value="wuxia">武侠</option>
+                                <option value="dushi">都市</option>
+                                <option value="kehuan">科幻</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">状态 <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option value="draft" selected>草稿</option>
+                                <option value="active">连载中</option>
+                                <option value="completed">已完结</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">故事背景</label>
+                            <textarea class="form-textarea" rows="6">sd敢达官方回过防护服干活</textarea>
+                            <div class="char-count">14 / 500</div>
+                        </div>
+                    </div>
+                    <div class="detail-cover">
+                        <label class="form-label">故事封面</label>
+                        <div class="cover-upload-vertical">
+                            <div class="cover-placeholder-vertical">
+                                <div class="cover-icon-vertical">📖</div>
+                                <div class="cover-text-vertical">点击上传封面</div>
+                                <div class="cover-hint-vertical">建议 600×800</div>
+                            </div>
+                            <input type="file" class="cover-input" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 章节管理卡片 -->
+        <div class="detail-card">
+            <div class="card-header">
+                <h2 class="card-title">章节管理</h2>
+                <button class="btn-primary" style="padding: 8px 16px; font-size: 13px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    新增章节
+                </button>
+            </div>
+            <div class="card-body" style="padding: 0;">
+                <div class="chapter-table-container">
+                    <table class="chapter-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">序号</th>
+                                <th>章节标题</th>
+                                <th style="width: 120px;">字数</th>
+                                <th style="width: 120px;">状态</th>
+                                <th style="width: 160px;">更新时间</th>
+                                <th style="width: 120px;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="chapter-number">第一章</span></td>
+                                <td>
+                                    <div class="chapter-title-cell">
+                                        <div class="chapter-name">误入小雷音</div>
+                                        <div class="chapter-desc">唐僧师徒四人来到小雷音寺...</div>
+                                    </div>
+                                </td>
+                                <td><span class="chapter-wordcount">3,245</span></td>
+                                <td><span class="tag tag-status-active">已发布</span></td>
+                                <td class="date-text">2026-03-17 18:20:15</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn">👁</button>
+                                        <a href="chapter-edit.html" class="action-btn">✏️</a>
+                                        <button class="action-btn delete">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="chapter-number">第二章</span></td>
+                                <td>
+                                    <div class="chapter-title-cell">
+                                        <div class="chapter-name">弥勒佛降临</div>
+                                        <div class="chapter-desc">正当孙悟空一筹莫展之时...</div>
+                                    </div>
+                                </td>
+                                <td><span class="chapter-wordcount">2,876</span></td>
+                                <td><span class="tag tag-status-draft">草稿</span></td>
+                                <td class="date-text">2026-03-17 20:15:30</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn">👁</button>
+                                        <a href="chapter-edit.html" class="action-btn">✏️</a>
+                                        <button class="action-btn delete">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
