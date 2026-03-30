@@ -10,7 +10,7 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: 'main',
+    outDir: 'dist',
     emptyOutDir: true
   }
 })
