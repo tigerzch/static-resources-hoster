@@ -1,29 +1,33 @@
 <template>
-  <div class="container">
-    <header>
-      <img src="/logo.png" alt="Logo" class="logo">
-      <h1>静态资源托管</h1>
-      <p class="subtitle">探索我的项目集合</p>
-    </header>
+  <div class="min-h-screen">
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <header class="text-center py-12">
+        <img src="/logo.png" alt="Logo" class="w-20 h-auto mx-auto mb-6 opacity-90">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          静态资源托管
+        </h1>
+        <p class="text-lg text-gray-400">探索我的项目集合</p>
+      </header>
 
-    <div v-if="projects.length > 0" class="projects-grid">
-      <ProjectCard
-        v-for="project in projects"
-        :key="project.id"
-        :project="project"
-        @click="navigateTo(project)"
-      />
+      <div v-if="projects.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+        <ProjectCard
+          v-for="project in projects"
+          :key="project.id"
+          :project="project"
+          @click="navigateTo(project)"
+        />
+      </div>
+
+      <div v-else class="text-center py-16">
+        <div class="text-6xl mb-4 opacity-50">📁</div>
+        <h3 class="text-xl text-gray-500 mb-2">还没有项目</h3>
+        <p class="text-gray-600">添加你的第一个项目吧！</p>
+      </div>
+
+      <footer class="text-center py-12 mt-12">
+        <p class="text-gray-600">© 2025 静态资源托管</p>
+      </footer>
     </div>
-
-    <div v-else class="empty-state">
-      <div class="empty-state-icon">📁</div>
-      <h3>还没有项目</h3>
-      <p>添加你的第一个项目吧！</p>
-    </div>
-
-    <footer>
-      <p>© 2025 静态资源托管</p>
-    </footer>
   </div>
 </template>
 
@@ -40,80 +44,9 @@ const projects = ref([
     tags: ['示例', 'HTML', 'CSS'],
     path: 'projects/example/index.html'
   }
-  // 添加更多项目...
 ])
 
 const navigateTo = (project) => {
   window.location.href = project.path
 }
 </script>
-
-<style scoped>
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-header {
-  text-align: center;
-  padding: 4rem 0 3rem;
-}
-
-.logo {
-  width: 80px;
-  height: auto;
-  margin-bottom: 1.5rem;
-  opacity: 0.9;
-}
-
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(90deg, #667eea, #764ba2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.subtitle {
-  font-size: 1.1rem;
-  color: #888;
-  margin-bottom: 2rem;
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 4rem 2rem;
-  color: #666;
-}
-
-.empty-state-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  opacity: 0.5;
-}
-
-footer {
-  text-align: center;
-  padding: 3rem 0;
-  color: #555;
-  margin-top: 3rem;
-}
-
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
