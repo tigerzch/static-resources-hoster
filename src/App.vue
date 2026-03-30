@@ -37,12 +37,12 @@ import ProjectCard from './components/ProjectCard.vue'
 
 const projects = ref([
   {
-    id: 'example',
-    icon: '🚀',
-    title: '示例项目',
-    desc: '这是一个示例项目，展示如何添加你的静态页面项目。',
-    tags: ['示例', 'HTML', 'CSS'],
-    path: 'projects/example/index.html'
+    id: 'XTALE',
+    icon: '✨',
+    title: 'XTALE',
+    desc: '探索无限可能的创意项目，融合现代美学与游戏化元素。',
+    tags: ['创意', '游戏化', 'Vue'],
+    path: 'XTALE/index.html'
   }
 ])
 
