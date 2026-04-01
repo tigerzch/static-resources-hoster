@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background: #0a0a12;
+  --foreground: #ffffff;
+  --card: #1f1f35;
+  --card-foreground: #ffffff;
+  --popover: #16162a;
+  --popover-foreground: #ffffff;
+  --primary: #a855f7;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(255, 255, 255, 0.04);
+  --secondary-foreground: #b8b8d0;
+  --muted: rgba(255, 255, 255, 0.03);
+  --muted-foreground: #9898b8;
+  --accent: #a855f7;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.16);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #a855f7;
+  --radius: 8px;
+}
+
 body {
   background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
 }

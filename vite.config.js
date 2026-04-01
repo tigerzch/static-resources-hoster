@@ -11,6 +11,12 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: fileURLToPath(new URL('./index.html', import.meta.url)),
+        xtale: fileURLToPath(new URL('./xtale.html', import.meta.url))
+      }
+    }
   }
 })

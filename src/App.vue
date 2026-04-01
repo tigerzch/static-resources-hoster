@@ -40,9 +40,9 @@ const projects = ref([
     id: 'XTALE',
     icon: '✨',
     title: 'XTALE',
-    desc: '探索无限可能的创意项目，融合现代美学与游戏化元素。',
-    tags: ['创意', '游戏化', 'Vue'],
-    path: 'XTALE/index.html'
+    desc: '故事创作与世界观管理平台，支持故事分章、世界观设定、批量导入等功能。',
+    tags: ['Vue 3', '创作工具', 'Story'],
+    path: '/xtale.html#/'
   }
 ])
 

@@ -9,7 +9,11 @@
       "Bash(git config:*)",
       "Bash(git push:*)",
       "Bash(npx tailwindcss:*)",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(ls -lh *.html)",
+      "Bash(dir:*)",
+      "Bash(npm remove:*)",
+      "Bash(ls:*)"
     ]
   }
 }
