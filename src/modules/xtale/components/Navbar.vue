@@ -58,7 +58,7 @@ const searchQuery = ref('')
   height: 72px;
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 24px;
 }
 
 .logo {
@@ -66,6 +66,7 @@ const searchQuery = ref('')
   align-items: center;
   gap: 10px;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .logo-icon {
@@ -90,8 +91,7 @@ const searchQuery = ref('')
 }
 
 .nav-search {
-  flex: 1;
-  max-width: 400px;
+  flex: 0 1 360px;
   position: relative;
 }
 
