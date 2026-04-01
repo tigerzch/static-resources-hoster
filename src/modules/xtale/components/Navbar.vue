@@ -91,7 +91,7 @@ const searchQuery = ref('')
 }
 
 .nav-search {
-  flex: 0 1 360px;
+  flex: 0 0 280px;
   position: relative;
 }
 
@@ -133,6 +133,8 @@ const searchQuery = ref('')
   display: flex;
   align-items: center;
   gap: 24px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .nav-item {
