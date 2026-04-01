@@ -87,24 +87,24 @@ const defaultCoverStyle = computed(() => {
 <style scoped>
 .story-card {
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  background-color: #1f1f35;
-  border: 1px solid rgba(255, 255, 255, 0.20);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  background-color: #161625;
+  border: 1px solid #252538;
+  border-radius: 8px;
 }
 
 .story-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(168, 85, 247, 0.6);
-  box-shadow: 0 20px 60px rgba(168, 85, 247, 0.25);
+  transform: translateY(-2px);
+  border-color: #3b82f6;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .story-card-cover {
   position: relative;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
 }
 
@@ -112,11 +112,11 @@ const defaultCoverStyle = computed(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease;
 }
 
 .story-card:hover .story-card-cover img {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .emoji {
@@ -128,44 +128,42 @@ const defaultCoverStyle = computed(() => {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60%;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  height: 50%;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
 }
 
 .story-card-category {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 4px 12px;
-  background: rgba(168, 85, 247, 0.9);
-  backdrop-filter: blur(10px);
+  top: 8px;
+  left: 8px;
+  padding: 3px 10px;
+  background: rgba(59, 130, 246, 0.9);
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .story-card-content {
-  padding: 24px;
+  padding: 16px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .story-card-title {
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 600;
   color: #ffffff;
   margin: 0;
-  line-height: 1.3;
+  line-height: 1.4;
 }
 
 .story-card-desc {
-  font-size: 14px;
-  color: #a8a8c8;
-  line-height: 1.6;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -174,31 +172,31 @@ const defaultCoverStyle = computed(() => {
 
 .story-card-tags {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
   margin-top: 4px;
 }
 
 .tag {
   display: inline-block;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
   font-weight: 500;
 }
 
 .tag-type {
-  background: rgba(168, 85, 247, 0.18);
-  color: #e9d5ff;
-  border: 1px solid rgba(168, 85, 247, 0.35);
+  background: rgba(59, 130, 246, 0.15);
+  color: #bfdbfe;
+  border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
 .story-card-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 12px;
+  border-top: 1px solid #252538;
   margin-top: auto;
 }
 
@@ -207,33 +205,33 @@ const defaultCoverStyle = computed(() => {
   align-items: center;
   gap: 6px;
   font-size: 12px;
-  color: #c8c8e0;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .author-avatar {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #a855f7, #ec4899);
+  background: #3b82f6;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
+  font-size: 9px;
   color: white;
 }
 
 .story-card-id {
-  font-size: 12px;
-  color: #8888a8;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
   font-family: monospace;
 }
 
 .story-card-actions {
-  padding: 16px 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 12px 16px;
+  border-top: 1px solid #252538;
   display: flex;
   gap: 8px;
   justify-content: flex-end;
-  background: rgba(0, 0, 0, 0.1);
+  background: #1e1e30;
 }
 </style>

@@ -38,7 +38,6 @@ import ProjectCard from './components/ProjectCard.vue'
 const projects = ref([
   {
     id: 'XTALE',
-    icon: '✨',
     title: 'XTALE',
     desc: '故事创作与世界观管理平台，支持故事分章、世界观设定、批量导入等功能。',
     tags: ['Vue 3', '创作工具', 'Story'],

@@ -15,21 +15,10 @@ const isOpen = ref(props.open)
 
 watch(() => props.open, (val) => {
   isOpen.value = val
-  if (val) {
-    document.body.style.overflow = 'hidden'
-  } else {
-    document.body.style.overflow = ''
-  }
 })
 
 onMounted(() => {
-  if (props.open) {
-    document.body.style.overflow = 'hidden'
-  }
-})
-
-onBeforeUnmount(() => {
-  document.body.style.overflow = ''
+  isOpen.value = props.open
 })
 
 function handleOverlayClick() {

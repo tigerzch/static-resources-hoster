@@ -1,30 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Orbitron:wght@400;600;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #0a0a12;
+  --background: #0f0f1a;
   --foreground: #ffffff;
-  --card: #1f1f35;
+  --card: #18182b;
+  --card-hover: #1f1f3a;
   --card-foreground: #ffffff;
   --popover: #16162a;
   --popover-foreground: #ffffff;
-  --primary: #a855f7;
+  --primary: #fb7299;
+  --primary-dark: #e54e79;
   --primary-foreground: #ffffff;
-  --secondary: rgba(255, 255, 255, 0.04);
-  --secondary-foreground: #b8b8d0;
-  --muted: rgba(255, 255, 255, 0.03);
-  --muted-foreground: #9898b8;
+  --secondary: #23ade5;
+  --secondary-dark: #1488c8;
+  --secondary-foreground: #ffffff;
   --accent: #a855f7;
+  --accent-dark: #9333ea;
   --accent-foreground: #ffffff;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: rgba(255, 255, 255, 0.16);
-  --input: rgba(255, 255, 255, 0.12);
-  --ring: #a855f7;
-  --radius: 8px;
+  --muted: #1a1a2e;
+  --muted-foreground: #a0a0b8;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #fb7299;
+  --radius: 12px;
+}
+
+* {
+  font-family: 'Noto Sans SC', sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+  background: radial-gradient(ellipse at top, #1a1a30 0%, #0f0f1a 40%, #0a0a12 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
+
+h1, h2, h3, .logo-font {
+  font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* 动画关键帧 */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(251, 114, 153, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(251, 114, 153, 0.6); }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+

@@ -1,19 +1,25 @@
 <template>
-  <div>
-    <div class="page-header">
-      <div>
-        <h1 class="page-title">故事管理</h1>
-        <p class="page-desc">管理你创作的所有故事作品</p>
+  <div class="story-manager-page">
+    <!-- 页面头部 -->
+    <header class="page-header">
+      <div class="header-main">
+        <div class="title-section">
+          <h1 class="page-title">故事创作工坊</h1>
+          <p class="page-subtitle">管理和创作你的故事作品</p>
+        </div>
+        <div class="header-actions">
+          <Button class="btn-primary" @click="openCreateModal">
+            <span class="btn-icon">+</span>
+            <span>创建新故事</span>
+          </Button>
+        </div>
       </div>
-      <Button variant="default" @click="openCreateModal">
-        <span>+</span>
-        创建新故事
-      </Button>
-    </div>
+    </header>
 
-    <div class="filter-bar">
-      <div class="search-box">
-        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <!-- 控制面板 -->
+    <section class="control-panel">
+      <div class="search-group">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
@@ -21,81 +27,119 @@
           v-model="searchQuery"
           type="text"
           class="search-input"
-          placeholder="搜索故事名称..."
-        >
-        </Input>
+          placeholder="搜索故事名称或描述..."
+        />
       </div>
-      <Select v-model="statusFilter">
-        <SelectTrigger class="w-[180px]">
-          <SelectValue placeholder="全部状态" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="">全部状态</SelectItem>
-          <SelectItem value="draft">草稿</SelectItem>
-          <SelectItem value="active">连载中</SelectItem>
-          <SelectItem value="completed">已完结</SelectItem>
-        </SelectContent>
-      </Select>
-      <Button variant="secondary" @click="resetFilters">
-        重置筛选
-      </Button>
+
+      <div class="filter-group">
+        <div class="filter-item">
+          <span class="filter-label">状态：</span>
+          <select v-model="statusFilter" class="select-filter">
+            <option value="">所有状态</option>
+            <option value="draft">草稿</option>
+            <option value="active">连载中</option>
+            <option value="completed">已完结</option>
+          </select>
+        </div>
+
+
+        <div class="filter-item">
+          <span class="filter-label">世界观：</span>
+          <select v-model="worldviewFilter" class="select-filter">
+            <option value="">全部世界观</option>
+            <option v-for="wv in worldviews" :key="wv.id" :value="wv.id">
+              {{ wv.name }}
+            </option>
+          </select>
+        </div>
+
+        <Button class="btn-reset" @click="resetFilters">
+          重置
+        </Button>
+      </div>
+    </section>
+
+    <!-- 统计条 -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-label">总故事数</span>
+        <span class="stat-value">{{ totalItems }}</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">连载中</span>
+        <span class="stat-value stat-active">{{ activeCount }}</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">已完结</span>
+        <span class="stat-value stat-completed">{{ completedCount }}</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">草稿</span>
+        <span class="stat-value stat-draft">{{ draftCount }}</span>
+      </div>
     </div>
 
-    <div class="story-list-container">
-      <div v-if="filteredStories.length > 0" class="story-grid">
-        <StoryCard
+    <!-- 故事列表区域 -->
+    <section class="stories-section">
+      <div v-if="filteredStories.length > 0" class="stories-grid">
+        <StoryManagerCard
           v-for="story in paginatedStories"
           :key="story.id"
           :story="story"
-          :showActions="true"
           @click="editStory(story.id)"
-        >
-          <template #actions>
-            <Button variant="ghost" size="icon" class="action-btn" @click.stop="editStory(story.id)" title="编辑">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-              </svg>
-            </Button>
-            <Button variant="ghost" size="icon" class="action-btn" @click.stop="addChapter(story.id)" title="添加章节">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-            </Button>
-            <Button variant="destructive" size="icon" class="action-btn" @click.stop="confirmDelete(story)" title="删除">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="3 6 5 6 21 6"></polyline>
-                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-              </svg>
-            </Button>
-          </template>
-        </StoryCard>
-      </div>
-      <div v-else class="empty-state">
-        <div class="empty-icon">📖</div>
-        <div class="empty-text">暂无故事，点击上方按钮创建第一个故事吧</div>
+          @detail="goToStoryDetail"
+          @delete="confirmDelete"
+        />
       </div>
 
-      <Pagination v-if="totalPages > 1" class="pagination-footer">
-        <div class="pagination-info">
-          共 {{ totalItems }} 条，第 {{ currentPage }} / {{ totalPages }} 页
-        </div>
-        <PaginationContent>
+      <div v-else class="empty-state">
+        <div class="empty-icon">📖</div>
+        <h3 class="empty-title">没有找到故事</h3>
+        <p class="empty-desc">点击上方按钮创建你的第一个故事，开始你的创作之旅</p>
+      </div>
+
+      <!-- 分页 -->
+      <Pagination class="pagination-bar">
+        <PaginationContent class="pagination">
           <PaginationItem>
-            <PaginationPrevious @click="currentPage--" :class="{ 'opacity-50 cursor-not-allowed': currentPage <= 1 }" />
+            <button
+              class="pagination-btn"
+              @click="currentPage > 1 && (currentPage--)"
+              :class="{ 'disabled': currentPage <= 1 }"
+            >
+              上一页
+            </button>
           </PaginationItem>
           <PaginationItem v-for="page in visiblePages" :key="page">
-            <PaginationLink :is-active="currentPage === page" @click="currentPage = page">
-              {{ page }}
-            </PaginationLink>
+            <template v-if="page !== '...'">
+              <PaginationLink
+                class="pagination-link"
+                :is-active="currentPage === page"
+                @click="currentPage = page"
+              >
+                {{ page }}
+              </PaginationLink>
+            </template>
+            <span v-else class="pagination-ellipsis">...</span>
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext @click="currentPage++" :class="{ 'opacity-50 cursor-not-allowed': currentPage >= totalPages }" />
+            <button
+              class="pagination-btn"
+              @click="currentPage < totalPages && (currentPage++)"
+              :class="{ 'disabled': currentPage >= totalPages }"
+            >
+              下一页
+            </button>
           </PaginationItem>
         </PaginationContent>
+        <div class="pagination-info">
+          第 {{ currentPage }} / {{ totalPages }} 页 · 共 {{ totalItems }} 个故事
+        </div>
       </Pagination>
-    </div>
+    </section>
 
     <!-- 创建/编辑故事弹窗 -->
     <Modal
@@ -104,84 +148,98 @@
       :large="true"
       @close="closeCreateModal"
     >
-      <div class="modal-split">
+      <div class="modal-content">
         <div class="modal-left">
           <CoverUploadVertical v-model="formData.coverUrl" />
         </div>
         <div class="modal-right">
-          <div class="form-grid-vertical">
+          <div class="form-section">
             <div class="form-group">
-              <label class="form-label">故事标题 <span class="required">*</span></label>
+              <label class="form-label">
+                故事标题
+                <span class="required">*</span>
+              </label>
               <Input
                 v-model="formData.title"
                 type="text"
-                class="story-title-input"
-                placeholder="输入你的故事标题"
-              >
-              </Input>
+                class="form-input title-input"
+                placeholder="输入你的故事标题..."
+              />
             </div>
+
             <div class="form-group">
-              <label class="form-label">故事描述</label>
+              <label class="form-label">
+                故事描述
+              </label>
               <Textarea
                 v-model="formData.description"
-                class="ink-textarea"
-                placeholder="简单介绍一下你的故事..."
-                rows="3"
+                class="form-textarea"
+                placeholder="简单介绍一下你的故事，让读者了解这是一个怎样的世界..."
+                rows="4"
               ></Textarea>
             </div>
-            <div class="form-grid">
+
+            <div class="form-row">
               <div class="form-group">
-                <label class="form-label">分类</label>
-                <Input
-                  v-model="formData.category"
-                  type="text"
-                  class="form-input"
-                  placeholder="仙侠/都市/言情..."
-                >
-                </Input>
+                <label class="form-label">
+                  世界观
+                </label>
+                <select v-model="formData.worldview" class="form-select">
+                  <option value="">无</option>
+                  <option v-for="wv in worldviews" :key="wv.id" :value="wv.id">
+                    {{ wv.name }}
+                  </option>
+                </select>
               </div>
+
               <div class="form-group">
-                <label class="form-label">状态</label>
-                <Select v-model="formData.status">
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="draft">草稿</SelectItem>
-                    <SelectItem value="active">连载中</SelectItem>
-                    <SelectItem value="completed">已完结</SelectItem>
-                  </SelectContent>
-                </Select>
+                <label class="form-label">
+                  状态
+                </label>
+                <select v-model="formData.status" class="form-select">
+                  <option value="draft">草稿</option>
+                  <option value="active">连载中</option>
+                  <option value="completed">已完结</option>
+                </select>
               </div>
             </div>
+
             <div class="form-group">
-              <label class="form-label">标签（用逗号分隔）</label>
+              <label class="form-label">
+                标签（用逗号分隔）
+              </label>
               <Input
                 v-model="tagsInput"
                 type="text"
                 class="form-input"
-                placeholder="热血, 修真, 爽文"
-              >
-              </Input>
+                placeholder="热血, 修真, 爽文..."
+              />
             </div>
+
             <div class="form-group">
-              <label class="form-label">作者</label>
+              <label class="form-label">
+                作者
+              </label>
               <Input
                 v-model="formData.author"
                 type="text"
                 class="form-input"
-                placeholder="你的笔名"
-              >
-              </Input>
+                placeholder="你的笔名..."
+              />
             </div>
           </div>
         </div>
       </div>
+
       <template #footer>
-        <Button variant="secondary" @click="closeCreateModal">取消</Button>
-        <Button variant="default" @click="saveStory">
-          {{ isEditing ? '保存修改' : '创建故事' }}
-        </Button>
+        <div class="modal-footer">
+          <Button class="btn-cancel" @click="closeCreateModal">
+            取消
+          </Button>
+          <Button class="btn-primary" @click="saveStory">
+            {{ isEditing ? '保存修改' : '创建故事' }}
+          </Button>
+        </div>
       </template>
     </Modal>
 
@@ -191,44 +249,110 @@
       title="确认删除"
       @close="closeDeleteModal"
     >
-      <p>确定要删除故事 "{{ deletingStory?.title }}" 吗？此操作不可撤销。</p>
+      <div class="delete-modal">
+        <div class="delete-icon">⚠️</div>
+        <p class="delete-text">
+          确定要删除故事 <span class="delete-title">「{{ deletingStory?.title }}」</span> 吗？
+        </p>
+        <p class="delete-warning">此操作不可撤销，故事的所有内容将被永久删除。</p>
+      </div>
+
       <template #footer>
-        <Button variant="secondary" @click="closeDeleteModal">取消</Button>
-        <Button variant="destructive" @click="deleteStory">
-          确认删除
-        </Button>
+        <div class="modal-footer">
+          <Button class="btn-cancel" @click="closeDeleteModal">
+            取消
+          </Button>
+          <Button class="btn-danger" @click="deleteStory">
+            确认删除
+          </Button>
+        </div>
       </template>
     </Modal>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, reactive } from 'vue'
+import { ref, computed, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import StoryCard from '../components/StoryCard.vue'
 import Modal from '../components/Modal.vue'
 import CoverUploadVertical from '../components/CoverUploadVertical.vue'
+import StoryManagerCard from '../components/StoryManagerCard.vue'
 import Button from '@/components/ui/button/Button.vue'
 import Input from '@/components/ui/input/Input.vue'
 import Textarea from '@/components/ui/textarea/Textarea.vue'
-import Select from '@/components/ui/select/Select.vue'
-import SelectContent from '@/components/ui/select/SelectContent.vue'
-import SelectItem from '@/components/ui/select/SelectItem.vue'
-import SelectTrigger from '@/components/ui/select/SelectTrigger.vue'
-import SelectValue from '@/components/ui/select/SelectValue.vue'
 import Pagination from '@/components/ui/pagination/Pagination.vue'
 import PaginationContent from '@/components/ui/pagination/PaginationContent.vue'
 import PaginationItem from '@/components/ui/pagination/PaginationItem.vue'
 import PaginationPrevious from '@/components/ui/pagination/PaginationPrevious.vue'
 import PaginationNext from '@/components/ui/pagination/PaginationNext.vue'
 import PaginationLink from '@/components/ui/pagination/PaginationLink.vue'
-import { storyStore } from '../store/state'
+import { storyStore, worldviewStore } from '../store/state'
 
 const router = useRouter()
+
+// 确保世界观数据可访问
+const worldviews = computed(() => worldviewStore.all)
+
+// 添加示例数据
+onMounted(() => {
+  // 如果没有世界观，添加示例世界观
+  if (worldviewStore.all.length === 0) {
+    worldviewStore.add({ name: '修仙大世界', description: '一个充满仙气的修真世界' })
+    worldviewStore.add({ name: '都市异能', description: '现代都市中的超能力者' })
+    worldviewStore.add({ name: '星际纪元', description: '未来太空殖民时代' })
+  }
+
+  // 如果没有故事，添加示例故事
+  if (storyStore.all.length === 0) {
+    const wv1 = worldviewStore.all[0]?.id
+    const wv2 = worldviewStore.all[1]?.id
+
+    storyStore.add({
+      title: '尘缘仙途',
+      description: '一个凡夫俗子意外踏入修真世界，靠着奇遇与坚持，一步步走出属于自己的仙路传奇。',
+      worldview: wv1,
+      status: 'active',
+      author: '云游子',
+      coverUrl: 'https://picsum.photos/seed/xianxia/300/400',
+      tags: ['仙侠', '修真', '长篇']
+    })
+
+    storyStore.add({
+      title: '城市异闻录',
+      description: '繁华都市的阴影下，隐藏着不为人知的秘密。平凡上班族意外卷入超凡事件。',
+      worldview: wv2,
+      status: 'active',
+      author: '城南旧梦',
+      coverUrl: 'https://picsum.photos/seed/city/300/400',
+      tags: ['都市', '悬疑', '新人新作']
+    })
+
+    storyStore.add({
+      title: '玫瑰往事',
+      description: '多年后的重逢，勾起了青春年少的回忆。那段被时光掩埋的秘密，该如何面对？',
+      worldview: '',
+      status: 'completed',
+      author: '夜微凉',
+      coverUrl: 'https://picsum.photos/seed/romance/300/400',
+      tags: ['言情', '完结', '经典']
+    })
+
+    storyStore.add({
+      title: '深空彼岸',
+      description: '星舰舰长的冒险之旅，探索宇宙深处的未知文明，揭开人类起源的秘密。',
+      worldview: '',
+      status: 'draft',
+      author: '星际牛仔',
+      coverUrl: 'https://picsum.photos/seed/scifi/300/400',
+      tags: ['科幻', '探险', '宇宙']
+    })
+  }
+})
 
 // 筛选
 const searchQuery = ref('')
 const statusFilter = ref('')
+const worldviewFilter = ref('')
 const currentPage = ref(1)
 const pageSize = ref(6)
 
@@ -243,7 +367,7 @@ const formData = reactive({
   id: null,
   title: '',
   description: '',
-  category: '',
+  worldview: '',
   status: 'draft',
   author: '',
   coverUrl: null,
@@ -268,11 +392,19 @@ const filteredStories = computed(() => {
     result = result.filter(s => s.status === statusFilter.value)
   }
 
+  if (worldviewFilter.value) {
+    result = result.filter(s => s.worldview === worldviewFilter.value)
+  }
+
   return result
 })
 
 const totalItems = computed(() => filteredStories.value.length)
 const totalPages = computed(() => Math.ceil(totalItems.value / pageSize.value))
+
+const activeCount = computed(() => storyStore.all.filter(s => s.status === 'active').length)
+const completedCount = computed(() => storyStore.all.filter(s => s.status === 'completed').length)
+const draftCount = computed(() => storyStore.all.filter(s => s.status === 'draft').length)
 
 const paginatedStories = computed(() => {
   const start = (currentPage.value - 1) * pageSize.value
@@ -286,7 +418,7 @@ const visiblePages = computed(() => {
   const total = totalPages.value
 
   for (let i = 1; i <= total; i++) {
-    if (i === 1 || i === total || (i >= current - 1 && i <= current + 1)) {
+    if (i === 1 || i === total || (i >= current - 2 && i <= current + 2)) {
       pages.push(i)
     } else if (pages[pages.length - 1] !== '...') {
       pages.push('...')
@@ -299,6 +431,7 @@ const visiblePages = computed(() => {
 function resetFilters() {
   searchQuery.value = ''
   statusFilter.value = ''
+  worldviewFilter.value = ''
   currentPage.value = 1
 }
 
@@ -307,7 +440,7 @@ function openCreateModal() {
   formData.id = null
   formData.title = ''
   formData.description = ''
-  formData.category = ''
+  formData.worldview = ''
   formData.status = 'draft'
   formData.author = ''
   formData.coverUrl = null
@@ -327,7 +460,7 @@ function editStory(id) {
     formData.id = story.id
     formData.title = story.title
     formData.description = story.description || ''
-    formData.category = story.category || ''
+    formData.worldview = story.worldview || ''
     formData.status = story.status || 'draft'
     formData.author = story.author || ''
     formData.coverUrl = story.coverUrl || null
@@ -375,54 +508,149 @@ function deleteStory() {
   closeDeleteModal()
 }
 
-function addChapter(storyId) {
-  router.push(`/chapter-edit/${storyId}`)
+function goToStoryDetail(storyId) {
+  router.push(`/story-detail/${storyId}`)
 }
 </script>
 
 <style scoped>
+/* 页面整体容器 */
+.story-manager-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 28px 0 48px;
+}
+
+/* 页面头部 */
 .page-header {
+  margin-bottom: 24px;
+}
+
+.header-main {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 48px;
+  align-items: flex-end;
+}
+
+.title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .page-title {
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 700;
-  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 8px;
+  margin: 0;
+  color: #ffffff;
+  font-family: 'Noto Serif SC', serif;
 }
 
-.page-desc {
-  font-size: 15px;
-  color: #787898;
+.page-subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
 }
 
-.filter-bar {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 28px;
-  margin-bottom: 28px;
+.header-actions {
   display: flex;
-  flex-wrap: wrap;
   gap: 16px;
+}
+
+/* 按钮样式 */
+.btn-primary {
+  background: #3b82f6;
+  border: none;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 10px 24px;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  display: flex;
   align-items: center;
+  gap: 8px;
+  height: 40px;
 }
 
-.search-box {
+.btn-primary:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.btn-icon {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.btn-reset {
+  background: transparent;
+  border: 1px solid #252538;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 8px 16px;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 6px;
+  height: 40px;
+  transition: all 0.2s;
+}
+
+.btn-reset:hover {
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+.btn-cancel {
+  background: transparent;
+  border: 1px solid #252538;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 10px 24px;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 6px;
+  height: 40px;
+  transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+.btn-danger {
+  background: #ef4444;
+  border: none;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 10px 24px;
+  font-size: 14px;
+  border-radius: 6px;
+  height: 40px;
+  transition: all 0.2s;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* 控制面板 */
+.control-panel {
+  background: #161625;
+  border: 1px solid #252538;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.search-group {
+  width: 100%;
+  display: flex;
   position: relative;
-  flex: 1;
-  min-width: 240px;
-}
-
-.search-input {
-  padding-left: 44px;
 }
 
 .search-icon {
@@ -430,143 +658,485 @@ function addChapter(storyId) {
   left: 14px;
   top: 50%;
   transform: translateY(-50%);
-  color: #787898;
+  color: rgba(255, 255, 255, 0.4);
   z-index: 1;
 }
 
-.story-list-container {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 28px;
-  overflow: hidden;
+.search-input {
+  width: 100%;
+  padding-left: 44px;
 }
 
-.story-grid {
+:deep(.search-input) {
+  background-color: #0f0f1a;
+  border: 1px solid #252538;
+  color: #ffffff;
+  height: 40px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+:deep(.search-input::placeholder) {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+:deep(.search-input:focus) {
+  background-color: #1e1e30;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.filter-group {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+}
+
+.select-filter {
+  min-width: 140px;
+  background: #0f0f1a;
+  border: 1px solid #252538;
+  color: #ffffff;
+  height: 40px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding: 0 36px 0 12px;
+}
+
+.select-filter:hover {
+  border-color: #3b82f6;
+}
+
+.select-filter:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+
+/* 统计条 */
+.stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #161625;
+  border: 1px solid #252538;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  padding: 14px 24px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 32px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.stat-active {
+  color: #10b981;
+}
+
+.stat-completed {
+  color: #3b82f6;
+}
+
+.stat-draft {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 36px;
+  background: #252538;
+}
+
+/* 故事列表区域 */
+.stories-section {
+  background: #161625;
+  border: 1px solid #252538;
+  border-radius: 0 0 8px 8px;
+  padding: 24px;
+}
+
+.stories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   margin-bottom: 28px;
 }
 
+/* 空状态 */
 .empty-state {
   text-align: center;
-  padding: 80px 28px;
+  padding: 60px 20px;
 }
 
 .empty-icon {
-  font-size: 64px;
-  margin-bottom: 20px;
-  opacity: 0.5;
+  font-size: 56px;
+  margin-bottom: 16px;
+  opacity: 0.4;
 }
 
-.empty-text {
-  font-size: 15px;
-  color: #787898;
+.empty-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 10px;
 }
 
-.pagination-footer {
+.empty-desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+/* 分页 */
+.pagination-bar {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 12px;
   align-items: center;
   padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid #252538;
 }
 
-.pagination-info {
-  color: #787898;
+.pagination {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination-link {
+  min-width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f0f1a;
+  border: 1px solid #252538;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.pagination-link:hover {
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+:deep(.pagination-link[aria-current="page"]) {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+.pagination-btn {
+  min-width: 68px;
+  height: 36px;
+  background: #0f0f1a;
+  border: 1px solid #252538;
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  transition: all 0.2s;
+  padding: 0 12px;
   font-size: 14px;
 }
 
-.action-btn {
-  width: 32px;
-  height: 32px;
+.pagination-btn:hover:not(.disabled) {
+  border-color: #3b82f6;
+  color: #ffffff;
 }
 
-.modal-split {
+.pagination-btn.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.pagination-ellipsis {
+  color: rgba(255, 255, 255, 0.4);
+  padding: 0 8px;
+}
+
+.pagination-info {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* 弹窗样式 */
+.modal-content {
   display: flex;
   gap: 28px;
 }
 
 .modal-left {
   flex-shrink: 0;
-  width: 200px;
+  width: 220px;
 }
 
 .modal-right {
   flex: 1;
 }
 
-.form-grid-vertical {
+.form-section {
   display: flex;
   flex-direction: column;
-  gap: 28px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
+  gap: 18px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .form-label {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  color: #b8b8d0;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.form-label .required {
-  color: #ec4899;
+.required {
+  color: #ef4444;
 }
 
-.story-title-input {
-  font-size: 22px;
-  padding: 16px 18px;
-  letter-spacing: 0.1em;
+.form-input {
+  background: #0f0f1a;
+  border: 1px solid #252538;
+  color: #ffffff;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: all 0.2s;
 }
 
-.ink-textarea {
-  background: rgba(5, 5, 10, 0.5);
-  border: 1px solid rgba(168, 85, 247, 0.25);
+:deep(.form-input:focus) {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
 }
 
-.ink-textarea:focus {
-  border-color: #a855f7;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 0 16px rgba(168, 85, 247, 0.25);
+.title-input {
+  font-size: 16px;
+  font-weight: 500;
 }
 
-@media (max-width: 1200px) {
-  .form-grid {
+.form-textarea {
+  background: #0f0f1a;
+  border: 1px solid #252538;
+  color: #ffffff;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  resize: vertical;
+  min-height: 100px;
+}
+
+:deep(.form-textarea:focus) {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-select {
+  background: #0f0f1a;
+  border: 1px solid #252538;
+  color: #ffffff;
+  border-radius: 6px;
+  height: 40px;
+  padding: 0 36px 0 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.form-select:hover {
+  border-color: #3b82f6;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* 删除弹窗 */
+.delete-modal {
+  text-align: center;
+  padding: 16px 0;
+}
+
+.delete-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.delete-text {
+  font-size: 15px;
+  color: #ffffff;
+  margin: 0 0 6px;
+}
+
+.delete-title {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.delete-warning {
+  font-size: 13px;
+  color: #ef4444;
+  margin: 0;
+}
+
+/* 响应式 */
+@media (max-width: 1400px) {
+  .stories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1000px) {
+  .stories-grid {
     grid-template-columns: 1fr;
   }
-  .modal-split {
-    flex-direction: column;
-    gap: 32px;
+
+  .form-row {
+    grid-template-columns: 1fr;
   }
+
+  .modal-content {
+    flex-direction: column;
+  }
+
   .modal-left {
     width: 100%;
-    max-width: 320px;
+    max-width: 280px;
     margin: 0 auto;
   }
 }
 
 @media (max-width: 768px) {
-  .page-header {
+  .story-manager-page {
+    padding: 16px 0 32px;
+  }
+
+  .header-main {
     flex-direction: column;
-    gap: 16px;
     align-items: flex-start;
-    margin-bottom: 32px;
+    gap: 16px;
   }
+
   .page-title {
-    font-size: 28px;
+    font-size: 24px;
   }
-  .story-grid {
+
+  .control-panel {
+    flex-direction: column;
+  }
+
+  .search-group {
+    min-width: 100%;
+    width: 100%;
+  }
+
+  .filter-group {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .filter-item {
+    width: 100%;
+  }
+
+  .select-filter {
+    flex: 1;
+    width: 100%;
+  }
+
+  .stats-bar {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+  }
+
+  .stat-item {
+    padding: 8px 16px;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  /* 卡片响应式 */
+  .card-layout {
+    flex-direction: column;
+  }
+
+  .card-cover {
+    width: 100%;
+    height: 220px;
+  }
+
+  .stories-grid {
     grid-template-columns: 1fr;
   }
 }

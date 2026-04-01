@@ -28,44 +28,30 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: #0a0a12;
+  background: #0f0f1a;
   color: #ffffff;
 }
 
 .xtale-app {
   min-height: 100vh;
-  background: linear-gradient(180deg, #0a0a12 0%, #141423 100%);
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
+  background: #0f0f1a;
   color: #ffffff;
 }
 
-.bg-texture {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-}
-
 .container {
-  max-width: 1600px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 32px 24px;
   position: relative;
   z-index: 1;
 }
 
 .footer {
   max-width: 1400px;
-  margin: 40px auto 0;
-  padding: 32px 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  color: #787898;
-  font-size: 14px;
+  margin: 32px auto 0;
+  padding: 24px;
+  border-top: 1px solid #252538;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 13px;
   text-align: center;
 }
 
@@ -73,17 +59,17 @@ body {
   display: flex;
   justify-content: center;
   gap: 24px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .footer-link {
-  color: #b8b8d0;
+  color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .footer-link:hover {
-  color: #a855f7;
+  color: #3b82f6;
 }
 
 @media (max-width: 768px) {

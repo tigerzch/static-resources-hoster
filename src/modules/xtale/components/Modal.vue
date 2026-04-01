@@ -1,36 +1,27 @@
 <template>
-  <Dialog v-model:open="dialogOpen">
-    <DialogContent :class="{ 'max-w-4xl': large }">
-      <DialogHeader>
-        <DialogTitle>{{ title }}</DialogTitle>
-        <DialogClose asChild>
-          <Button variant="ghost" size="icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </Button>
-        </DialogClose>
-      </DialogHeader>
-      <div class="py-4">
+  <div v-if="visible" class="modal-overlay" @click.self="handleClose">
+    <div class="modal-container" :class="{ 'modal-large': large }">
+      <div class="modal-header">
+        <h3 class="modal-title">{{ title }}</h3>
+        <button class="modal-close" @click="handleClose">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
         <slot></slot>
       </div>
-      <DialogFooter v-if="$slots.footer">
+      <div v-if="$slots.footer" class="modal-footer">
         <slot name="footer"></slot>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits, watch, ref } from 'vue'
-import Dialog from '@/components/ui/dialog/Dialog.vue'
-import DialogContent from '@/components/ui/dialog/DialogContent.vue'
-import DialogHeader from '@/components/ui/dialog/DialogHeader.vue'
-import DialogTitle from '@/components/ui/dialog/DialogTitle.vue'
-import DialogClose from '@/components/ui/dialog/DialogClose.vue'
-import DialogFooter from '@/components/ui/dialog/DialogFooter.vue'
-import Button from '@/components/ui/button/Button.vue'
+import { defineProps, defineEmits } from 'vue'
 
 const props = defineProps({
   visible: {
@@ -49,16 +40,78 @@ const props = defineProps({
 
 const emit = defineEmits(['update:visible', 'close'])
 
-const dialogOpen = ref(props.visible)
-
-watch(() => props.visible, (val) => {
-  dialogOpen.value = val
-  if (!val) {
-    emit('close')
-  }
-})
-
-watch(dialogOpen, (val) => {
-  emit('update:visible', val)
-})
+function handleClose() {
+  emit('update:visible', false)
+  emit('close')
+}
 </script>
+
+<style scoped>
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+}
+
+.modal-container {
+  background: #161625;
+  border: 1px solid #252538;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.modal-large {
+  max-width: 800px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #252538;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #252538;
+}
+</style>

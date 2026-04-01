@@ -13,7 +13,8 @@
       "Bash(ls -lh *.html)",
       "Bash(dir:*)",
       "Bash(npm remove:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(pkill -f \"vite\")"
     ]
   }
 }
