@@ -53,52 +53,88 @@
             <button class="btn-secondary">重置筛选</button>
         </div>
         
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>故事标题</th>
-                        <th>类型</th>
-                        <th>状态</th>
-                        <th>创建日期</th>
-                        <th>更新日期</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>203383542054269337</td>
-                        <td>
-                            <div class="story-cell">
-                                <div class="story-cover">📖</div>
-                                <div class="story-info">
-                                    <div class="story-name">小雷音寺</div>
-                                    <div class="story-desc">sd敢达官方回过防护服干活</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="tag tag-type">仙侠武林</span></td>
-                        <td><span class="tag tag-status-draft">草稿</span></td>
-                        <td class="date-text">2026-03-17 17:18:45</td>
-                        <td class="date-text">2026-03-17 17:18:45</td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="action-btn">👁</button>
-                                <a href="story-detail.html" class="action-btn">✏️</a>
-                                <button class="action-btn delete">🗑️</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="table-footer">
-                <div class="pagination-info">显示 1 至 1 条，共 3 条</div>
+        <div class="story-list-container">
+            <div class="story-grid">
+                <div class="story-card">
+                    <div class="story-card-cover">
+                        <div class="story-cover-placeholder">
+                            <span class="story-cover-icon">📖</span>
+                        </div>
+                    </div>
+                    <div class="story-card-content">
+                        <h3 class="story-card-title">小雷音寺</h3>
+                        <p class="story-card-desc">唐僧师徒四人西天取经，误入小雷音寺，黄眉老怪设下陷阱...</p>
+                        <div class="story-card-tags">
+                            <span class="tag tag-type">仙侠武林</span>
+                            <span class="tag tag-status-draft">草稿</span>
+                        </div>
+                        <div class="story-card-meta">
+                            <div class="story-card-id">ID: 203383542054269337</div>
+                            <div class="story-card-date">更新: 2026-03-17</div>
+                        </div>
+                    </div>
+                    <div class="story-card-actions">
+                        <button class="action-btn">👁</button>
+                        <a href="story-detail.html" class="action-btn">✏️</a>
+                        <button class="action-btn delete">🗑️</button>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-card-cover">
+                        <div class="story-cover-placeholder">
+                            <span class="story-cover-icon">🏙️</span>
+                        </div>
+                    </div>
+                    <div class="story-card-content">
+                        <h3 class="story-card-title">都市迷情</h3>
+                        <p class="story-card-desc">繁华都市中的暗流涌动，一个普通人的逆袭之路...</p>
+                        <div class="story-card-tags">
+                            <span class="tag tag-type">都市</span>
+                            <span class="tag tag-status-active">连载中</span>
+                        </div>
+                        <div class="story-card-meta">
+                            <div class="story-card-id">ID: 203383542054269338</div>
+                            <div class="story-card-date">更新: 2026-03-15</div>
+                        </div>
+                    </div>
+                    <div class="story-card-actions">
+                        <button class="action-btn">👁</button>
+                        <a href="story-detail.html" class="action-btn">✏️</a>
+                        <button class="action-btn delete">🗑️</button>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-card-cover">
+                        <div class="story-cover-placeholder">
+                            <span class="story-cover-icon">🚀</span>
+                        </div>
+                    </div>
+                    <div class="story-card-content">
+                        <h3 class="story-card-title">星际流浪者</h3>
+                        <p class="story-card-desc">浩瀚宇宙中的孤独旅人，寻找人类新家园的征程...</p>
+                        <div class="story-card-tags">
+                            <span class="tag tag-type">科幻</span>
+                            <span class="tag tag-status-active">连载中</span>
+                        </div>
+                        <div class="story-card-meta">
+                            <div class="story-card-id">ID: 203383542054269339</div>
+                            <div class="story-card-date">更新: 2026-03-10</div>
+                        </div>
+                    </div>
+                    <div class="story-card-actions">
+                        <button class="action-btn">👁</button>
+                        <a href="story-detail.html" class="action-btn">✏️</a>
+                        <button class="action-btn delete">🗑️</button>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination-footer">
+                <div class="pagination-info">显示 1 至 3 条，共 3 条</div>
                 <div class="pagination">
                     <select class="page-size">
-                        <option>10条/页</option>
-                        <option>20条/页</option>
-                        <option>50条/页</option>
+                        <option>6条/页</option>
+                        <option>12条/页</option>
+                        <option>24条/页</option>
                     </select>
                     <button class="page-btn" disabled>◀</button>
                     <button class="page-btn active">1</button>

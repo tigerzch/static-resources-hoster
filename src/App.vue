@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen">
-    <div class="max-w-6xl mx-auto px-6 py-8">
+    <div class="max-w-7xl mx-auto px-6 py-8">
       <header class="text-center py-12">
         <img src="/logo.png" alt="Logo" class="w-20 h-auto mx-auto mb-6 opacity-90">
         <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -9,7 +9,7 @@
         <p class="text-lg text-gray-400">探索我的项目集合</p>
       </header>
 
-      <div v-if="projects.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+      <div v-if="projects.length > 0" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-8">
         <ProjectCard
           v-for="project in projects"
           :key="project.id"

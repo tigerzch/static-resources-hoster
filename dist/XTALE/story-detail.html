@@ -41,20 +41,26 @@
         </div>
 
         <!-- 基本信息卡片 -->
-        <div class="detail-card">
-            <div class="card-header">
-                <h2 class="card-title">故事基本信息</h2>
+        <div class="detail-card story-info-card">
+            <div class="story-header">
+                <div class="story-header-decoration">
+                    <span class="ink-blot"></span>
+                    <span class="ink-blot"></span>
+                    <span class="ink-blot"></span>
+                </div>
+                <h2 class="story-header-title">故事基本信息</h2>
+                <div class="story-header-divider"></div>
             </div>
-            <div class="card-body">
-                <div class="detail-layout">
-                    <div class="detail-form">
-                        <div class="form-group">
-                            <label class="form-label">故事标题 <span class="required">*</span></label>
-                            <input type="text" class="form-input" value="小雷音寺">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">所属世界观 <span class="required">*</span></label>
-                            <select class="form-select">
+            <div class="story-content">
+                <div class="story-main">
+                    <div class="form-group story-title-group">
+                        <label class="form-label ink-label">故事标题 <span class="required">*</span></label>
+                        <input type="text" class="form-input ink-input story-title-input" value="小雷音寺">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label class="form-label ink-label">所属世界观 <span class="required">*</span></label>
+                            <select class="form-select ink-select">
                                 <option value="">请选择世界观</option>
                                 <option value="xianxia" selected>仙侠武林</option>
                                 <option value="xuanhuan">玄幻</option>
@@ -63,30 +69,33 @@
                                 <option value="kehuan">科幻</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">状态 <span class="required">*</span></label>
-                            <select class="form-select">
+                        <div class="form-group half">
+                            <label class="form-label ink-label">创作状态 <span class="required">*</span></label>
+                            <select class="form-select ink-select">
                                 <option value="draft" selected>草稿</option>
                                 <option value="active">连载中</option>
                                 <option value="completed">已完结</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">故事背景</label>
-                            <textarea class="form-textarea" rows="6">sd敢达官方回过防护服干活</textarea>
-                            <div class="char-count">14 / 500</div>
-                        </div>
                     </div>
-                    <div class="detail-cover">
-                        <label class="form-label">故事封面</label>
-                        <div class="cover-upload-vertical">
-                            <div class="cover-placeholder-vertical">
-                                <div class="cover-icon-vertical">📖</div>
-                                <div class="cover-text-vertical">点击上传封面</div>
-                                <div class="cover-hint-vertical">建议 600×800</div>
+                    <div class="form-group">
+                        <label class="form-label ink-label">故事背景</label>
+                        <textarea class="form-textarea ink-textarea" rows="6">唐僧师徒四人西天取经，误入小雷音寺，黄眉老怪设下陷阱，孙悟空如何才能破局？</textarea>
+                        <div class="char-count ink-char-count">32 / 500</div>
+                    </div>
+                </div>
+                <div class="story-sidebar">
+                    <div class="cover-container ink-border">
+                        <label class="form-label ink-label cover-label">故事封面</label>
+                        <div class="cover-upload-vertical-story">
+                            <div class="cover-placeholder-ink">
+                                <div class="cover-icon-ink">卷</div>
+                                <div class="cover-text-ink">点击上传封面</div>
+                                <div class="cover-hint-ink">推荐 3:4 比例</div>
                             </div>
                             <input type="file" class="cover-input" accept="image/*">
                         </div>
+                        <div class="cover-caption">墨香共丹青，画卷藏乾坤</div>
                     </div>
                 </div>
             </div>
@@ -104,60 +113,50 @@
                     新增章节
                 </button>
             </div>
-            <div class="card-body" style="padding: 0;">
-                <div class="chapter-table-container">
-                    <table class="chapter-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 80px;">序号</th>
-                                <th>章节标题</th>
-                                <th style="width: 120px;">字数</th>
-                                <th style="width: 120px;">状态</th>
-                                <th style="width: 160px;">更新时间</th>
-                                <th style="width: 120px;">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="chapter-number">第一章</span></td>
-                                <td>
-                                    <div class="chapter-title-cell">
-                                        <div class="chapter-name">误入小雷音</div>
-                                        <div class="chapter-desc">唐僧师徒四人来到小雷音寺...</div>
-                                    </div>
-                                </td>
-                                <td><span class="chapter-wordcount">3,245</span></td>
-                                <td><span class="tag tag-status-active">已发布</span></td>
-                                <td class="date-text">2026-03-17 18:20:15</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn">👁</button>
-                                        <a href="chapter-edit.html" class="action-btn">✏️</a>
-                                        <button class="action-btn delete">🗑️</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="chapter-number">第二章</span></td>
-                                <td>
-                                    <div class="chapter-title-cell">
-                                        <div class="chapter-name">弥勒佛降临</div>
-                                        <div class="chapter-desc">正当孙悟空一筹莫展之时...</div>
-                                    </div>
-                                </td>
-                                <td><span class="chapter-wordcount">2,876</span></td>
-                                <td><span class="tag tag-status-draft">草稿</span></td>
-                                <td class="date-text">2026-03-17 20:15:30</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn">👁</button>
-                                        <a href="chapter-edit.html" class="action-btn">✏️</a>
-                                        <button class="action-btn delete">🗑️</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="card-body" style="padding: 20px;">
+                <div class="chapter-grid">
+                    <div class="chapter-card">
+                        <div class="chapter-card-cover">
+                            <div class="chapter-cover-placeholder">
+                                <span class="chapter-order">第一章</span>
+                            </div>
+                        </div>
+                        <div class="chapter-card-info">
+                            <div class="chapter-card-title">误入小雷音</div>
+                            <div class="chapter-card-desc">唐僧师徒四人来到小雷音寺...</div>
+                            <div class="chapter-card-meta">
+                                <span class="chapter-card-wordcount">3,245 字</span>
+                                <span class="tag tag-status-active">已发布</span>
+                            </div>
+                            <div class="chapter-card-date">2026-03-17 18:20</div>
+                        </div>
+                        <div class="chapter-card-actions">
+                            <button class="action-btn">👁</button>
+                            <a href="chapter-edit.html" class="action-btn">✏️</a>
+                            <button class="action-btn delete">🗑️</button>
+                        </div>
+                    </div>
+                    <div class="chapter-card">
+                        <div class="chapter-card-cover">
+                            <div class="chapter-cover-placeholder">
+                                <span class="chapter-order">第二章</span>
+                            </div>
+                        </div>
+                        <div class="chapter-card-info">
+                            <div class="chapter-card-title">弥勒佛降临</div>
+                            <div class="chapter-card-desc">正当孙悟空一筹莫展之时...</div>
+                            <div class="chapter-card-meta">
+                                <span class="chapter-card-wordcount">2,876 字</span>
+                                <span class="tag tag-status-draft">草稿</span>
+                            </div>
+                            <div class="chapter-card-date">2026-03-17 20:15</div>
+                        </div>
+                        <div class="chapter-card-actions">
+                            <button class="action-btn">👁</button>
+                            <a href="chapter-edit.html" class="action-btn">✏️</a>
+                            <button class="action-btn delete">🗑️</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
