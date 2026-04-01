@@ -145,7 +145,7 @@ const searchQuery = ref('')
 
 .nav-item:hover,
 .router-link-active.nav-item {
-  color: #a855f7;
+  color: #ffffff;
 }
 
 .btn-create {
