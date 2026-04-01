@@ -10,19 +10,19 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         :root {
-            --bg-primary: #0f0f1a;
-            --bg-secondary: #171727;
-            --bg-card: #1e1e32;
-            --bg-hover: #272740;
+            --bg-primary: #0a0a12;
+            --bg-secondary: #141423;
+            --bg-card: #1a1a2e;
+            --bg-hover: #25253b;
             --text-primary: #ffffff;
-            --text-secondary: #a0a0b8;
-            --text-muted: #6b6b8a;
+            --text-secondary: #b8b8d0;
+            --text-muted: #787898;
             --accent-purple: #a855f7;
             --accent-pink: #ec4899;
             --accent-blue: #3b82f6;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            --glow: 0 0 20px rgba(168, 85, 247, 0.3);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            --glow: 0 0 32px rgba(168, 85, 247, 0.25);
         }
 
         * {
@@ -64,10 +64,10 @@
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 0 24px;
-            height: 64px;
+            height: 72px;
             display: flex;
             align-items: center;
             gap: 32px;
@@ -187,27 +187,27 @@
 
         /* 主容器 */
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 24px;
+            padding: 32px 24px;
             position: relative;
             z-index: 1;
         }
 
         .main-layout {
             display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 32px;
+            grid-template-columns: 1fr 360px;
+            gap: 40px;
         }
 
         /* 轮播Banner */
         .banner-section {
-            margin-bottom: 32px;
+            margin-bottom: 40px;
         }
 
         .banner-container {
             position: relative;
-            height: 360px;
+            height: 420px;
             border-radius: 16px;
             overflow: hidden;
             background: var(--bg-secondary);
@@ -280,17 +280,17 @@
 
         .banner-title {
             font-family: 'Noto Serif SC', serif;
-            font-size: 42px;
+            font-size: 48px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             line-height: 1.2;
             text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
         }
 
         .banner-desc {
-            font-size: 16px;
+            font-size: 18px;
             color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             line-height: 1.7;
         }
 
@@ -394,19 +394,19 @@
 
         /* 内容区块 */
         .content-section {
-            margin-bottom: 40px;
+            margin-bottom: 48px;
         }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 28px;
         }
 
         .section-title {
             font-family: 'Noto Serif SC', serif;
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
             display: flex;
             align-items: center;
@@ -438,7 +438,7 @@
         /* 故事卡片网格 */
         .story-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 20px;
         }
 
@@ -457,7 +457,7 @@
             transform: translateY(-6px);
             border-color: rgba(168, 85, 247, 0.5);
             box-shadow: var(--card-shadow);
-            box-shadow: 0 8px 30px rgba(168, 85, 247, 0.15);
+            box-shadow: 0 12px 40px rgba(168, 85, 247, 0.2);
         }
 
         .story-card-cover {
@@ -474,7 +474,7 @@
         }
 
         .story-card:hover .story-card-cover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .story-card-gradient {
@@ -502,11 +502,11 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .story-card-title {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 600;
             line-height: 1.4;
             color: var(--text-primary);
@@ -518,9 +518,9 @@
         }
 
         .story-card-desc {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.5;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
@@ -533,7 +533,7 @@
             justify-content: space-between;
             align-items: center;
             margin-top: auto;
-            padding-top: 12px;
+            padding-top: 10px;
             border-top: 1px solid var(--border-color);
         }
 
@@ -541,7 +541,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-secondary);
         }
 
@@ -727,6 +727,7 @@
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 6px;
+            color: var(--text-primary);
         }
 
         .create-desc {
@@ -763,9 +764,14 @@
         }
 
         /* 响应式 */
+        @media (max-width: 1600px) {
+            .story-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
         @media (max-width: 1200px) {
             .story-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
             .main-layout {
                 grid-template-columns: 1fr;
@@ -845,9 +851,8 @@
                 <a href="#" class="nav-item">首页</a>
                 <a href="#" class="nav-item">分类</a>
                 <a href="#" class="nav-item">排行</a>
-                <a href="worldview-list.html" class="nav-item">世界观</a>
-                <a href="story-manager.html" class="nav-item">故事管理</a>
             </div>
+            <a href="worldview-list.html" class="btn-create">🌌 世界观管理</a>
             <a href="story-manager.html" class="btn-create">+ 创作故事</a>
             <div class="user-avatar">👤</div>
         </div>
@@ -997,6 +1002,72 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="story-card" onclick="location.href='story-detail.html?id=4'">
+                            <div class="story-card-cover">
+                                <div style="background: linear-gradient(135deg, #dc2424, #4a569a); display: flex; align-items: center; justify-content: center; font-size: 48px; width: 100%; height: 100%;">🏴‍☠️</div>
+                                <div class="story-card-category">海盗</div>
+                                <div class="story-card-gradient"></div>
+                            </div>
+                            <div class="story-card-content">
+                                <h3 class="story-card-title">深蓝航路</h3>
+                                <p class="story-card-desc">大航海时代，海盗之王的传奇生涯，寻找传说中的宝藏。</p>
+                                <div class="story-card-meta">
+                                    <div class="story-author">
+                                        <div class="author-avatar">海</div>
+                                        <span>加勒比船长</span>
+                                    </div>
+                                    <div class="story-stats">
+                                        <span class="stat-item">❤️ 1.2k</span>
+                                        <span class="stat-item">👁️ 68k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="story-card" onclick="location.href='story-detail.html?id=5'">
+                            <div class="story-card-cover">
+                                <div style="background: linear-gradient(135deg, #00c3ff, #ffff1c); display: flex; align-items: center; justify-content: center; font-size: 48px; width: 100%; height: 100%;">🥋</div>
+                                <div class="story-card-category">格斗</div>
+                                <div class="story-card-gradient"></div>
+                            </div>
+                            <div class="story-card-content">
+                                <h3 class="story-card-title">拳城</h3>
+                                <p class="story-card-desc">底层拳手一步步打出属于自己的王座，热血格斗故事。</p>
+                                <div class="story-card-meta">
+                                    <div class="story-author">
+                                        <div class="author-avatar">拳</div>
+                                        <span>铁拳</span>
+                                    </div>
+                                    <div class="story-stats">
+                                        <span class="stat-item">❤️ 980</span>
+                                        <span class="stat-item">👁️ 52k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="story-card" onclick="location.href='story-detail.html?id=6'">
+                            <div class="story-card-cover">
+                                <div style="background: linear-gradient(135deg, #1d4350, #a43931); display: flex; align-items: center; justify-content: center; font-size: 48px; width: 100%; height: 100%;">🧛</div>
+                                <div class="story-card-category">奇幻</div>
+                                <div class="story-card-gradient"></div>
+                            </div>
+                            <div class="story-card-content">
+                                <h3 class="story-card-title">暗夜血族</h3>
+                                <p class="story-card-desc">吸血鬼王子隐姓埋名，在人类世界寻找复兴血族的机会。</p>
+                                <div class="story-card-meta">
+                                    <div class="story-author">
+                                        <div class="author-avatar">血</div>
+                                        <span>夜行者</span>
+                                    </div>
+                                    <div class="story-stats">
+                                        <span class="stat-item">❤️ 1.1k</span>
+                                        <span class="stat-item">👁️ 59k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -1072,6 +1143,72 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="story-card" onclick="location.href='story-detail.html?id=7'">
+                            <div class="story-card-cover">
+                                <div style="background: linear-gradient(135deg, #ff6e7f, #bfe9ff); display: flex; align-items: center; justify-content: center; font-size: 48px; width: 100%; height: 100%;">🏫</div>
+                                <div class="story-card-category">校园</div>
+                                <div class="story-card-gradient"></div>
+                            </div>
+                            <div class="story-card-content">
+                                <h3 class="story-card-title">梧桐树下</h3>
+                                <p class="story-card-desc">大学校园里的青春故事，关于友情、爱情与梦想的起航。</p>
+                                <div class="story-card-meta">
+                                    <div class="story-author">
+                                        <div class="author-avatar">桐</div>
+                                        <span>梧桐</span>
+                                    </div>
+                                    <div class="story-stats">
+                                        <span class="stat-item">❤️ 412</span>
+                                        <span class="stat-item">👁️ 28k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="story-card" onclick="location.href='story-detail.html?id=8'">
+                            <div class="story-card-cover">
+                                <div style="background: linear-gradient(135deg, #232526, #414345); display: flex; align-items: center; justify-content: center; font-size: 48px; width: 100%; height: 100%;">🔮</div>
+                                <div class="story-card-category">灵异</div>
+                                <div class="story-card-gradient"></div>
+                            </div>
+                            <div class="story-card-content">
+                                <h3 class="story-card-title">阴阳杂货铺</h3>
+                                <p class="story-card-desc">一间隐藏在都市小巷的杂货铺，卖着一些不寻常的东西。</p>
+                                <div class="story-card-meta">
+                                    <div class="story-author">
+                                        <div class="author-avatar">鬼</div>
+                                        <span>掌柜</span>
+                                    </div>
+                                    <div class="story-stats">
+                                        <span class="stat-item">❤️ 534</span>
+                                        <span class="stat-item">👁️ 31k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="story-card" onclick="location.href='story-detail.html?id=9'">
+                            <div class="story-card-cover">
+                                <div style="background: linear-gradient(135deg, #c94b4b, #4f1714); display: flex; align-items: center; justify-content: center; font-size: 48px; width: 100%; height: 100%;">⚔️</div>
+                                <div class="story-card-category">历史</div>
+                                <div class="story-card-gradient"></div>
+                            </div>
+                            <div class="story-card-content">
+                                <h3 class="story-card-title">铁血南北朝</h3>
+                                <p class="story-card-desc">五胡乱华，汉家儿郎在血与火中抗争，延续华夏血脉。</p>
+                                <div class="story-card-meta">
+                                    <div class="story-author">
+                                        <div class="author-avatar">史</div>
+                                        <span>执戟郎</span>
+                                    </div>
+                                    <div class="story-stats">
+                                        <span class="stat-item">❤️ 487</span>
+                                        <span class="stat-item">👁️ 26k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -1143,6 +1280,72 @@
                                     <div class="story-stats">
                                         <span class="stat-item">❤️ 2.4k</span>
                                         <span class="stat-item">👁️ 156k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="story-card" onclick="location.href='story-detail.html?id=10'">
+                            <div class="story-card-cover">
+                                <div style="background: linear-gradient(135deg, #4b6cb7, #182848); display: flex; align-items: center; justify-content: center; font-size: 48px; width: 100%; height: 100%;">⏳</div>
+                                <div class="story-card-category">时空</div>
+                                <div class="story-card-gradient"></div>
+                            </div>
+                            <div class="story-card-content">
+                                <h3 class="story-card-title">时间之墟</h3>
+                                <p class="story-card-desc">一天无限循环，主角如何在静止的时间中寻找真相。</p>
+                                <div class="story-card-meta">
+                                    <div class="story-author">
+                                        <div class="author-avatar">时</div>
+                                        <span>时间旅行者</span>
+                                    </div>
+                                    <div class="story-stats">
+                                        <span class="stat-item">❤️ 1.9k</span>
+                                        <span class="stat-item">👁️ 128k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="story-card" onclick="location.href='story-detail.html?id=11'">
+                            <div class="story-card-cover">
+                                <div style="background: linear-gradient(135deg, #f85032, #e73827); display: flex; align-items: center; justify-content: center; font-size: 48px; width: 100%; height: 100%;">🚗</div>
+                                <div class="story-card-category">赛车</div>
+                                <div class="story-card-gradient"></div>
+                            </div>
+                            <div class="story-card-content">
+                                <h3 class="story-card-title">午夜狂飙</h3>
+                                <p class="story-card-desc">地下赛车手的极速人生，在速度与激情中寻找自我。</p>
+                                <div class="story-card-meta">
+                                    <div class="story-author">
+                                        <div class="author-avatar">风</div>
+                                        <span>追风者</span>
+                                    </div>
+                                    <div class="story-stats">
+                                        <span class="stat-item">❤️ 1.6k</span>
+                                        <span class="stat-item">👁️ 98k</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="story-card" onclick="location.href='story-detail.html?id=12'">
+                            <div class="story-card-cover">
+                                <div style="background: linear-gradient(135deg, #093637, #44a08d); display: flex; align-items: center; justify-content: center; font-size: 48px; width: 100%; height: 100%;">🔍</div>
+                                <div class="story-card-category">侦探</div>
+                                <div class="story-card-gradient"></div>
+                            </div>
+                            <div class="story-card-content">
+                                <h3 class="story-card-title">都市迷案</h3>
+                                <p class="story-card-desc">连环凶杀案背后隐藏着巨大的阴谋，侦探能否找出真相？</p>
+                                <div class="story-card-meta">
+                                    <div class="story-author">
+                                        <div class="author-avatar">侦</div>
+                                        <span>大侦探</span>
+                                    </div>
+                                    <div class="story-stats">
+                                        <span class="stat-item">❤️ 2.2k</span>
+                                        <span class="stat-item">👁️ 145k</span>
                                     </div>
                                 </div>
                             </div>

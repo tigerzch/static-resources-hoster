@@ -357,7 +357,7 @@
 
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 16px;
         }
 
@@ -365,9 +365,17 @@
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-subtle);
             border-radius: 8px;
-            padding: 16px;
+            padding: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        .category-item.zero {
+            display: none;
+        }
+
+        .category-item.zero.visible {
+            display: block;
         }
 
         .category-item:hover {
@@ -381,46 +389,48 @@
         }
 
         .category-item.active {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: var(--accent-blue);
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--accent-green);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
         }
 
         .category-header {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
+            gap: 6px;
+            margin-bottom: 4px;
         }
 
         .category-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 14px;
         }
 
-        .category-icon.blue { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
         .category-icon.green { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
-        .category-icon.yellow { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
-        .category-icon.purple { background: rgba(168, 85, 247, 0.2); color: #c4b5fd; }
+        .category-icon.orange { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+        .category-icon.blue { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
         .category-icon.red { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+        .category-icon.purple { background: rgba(168, 85, 247, 0.2); color: #c4b5fd; }
+        .category-icon.yellow { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
         .category-icon.cyan { background: rgba(14, 165, 233, 0.2); color: #7dd3fc; }
         .category-icon.pink { background: rgba(236, 72, 153, 0.2); color: #f9a8d4; }
 
         .category-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: var(--text-primary);
         }
 
         .category-count {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin: 8px 0 6px 0;
         }
 
         .progress-bar {
@@ -429,11 +439,12 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 3px;
             overflow: hidden;
+            margin-bottom: 4px;
         }
 
         .progress-fill {
             height: 100%;
-            border-radius: 3px;
+            border-radius: 4px;
             transition: width 0.5s ease;
         }
 
@@ -756,6 +767,18 @@
         }
 
         @media (max-width: 768px) {
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
             .info-layout {
                 grid-template-columns: 1fr;
             }
@@ -888,6 +911,26 @@
             flex: 1;
             overflow-y: auto;
             padding: 28px;
+        }
+
+        /* 美化滚动条 */
+        .modal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-body::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: rgba(168, 85, 247, 0.4);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: rgba(168, 85, 247, 0.6);
         }
 
         .modal-footer {
@@ -1217,84 +1260,211 @@
             <h3 class="category-title">数据分类统计</h3>
             <p class="category-subtitle">各业务表数据填充情况统计</p>
             <div class="category-grid">
+                <!-- 有数据的分类放前面 -->
                 <div class="category-item active">
                     <div class="category-header">
-                        <div class="category-icon blue">
-                            <span>👤</span>
+                        <div class="category-icon green">
+                            <span>🛡️</span>
                         </div>
-                        <span class="category-name">角色表</span>
+                        <span class="category-name">种族表</span>
                     </div>
-                    <div class="category-count">86</div>
+                    <div class="category-count">8</div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 82%; background: var(--accent-blue);"></div>
+                        <div class="progress-fill" style="width: 8.7%; background: var(--accent-green);"></div>
                     </div>
-                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">完成率 82%</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">占比 8.7%</div>
                 </div>
                 <div class="category-item">
                     <div class="category-header">
-                        <div class="category-icon green">
-                            <span>📦</span>
+                        <div class="category-icon orange">
+                            <span>⚔️</span>
                         </div>
-                        <span class="category-name">物品表</span>
+                        <span class="category-name">职业表</span>
                     </div>
-                    <div class="category-count">64</div>
+                    <div class="category-count">10</div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 76%; background: var(--accent-green);"></div>
+                        <div class="progress-fill" style="width: 10.87%; background: var(--accent-yellow);"></div>
                     </div>
-                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">完成率 76%</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">占比 10.87%</div>
+                </div>
+                <div class="category-item">
+                    <div class="category-header">
+                        <div class="category-icon blue">
+                            <span>🛡️</span>
+                        </div>
+                        <span class="category-name">阵营表</span>
+                    </div>
+                    <div class="category-count">14</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 15.22%; background: var(--accent-blue);"></div>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted);">占比 15.22%</div>
                 </div>
                 <div class="category-item">
                     <div class="category-header">
                         <div class="category-icon yellow">
-                            <span>📍</span>
+                            <span>✨</span>
                         </div>
-                        <span class="category-name">地点表</span>
+                        <span class="category-name">元素表</span>
                     </div>
-                    <div class="category-count">42</div>
+                    <div class="category-count">1</div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 68%; background: var(--accent-yellow);"></div>
+                        <div class="progress-fill" style="width: 1.09%; background: var(--accent-yellow);"></div>
                     </div>
-                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">完成率 68%</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">占比 1.09%</div>
                 </div>
                 <div class="category-item">
                     <div class="category-header">
-                        <div class="category-icon purple">
-                            <span>📅</span>
+                        <div class="category-icon green">
+                            <span>🟦</span>
                         </div>
-                        <span class="category-name">事件表</span>
+                        <span class="category-name">物品表</span>
                     </div>
-                    <div class="category-count">36</div>
+                    <div class="category-count">8</div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 62%; background: var(--accent-purple);"></div>
+                        <div class="progress-fill" style="width: 8.7%; background: var(--accent-green);"></div>
                     </div>
-                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">完成率 62%</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">占比 8.7%</div>
                 </div>
                 <div class="category-item">
                     <div class="category-header">
-                        <div class="category-icon red">
-                            <span>⚔️</span>
+                        <div class="category-icon orange">
+                            <span>🪄</span>
                         </div>
-                        <span class="category-name">势力表</span>
+                        <span class="category-name">技能表</span>
                     </div>
-                    <div class="category-count">18</div>
+                    <div class="category-count">5</div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 58%; background: var(--accent-pink);"></div>
+                        <div class="progress-fill" style="width: 5.43%; background: var(--accent-yellow);"></div>
                     </div>
-                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">完成率 58%</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">占比 5.43%</div>
+                </div>
+                <div class="category-item">
+                    <div class="category-header">
+                        <div class="category-icon blue">
+                            <span>👥</span>
+                        </div>
+                        <span class="category-name">角色表</span>
+                    </div>
+                    <div class="category-count">22</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 23.91%; background: var(--accent-blue);"></div>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted);">占比 23.91%</div>
                 </div>
                 <div class="category-item">
                     <div class="category-header">
                         <div class="category-icon cyan">
-                            <span>📏</span>
+                            <span>🫧</span>
                         </div>
-                        <span class="category-name">规则表</span>
+                        <span class="category-name">物体表</span>
                     </div>
-                    <div class="category-count">24</div>
+                    <div class="category-count">8</div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 72%; background: var(--accent-blue);"></div>
+                        <div class="progress-fill" style="width: 8.7%; background: #36bef0;"></div>
                     </div>
-                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">完成率 72%</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">占比 8.7%</div>
                 </div>
+                <div class="category-item">
+                    <div class="category-header">
+                        <div class="category-icon green">
+                            <span>👤</span>
+                        </div>
+                        <span class="category-name">地图表</span>
+                    </div>
+                    <div class="category-count">11</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 11.96%; background: var(--accent-green);"></div>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted);">占比 11.96%</div>
+                </div>
+                <div class="category-item">
+                    <div class="category-header">
+                        <div class="category-icon red">
+                            <span>⚠️</span>
+                        </div>
+                        <span class="category-name">势力表</span>
+                    </div>
+                    <div class="category-count">5</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 5.43%; background: var(--accent-pink);"></div>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted);">占比 5.43%</div>
+                </div>
+                <!-- 0数据的分类放后面，默认隐藏 -->
+                <div class="category-item zero">
+                    <div class="category-header">
+                        <div class="category-icon red">
+                            <span>📉</span>
+                        </div>
+                        <span class="category-name">等级表</span>
+                    </div>
+                    <div class="category-count">0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%; background: var(--accent-red);"></div>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted);">暂无数据</div>
+                </div>
+                <div class="category-item zero">
+                    <div class="category-header">
+                        <div class="category-icon purple">
+                            <span>🗄️</span>
+                        </div>
+                        <span class="category-name">属性表</span>
+                    </div>
+                    <div class="category-count">0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%; background: var(--accent-purple);"></div>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted);">暂无数据</div>
+                </div>
+                <div class="category-item zero">
+                    <div class="category-header">
+                        <div class="category-icon purple">
+                            <span>👥</span>
+                        </div>
+                        <span class="category-name">语言表</span>
+                    </div>
+                    <div class="category-count">0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%; background: var(--accent-purple);"></div>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted);">暂无数据</div>
+                </div>
+                <div class="category-item zero">
+                    <div class="category-header">
+                        <div class="category-icon purple">
+                            <span>✨</span>
+                        </div>
+                        <span class="category-name">性格表</span>
+                    </div>
+                    <div class="category-count">0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%; background: var(--accent-purple);"></div>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted);">暂无数据</div>
+                </div>
+                <div class="category-item zero">
+                    <div class="category-header">
+                        <div class="category-icon purple">
+                            <span>🗃️</span>
+                        </div>
+                        <span class="category-name">参数表</span>
+                    </div>
+                    <div class="category-count">0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%; background: var(--accent-purple);"></div>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted);">暂无数据</div>
+                </div>
+            </div>
+            <div style="margin-top: 16px; text-align: center;">
+                <button id="toggleZeroBtn" class="btn-add" style="margin: 0 auto; background: rgba(255, 255, 255, 0.05); color: var(--text-secondary); border: 1px solid var(--border-color);">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                    <span id="toggleBtnText">显示空分类</span>
+                </button>
             </div>
         </div>
 
@@ -1302,8 +1472,8 @@
         <div class="table-card">
             <div class="table-header">
                 <div class="table-title">
-                    <h3>角色表</h3>
-                    <p>管理世界观所有字段信息</p>
+                    <h3>种族表列表 <span style="font-size: 14px; font-weight: normal; color: var(--text-muted); background: rgba(245, 158, 11, 0.2); padding: 4px 12px; border-radius: 12px; margin-left: 8px;">待确认数据</span></h3>
+                    <p>管理当前实体的数据内容与编辑操作</p>
                 </div>
                 <div class="table-actions">
                     <div class="search-box">
@@ -1311,27 +1481,14 @@
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
-                        <input type="text" class="search-input" placeholder="搜索字段名称">
+                        <input type="text" class="search-input" placeholder="搜索当前实体数据">
                     </div>
-                    <select class="filter-select">
-                        <option>全部类型</option>
-                        <option>字符串</option>
-                        <option>图片</option>
-                        <option>富文本</option>
-                        <option>数字</option>
-                    </select>
-                    <select class="filter-select">
-                        <option>全部状态</option>
-                        <option>已填充</option>
-                        <option>待审核</option>
-                        <option>未填充</option>
-                    </select>
-                    <button class="btn-add">
+                    <button class="btn-add" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
-                        新增字段
+                        新增种族
                     </button>
                 </div>
             </div>
@@ -1340,199 +1497,134 @@
                     <thead>
                         <tr>
                             <th><input type="checkbox"></th>
-                            <th>ID</th>
-                            <th>字段名称</th>
-                            <th>字段类型</th>
-                            <th>所属表</th>
-                            <th>填充状态</th>
-                            <th>置信度</th>
-                            <th>完成度</th>
-                            <th>最后更新</th>
+                            <th>种族名称</th>
+                            <th>描述</th>
+                            <th>平均寿命</th>
+                            <th>平均身高</th>
+                            <th>平均体重</th>
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><input type="checkbox"></td>
-                            <td><code style="color: var(--text-muted);">#1001</code></td>
-                            <td><strong>主角姓名</strong></td>
-                            <td><span class="type-badge type-string">字符串</span></td>
-                            <td>人物表</td>
-                            <td><span class="status-badge status-filled">已填充</span></td>
-                            <td>
-                                <div class="progress-sm">
-                                    <div class="progress-sm-fill" style="width: 95%"></div>
-                                </div>
-                                <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">95%</span>
-                            </td>
-                            <td>
-                                <div class="progress-sm">
-                                    <div class="progress-sm-fill" style="width: 100%"></div>
-                                </div>
-                                <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">100%</span>
-                            </td>
-                            <td><span class="date-text">2026-03-20 14:32</span></td>
+                            <td><strong>精灵</strong></td>
+                            <td>精灵是诞生于大陆自然的世界核心最小碎片的智慧种族，亲近自然，分为森林精灵、高山精灵、海洋精灵...</td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn" title="编辑">✏️</button>
-                                    <button class="action-btn" title="预览">👁</button>
-                                    <button class="action-btn delete" title="删除">🗑️</button>
+                                    <button class="action-btn" title="编辑" style="color: #2563eb; border-color: #2563eb;">✏️</button>
+                                    <button class="action-btn delete" title="删除" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); color: var(--accent-red);">🗑️</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td><input type="checkbox"></td>
-                            <td><code style="color: var(--text-muted);">#1002</code></td>
-                            <td><strong>世界地图</strong></td>
-                            <td><span class="type-badge type-image">图片</span></td>
-                            <td>地点表</td>
-                            <td><span class="status-badge status-filled">已填充</span></td>
-                            <td>
-                                <div class="progress-sm">
-                                    <div class="progress-sm-fill" style="width: 88%"></div>
-                                </div>
-                                <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">88%</span>
-                            </td>
-                            <td>
-                                <div class="progress-sm">
-                                    <div class="progress-sm-fill" style="width: 92%"></div>
-                                </div>
-                                <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">92%</span>
-                            </td>
-                            <td><span class="date-text">2026-03-19 10:15</span></td>
+                            <td><strong>兽人</strong></td>
+                            <td>兽人是诞生于地脉表层的智慧种族，身材高大强健、勇猛好斗，形成了游牧部落，传承戈姆的坚韧与守护...</td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn" title="编辑">✏️</button>
-                                    <button class="action-btn" title="预览">👁</button>
-                                    <button class="action-btn delete" title="删除">🗑️</button>
+                                    <button class="action-btn" title="编辑" style="color: #2563eb; border-color: #2563eb;">✏️</button>
+                                    <button class="action-btn delete" title="删除" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); color: var(--accent-red);">🗑️</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td><input type="checkbox"></td>
-                            <td><code style="color: var(--text-muted);">#1003</code></td>
-                            <td><strong>魔法体系设定</strong></td>
-                            <td><span class="type-badge type-rich">富文本</span></td>
-                            <td>规则表</td>
-                            <td><span class="status-badge status-pending">待审核</span></td>
-                            <td>
-                                <div class="progress-sm">
-                                    <div class="progress-sm-fill" style="width: 72%; background: var(--accent-yellow)"></div>
-                                </div>
-                                <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">72%</span>
-                            </td>
-                            <td>
-                                <div class="progress-sm">
-                                    <div class="progress-sm-fill" style="width: 85%; background: var(--accent-yellow)"></div>
-                                </div>
-                                <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">85%</span>
-                            </td>
-                            <td><span class="date-text">2026-03-18 16:47</span></td>
+                            <td><strong>龙裔</strong></td>
+                            <td>龙裔是由世界核心碎片与诸神残留神力融合而成的智慧种族，分为金龙、银龙、青铜龙、红龙、黑龙、蓝...</td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn" title="编辑">✏️</button>
-                                    <button class="action-btn" title="预览">👁</button>
-                                    <button class="action-btn delete" title="删除">🗑️</button>
+                                    <button class="action-btn" title="编辑" style="color: #2563eb; border-color: #2563eb;">✏️</button>
+                                    <button class="action-btn delete" title="删除" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); color: var(--accent-red);">🗑️</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td><input type="checkbox"></td>
-                            <td><code style="color: var(--text-muted);">#1004</code></td>
-                            <td><strong>阵营关系</strong></td>
-                            <td><span class="type-badge type-relation">关系图</span></td>
-                            <td>势力表</td>
-                            <td><span class="status-badge status-empty">未填充</span></td>
-                            <td>
-                                <div class="progress-sm">
-                                    <div class="progress-sm-fill" style="width: 45%; background: var(--accent-red)"></div>
-                                </div>
-                                <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">45%</span>
-                            </td>
-                            <td>
-                                <div class="progress-sm">
-                                    <div class="progress-sm-fill" style="width: 30%; background: var(--accent-red)"></div>
-                                </div>
-                                <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">30%</span>
-                            </td>
-                            <td><span class="date-text">2026-03-17 09:22</span></td>
+                            <td><strong>星灵</strong></td>
+                            <td>星灵是涅希尔世界的古老智慧种族，诞生于星界的世界核心最大碎片，无实体且形态如流动星光，天生能...</td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn" title="编辑">✏️</button>
-                                    <button class="action-btn" title="预览">👁</button>
-                                    <button class="action-btn delete" title="删除">🗑️</button>
+                                    <button class="action-btn" title="编辑" style="color: #2563eb; border-color: #2563eb;">✏️</button>
+                                    <button class="action-btn delete" title="删除" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); color: var(--accent-red);">🗑️</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td><input type="checkbox"></td>
-                            <td><code style="color: var(--text-muted);">#1005</code></td>
-                            <td><strong>主要剧情线</strong></td>
-                            <td><span class="type-badge type-timeline">时间线</span></td>
-                            <td>事件表</td>
-                            <td><span class="status-badge status-filled">已填充</span></td>
-                            <td>
-                                <div class="progress-sm">
-                                    <div class="progress-sm-fill" style="width: 92%"></div>
-                                </div>
-                                <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">92%</span>
-                            </td>
-                            <td>
-                                <div class="progress-sm">
-                                    <div class="progress-sm-fill" style="width: 88%"></div>
-                                </div>
-                                <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">88%</span>
-                            </td>
-                            <td><span class="date-text">2026-03-16 15:08</span></td>
+                            <td><strong>深渊恶魔</strong></td>
+                            <td>深渊恶魔是诞生于虚无裂隙的智慧种族，以吞噬能量为本能，觊觎世界核心碎片，建立了层级分明的深渊...</td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn" title="编辑">✏️</button>
-                                    <button class="action-btn" title="预览">👁</button>
-                                    <button class="action-btn delete" title="删除">🗑️</button>
+                                    <button class="action-btn" title="编辑" style="color: #2563eb; border-color: #2563eb;">✏️</button>
+                                    <button class="action-btn delete" title="删除" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); color: var(--accent-red);">🗑️</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td><input type="checkbox"></td>
-                            <td><code style="color: var(--text-muted);">#1006</code></td>
-                            <td><strong>武器列表</strong></td>
-                            <td><span class="type-badge type-number">数组</span></td>
-                            <td>物品表</td>
-                            <td><span class="status-badge status-pending">待审核</span></td>
-                            <td>
-                                <div class="progress-sm">
-                                    <div class="progress-sm-fill" style="width: 78%; background: var(--accent-yellow)"></div>
-                                </div>
-                                <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">78%</span>
-                            </td>
-                            <td>
-                                <div class="progress-sm">
-                                    <div class="progress-sm-fill" style="width: 82%; background: var(--accent-yellow)"></div>
-                                </div>
-                                <span style="font-size: 12px; color: var(--text-secondary); margin-left: 6px;">82%</span>
-                            </td>
-                            <td><span class="date-text">2026-03-15 11:45</span></td>
+                            <td><strong>血族</strong></td>
+                            <td>血族是与奥祖结盟的智慧种族，常伪装贵族制造内乱，属于混沌联军的成员。</td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="action-btn" title="编辑">✏️</button>
-                                    <button class="action-btn" title="预览">👁</button>
-                                    <button class="action-btn delete" title="删除">🗑️</button>
+                                    <button class="action-btn" title="编辑" style="color: #2563eb; border-color: #2563eb;">✏️</button>
+                                    <button class="action-btn delete" title="删除" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); color: var(--accent-red);">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td><strong>人类</strong></td>
+                            <td>人类是由七位创世神寂灭后的意志碎片催生的智慧种族，兼具善恶潜能，适应性极强，建立了圣灵王国等...</td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="编辑" style="color: #2563eb; border-color: #2563eb;">✏️</button>
+                                    <button class="action-btn delete" title="删除" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); color: var(--accent-red);">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td><strong>矮人</strong></td>
+                            <td>矮人是诞生于地脉的世界核心中等碎片的智慧种族，身材矮壮、皮肤如岩，天生能够感知地脉能量，擅长...</td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
+                            <td><span class="date-text">-</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="编辑" style="color: #2563eb; border-color: #2563eb;">✏️</button>
+                                    <button class="action-btn delete" title="删除" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); color: var(--accent-red);">🗑️</button>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="table-footer">
-                    <div class="page-info">显示 1 到 6 条，共 248 条记录</div>
+                    <div class="page-info">显示 1 到 8 条，共 8 条记录</div>
                     <div class="pagination">
                         <button class="page-btn" disabled>‹</button>
                         <button class="page-btn active">1</button>
-                        <button class="page-btn">2</button>
-                        <button class="page-btn">3</button>
-                        <button class="page-btn">4</button>
-                        <button class="page-btn">5</button>
-                        <button class="page-btn">…</button>
-                        <button class="page-btn">42</button>
                         <button class="page-btn">›</button>
                     </div>
                 </div>
@@ -1691,12 +1783,69 @@
     </div>
 
     <script>
+        // 分类数据
+        const categoryData = {
+            '种族表': { count: 8, status: '待确认数据' },
+            '职业表': { count: 10, status: '待确认数据' },
+            '阵营表': { count: 14, status: '待确认数据' },
+            '等级表': { count: 0, status: '暂无数据' },
+            '属性表': { count: 0, status: '暂无数据' },
+            '元素表': { count: 1, status: '待确认数据' },
+            '语言表': { count: 0, status: '暂无数据' },
+            '性格表': { count: 0, status: '暂无数据' },
+            '物品表': { count: 8, status: '待确认数据' },
+            '技能表': { count: 5, status: '待确认数据' },
+            '角色表': { count: 22, status: '待确认数据' },
+            '物体表': { count: 8, status: '待确认数据' },
+            '地图表': { count: 11, status: '待确认数据' },
+            '参数表': { count: 0, status: '暂无数据' },
+            '势力表': { count: 5, status: '待确认数据' }
+        };
+
         // 分类点击
         document.querySelectorAll('.category-item').forEach(item => {
             item.addEventListener('click', () => {
                 document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
+
+                // 更新表格标题
+                const categoryName = item.querySelector('.category-name').textContent;
+                const data = categoryData[categoryName];
+                document.querySelector('.table-title h3').innerHTML =
+                    `${categoryName} <span style="font-size: 14px; font-weight: normal; color: var(--text-muted); background: rgba(245, 158, 11, 0.2); padding: 4px 12px; border-radius: 12px; margin-left: 8px;">${data.status}</span>`;
+                document.querySelector('.table-title p').textContent = '管理当前实体的数据内容与编辑操作';
+                document.querySelector('.btn-add').innerHTML =
+                    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    新增${categoryName.slice(0, -1)}`;
+                document.querySelector('.page-info').textContent = `显示 1 到 ${data.count} 条，共 ${data.count} 条记录`;
             });
+        });
+
+        // 切换显示空分类
+        let zeroVisible = false;
+        document.getElementById('toggleZeroBtn').addEventListener('click', function() {
+            zeroVisible = !zeroVisible;
+            document.querySelectorAll('.category-item.zero').forEach(item => {
+                if (zeroVisible) {
+                    item.classList.add('visible');
+                } else {
+                    item.classList.remove('visible');
+                }
+            });
+            document.getElementById('toggleBtnText').textContent = zeroVisible ? '隐藏空分类' : '显示空分类';
+            this.querySelector('svg polyline').setAttribute('points', zeroVisible ? '6 15 12 9 18 15' : '6 9 12 15 18 9');
+            if (zeroVisible) {
+                this.style.background = 'rgba(168, 85, 247, 0.1)';
+                this.style.borderColor = 'rgba(168, 85, 247, 0.4)';
+                this.style.color = 'var(--accent-purple)';
+            } else {
+                this.style.background = 'rgba(255, 255, 255, 0.05)';
+                this.style.borderColor = 'var(--border-color)';
+                this.style.color = 'var(--text-secondary)';
+            }
         });
 
         // 统计卡片点击

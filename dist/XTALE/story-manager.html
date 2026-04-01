@@ -4,69 +4,687 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>故事管理 - XTALE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 页面特有样式 - 个人创作者风格 */
+        body {
+            background: var(--bg-primary);
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+            min-height: 100vh;
+            padding: 48px 24px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 28px 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-bottom: 3px solid var(--accent-purple);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .page-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 42px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .header-greeting {
+            font-size: 16px;
+            color: var(--accent-purple);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .btn-add {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(168, 85, 247, 0.35);
+        }
+
+        /* 筛选栏 */
+        .filter-bar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-standard);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .filter-select {
+            padding: 14px 40px 14px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-standard);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 15px;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a1a1aa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            min-width: 140px;
+            transition: border-color 0.3s;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+        }
+
+        .filter-select option {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .btn-reset {
+            padding: 14px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reset:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        /* 创作工作台统计 - 个人风格 */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(168, 85, 247, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon.stories { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; }
+        .stat-icon.active { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
+        .stat-icon.drafts { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+        .stat-icon.words { background: rgba(148, 163, 184, 0.2); color: #cbd5e1; }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .stat-change {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+        }
+
+        .change-up { color: var(--accent-green); }
+        .change-down { color: var(--accent-red); }
+
+        /* 故事卡片 - 个人作品展示风格 */
+        .story-list-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 28px;
+            overflow: hidden;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .story-card {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .story-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(168, 85, 247, 0.4);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+        }
+
+        .story-card-cover {
+            position: relative;
+            height: 160px;
+            overflow: hidden;
+        }
+
+        .story-cover-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .story-status {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            letter-spacing: 0.02em;
+        }
+
+        .status-draft {
+            background: rgba(245, 158, 11, 0.85);
+            color: white;
+        }
+
+        .status-active {
+            background: rgba(59, 130, 246, 0.85);
+            color: white;
+        }
+
+        .status-completed {
+            background: rgba(16, 185, 129, 0.85);
+            color: white;
+        }
+
+        .story-card-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .story-card-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .story-card-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .story-card-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .tag-type {
+            padding: 4px 12px;
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            font-size: 12px;
+            color: #c4b5fd;
+        }
+
+        .story-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            margin-top: 8px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .story-card-id {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .story-card-date {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .story-card-actions {
+            padding: 16px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn,
+        a.action-btn {
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            flex: 1;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: rgba(168, 85, 247, 0.18);
+            border-color: rgba(168, 85, 247, 0.5);
+            color: var(--accent-purple);
+        }
+
+        .action-btn.delete:hover {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: var(--accent-red);
+        }
+
+        .page-size {
+            padding: 6px 32px 6px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-standard);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a1a1aa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+
+        .page-size option {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        /* 分页 */
+        .pagination-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            margin-top: 24px;
+        }
+
+        .page-info {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .page-btn:hover:not(.active):not(:disabled) {
+            background: rgba(168, 85, 247, 0.12);
+            border-color: rgba(168, 85, 247, 0.3);
+            color: var(--accent-purple);
+        }
+
+        .page-btn.active {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-deep));
+            border-color: transparent;
+            color: white;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .page-size-select {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* 渐入动画 */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .story-card {
+            animation: fadeInUp 0.5s ease backwards;
+        }
+
+        @for $i from 1 through 12 {
+            .story-card:nth-child(#{$i}) {
+                animation-delay: #{0.1 + ($i - 1) * 0.05}s;
+            }
+        }
+
+        /* 响应式 */
+        @media (max-width: 1400px) {
+            .story-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        @media (max-width: 1200px) {
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 24px 16px;
+            }
+            .page-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-box {
+                min-width: 100%;
+            }
+            .story-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .pagination-footer {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <a href="/XTALE/index.html" class="back-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            返回XTALE
-        </a>
-        
-        <div class="page-header">
-            <div>
-                <h1 class="page-title">故事管理</h1>
-                <p class="page-desc">管理和维护所有故事内容，包括故事基本信息、章节和数据配置</p>
-            </div>
-            <button class="btn-primary" id="openModalBtn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-                新增故事
-            </button>
+        <!-- 面包屑 -->
+        <div class="breadcrumb">
+            <a href="index.html" class="breadcrumb-item">XTALE首页</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-item active">故事管理</span>
         </div>
-        
+
+        <!-- 页面头部 -->
+        <header class="page-header">
+            <div class="header-left">
+                <div class="header-greeting">✍️ 欢迎回来，创作者</div>
+                <h1 class="page-title">我的故事工坊</h1>
+                <p class="page-subtitle">这里存放着你所有的创作，每一个故事都是一个世界</p>
+            </div>
+            <div style="display: flex; gap: 12px;">
+                <a href="index.html" class="btn-add" style="background: linear-gradient(135deg, #6b7280, #4b5563);">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12"></polyline>
+                    </svg>
+                    返回项目首页
+                </a>
+                <button class="btn-add" id="openModalBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    新增故事
+                </button>
+            </div>
+        </header>
+
+        <!-- 创作工作台统计 -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-label">我的故事</span>
+                    <div class="stat-icon stories">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="stat-value">3</div>
+                <div class="stat-change change-up">
+                    <span>↑ 1</span>
+                    <span style="color: var(--text-muted); font-size: 12px;">本月新增</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-label">正在创作</span>
+                    <div class="stat-icon active">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div class="stat-value">2</div>
+                <div class="stat-change change-up">
+                    <span>↑ 1</span>
+                    <span style="color: var(--text-muted); font-size: 12px;">本月新增</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-label">待完成</span>
+                    <div class="stat-icon drafts">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        </svg>
+                    </div>
+                </div>
+                <div class="stat-value">1</div>
+                <div class="stat-change change-up">
+                    <span>↔ 0</span>
+                    <span style="color: var(--text-muted); font-size: 12px;">本月</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-label">累计字数</span>
+                    <div class="stat-icon words">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19V5c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2v14"></path>
+                            <line x1="4" y1="12" x2="20" y2="12"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div class="stat-value">9.2K</div>
+                <div class="stat-change change-up">
+                    <span>↑ 1.8K</span>
+                    <span style="color: var(--text-muted); font-size: 12px;">本月新增</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 筛选栏 -->
         <div class="filter-bar">
             <div class="search-box">
-                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
                 <input type="text" class="search-input" placeholder="搜索故事标题、ID或描述">
             </div>
-            <select class="select-box">
+            <select class="filter-select">
                 <option value="">所有状态</option>
                 <option value="draft">草稿</option>
                 <option value="active">连载中</option>
                 <option value="completed">已完结</option>
             </select>
-            <select class="select-box">
+            <select class="filter-select">
                 <option value="">所有世界观</option>
                 <option value="xianxia">仙侠</option>
                 <option value="xuanhuan">玄幻</option>
                 <option value="wuxia">武侠</option>
+                <option value="dushi">都市</option>
+                <option value="kehuan">科幻</option>
             </select>
-            <button class="btn-secondary">重置筛选</button>
+            <button class="btn-reset">重置筛选</button>
         </div>
-        
+
+        <!-- 故事卡片列表 -->
         <div class="story-list-container">
             <div class="story-grid">
-                <div class="story-card">
+                <div class="story-card" onclick="location.href='story-detail.html?id=1'">
                     <div class="story-card-cover">
-                        <div class="story-cover-placeholder">
-                            <span class="story-cover-icon">📖</span>
-                        </div>
+                        <div class="story-cover-placeholder">📖</div>
+                        <span class="story-status status-draft">草稿</span>
                     </div>
                     <div class="story-card-content">
                         <h3 class="story-card-title">小雷音寺</h3>
                         <p class="story-card-desc">唐僧师徒四人西天取经，误入小雷音寺，黄眉老怪设下陷阱...</p>
                         <div class="story-card-tags">
-                            <span class="tag tag-type">仙侠武林</span>
-                            <span class="tag tag-status-draft">草稿</span>
+                            <span class="tag-type">仙侠武林</span>
                         </div>
                         <div class="story-card-meta">
                             <div class="story-card-id">ID: 203383542054269337</div>
@@ -74,23 +692,22 @@
                         </div>
                     </div>
                     <div class="story-card-actions">
-                        <button class="action-btn">👁</button>
-                        <a href="story-detail.html" class="action-btn">✏️</a>
-                        <button class="action-btn delete">🗑️</button>
+                        <button class="action-btn" onclick="event.stopPropagation()">👁 预览</button>
+                        <a href="story-detail.html" class="action-btn" onclick="event.stopPropagation()">✏️ 编辑</a>
+                        <button class="action-btn delete" onclick="event.stopPropagation()">🗑️ 删除</button>
                     </div>
                 </div>
-                <div class="story-card">
+
+                <div class="story-card" onclick="location.href='story-detail.html?id=2'">
                     <div class="story-card-cover">
-                        <div class="story-cover-placeholder">
-                            <span class="story-cover-icon">🏙️</span>
-                        </div>
+                        <div class="story-cover-placeholder" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);">🏙️</div>
+                        <span class="story-status status-active">连载中</span>
                     </div>
                     <div class="story-card-content">
                         <h3 class="story-card-title">都市迷情</h3>
                         <p class="story-card-desc">繁华都市中的暗流涌动，一个普通人的逆袭之路...</p>
                         <div class="story-card-tags">
-                            <span class="tag tag-type">都市</span>
-                            <span class="tag tag-status-active">连载中</span>
+                            <span class="tag-type">都市</span>
                         </div>
                         <div class="story-card-meta">
                             <div class="story-card-id">ID: 203383542054269338</div>
@@ -98,23 +715,22 @@
                         </div>
                     </div>
                     <div class="story-card-actions">
-                        <button class="action-btn">👁</button>
-                        <a href="story-detail.html" class="action-btn">✏️</a>
-                        <button class="action-btn delete">🗑️</button>
+                        <button class="action-btn" onclick="event.stopPropagation()">👁 预览</button>
+                        <a href="story-detail.html" class="action-btn" onclick="event.stopPropagation()">✏️ 编辑</a>
+                        <button class="action-btn delete" onclick="event.stopPropagation()">🗑️ 删除</button>
                     </div>
                 </div>
-                <div class="story-card">
+
+                <div class="story-card" onclick="location.href='story-detail.html?id=3'">
                     <div class="story-card-cover">
-                        <div class="story-cover-placeholder">
-                            <span class="story-cover-icon">🚀</span>
-                        </div>
+                        <div class="story-cover-placeholder" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%);">🚀</div>
+                        <span class="story-status status-active">连载中</span>
                     </div>
                     <div class="story-card-content">
                         <h3 class="story-card-title">星际流浪者</h3>
                         <p class="story-card-desc">浩瀚宇宙中的孤独旅人，寻找人类新家园的征程...</p>
                         <div class="story-card-tags">
-                            <span class="tag tag-type">科幻</span>
-                            <span class="tag tag-status-active">连载中</span>
+                            <span class="tag-type">科幻</span>
                         </div>
                         <div class="story-card-meta">
                             <div class="story-card-id">ID: 203383542054269339</div>
@@ -122,24 +738,31 @@
                         </div>
                     </div>
                     <div class="story-card-actions">
-                        <button class="action-btn">👁</button>
-                        <a href="story-detail.html" class="action-btn">✏️</a>
-                        <button class="action-btn delete">🗑️</button>
+                        <button class="action-btn" onclick="event.stopPropagation()">👁 预览</button>
+                        <a href="story-detail.html" class="action-btn" onclick="event.stopPropagation()">✏️ 编辑</a>
+                        <button class="action-btn delete" onclick="event.stopPropagation()">🗑️ 删除</button>
                     </div>
                 </div>
             </div>
-            <div class="pagination-footer">
-                <div class="pagination-info">显示 1 至 3 条，共 3 条</div>
-                <div class="pagination">
-                    <select class="page-size">
-                        <option>6条/页</option>
-                        <option>12条/页</option>
-                        <option>24条/页</option>
-                    </select>
-                    <button class="page-btn" disabled>◀</button>
-                    <button class="page-btn active">1</button>
-                    <button class="page-btn" disabled>▶</button>
-                </div>
+        </div>
+
+        <!-- 分页 -->
+        <div class="pagination-footer">
+            <div class="page-info">显示 1 至 3 条，共 3 条记录</div>
+            <div class="pagination">
+                <button class="page-btn" disabled>‹</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn" disabled>›</button>
+            </div>
+            <div class="page-size-select">
+                <span>每页显示</span>
+                <select class="page-size">
+                    <option>6</option>
+                    <option>12</option>
+                    <option>24</option>
+                    <option>48</option>
+                </select>
+                <span>条</span>
             </div>
         </div>
     </div>

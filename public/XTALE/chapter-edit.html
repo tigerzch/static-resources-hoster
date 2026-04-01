@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>章节编辑 - XTALE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
         /* 章节编辑页面专用样式 */
@@ -12,24 +15,86 @@
             --bg-secondary: #141423;
             --bg-card: #1a1a2e;
             --bg-hover: #25253b;
+            --bg-elevated: #1e1e38;
             --text-primary: #ffffff;
             --text-secondary: #b8b8d0;
             --text-muted: #787898;
             --accent-purple: #a855f7;
+            --accent-purple-deep: #7c3aed;
             --accent-pink: #ec4899;
             --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-yellow: #f59e0b;
+            --accent-red: #ef4444;
             --border-subtle: rgba(255, 255, 255, 0.06);
             --border-standard: rgba(255, 255, 255, 0.12);
+            --border-accent: rgba(168, 85, 247, 0.4);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 32px rgba(168, 85, 247, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--bg-primary);
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 48px 24px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* 面包屑 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .breadcrumb-item {
+            font-size: 15px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb-item:hover {
+            color: var(--accent-purple);
+        }
+
+        .breadcrumb-item.active {
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-muted);
         }
 
         .edit-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 36px;
-            background: rgba(255, 255, 255, 0.02);
-            border-bottom: 1px solid var(--border-subtle);
-            margin: -36px -36px 36px -36px;
+            margin-bottom: 24px;
+            padding: 20px 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            border-bottom: 2px solid var(--accent-purple);
         }
 
         .edit-title {
@@ -103,10 +168,265 @@
             border-color: rgba(34, 197, 94, 0.5);
         }
 
+        .detail-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 28px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
         .card-subtitle {
             font-size: 13px;
             color: #71718a;
             margin-top: 4px;
+        }
+
+        .card-body {
+            padding: 28px;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: rgba(168, 85, 247, 0.4);
+            color: var(--accent-purple);
+        }
+
+        .action-btn.delete:hover {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: var(--accent-red);
+        }
+
+        /* 紧凑重构布局 - 保持容器宽度与其他页面一致 */
+        .detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .detail-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .detail-form .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            font-size: 14px;
+        }
+
+        .form-input,
+        .form-textarea {
+            padding: 10px 14px;
+            font-size: 14px;
+        }
+
+        .cover-upload-vertical {
+            width: 100%;
+        }
+
+        .cover-placeholder-vertical {
+            height: 280px;
+        }
+
+        .objectives-list {
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .objective-item .form-textarea {
+            padding: 8px 10px;
+            font-size: 13px;
+        }
+
+        .btn-add-row {
+            padding: 8px;
+            margin-top: 8px;
+            font-size: 13px;
+        }
+
+        .form-textarea[rows="4"] {
+            min-height: 70px;
+        }
+
+        .char-count {
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* 独立章节目标容器 */
+        .objectives-container {
+            max-width: 100%;
+        }
+
+        /* 章节目标表格 */
+        .objectives-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 12px;
+        }
+
+        .objectives-table th {
+            text-align: left;
+            padding: 12px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: rgba(0, 0, 0, 0.15);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .objective-row td {
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            vertical-align: middle;
+        }
+
+        .objective-type-select {
+            padding: 8px 12px;
+            width: 110px;
+            font-size: 13px;
+        }
+
+        .objective-required-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .objective-required-toggle input {
+            display: none;
+        }
+
+        .objective-required-slider {
+            width: 40px;
+            height: 22px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 11px;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .objective-required-slider::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #71718a;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: all 0.2s;
+        }
+
+        .objective-required-toggle input:checked + .objective-required-slider {
+            background: rgba(168, 85, 247, 0.5);
+        }
+
+        .objective-required-toggle input:checked + .objective-required-slider::before {
+            background: #a855f7;
+            left: 21px;
+        }
+
+        .objective-required-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .objective-textarea {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 13px;
+            min-height: 44px;
+            resize: vertical;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .objective-textarea:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.25);
+        }
+
+        .objective-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .objective-reward-input {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .objective-reward-input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.25);
+        }
+
+        .objective-reward-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .delete-objective-btn {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* 参数表格 */
@@ -387,6 +707,8 @@
     <div class="container">
         <!-- 面包屑导航 -->
         <div class="breadcrumb">
+            <a href="index.html" class="breadcrumb-item">XTALE首页</a>
+            <span class="breadcrumb-separator">›</span>
             <a href="story-manager.html" class="breadcrumb-item">故事管理</a>
             <span class="breadcrumb-separator">›</span>
             <a href="story-detail.html" class="breadcrumb-item">编辑故事</a>
@@ -429,19 +751,6 @@
                             <input type="text" class="form-input" placeholder="输入章节名称" value="第一章 初入仙途">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">章节目标</label>
-                            <div class="objectives-list">
-                                <div class="objective-item">
-                                    <textarea class="form-textarea objective-text" rows="2" placeholder="输入一个章节目标"></textarea>
-                                    <button class="action-btn delete delete-objective" style="width: 28px; height: 28px;">🗑️</button>
-                                </div>
-                            </div>
-                            <button class="btn-add-row" id="add-objective-btn">
-                                <span>➕</span>
-                                添加章节目标
-                            </button>
-                        </div>
-                        <div class="form-group">
                             <label class="form-label">章节描述</label>
                             <textarea class="form-textarea" rows="4" placeholder="输入章节描述"></textarea>
                             <div class="char-count">0 / 500</div>
@@ -458,6 +767,66 @@
                             <input type="file" class="cover-input" accept="image/*">
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 章节目标卡片 -->
+        <div class="detail-card">
+            <div class="card-header">
+                <div>
+                    <h2 class="card-title">章节目标</h2>
+                    <p class="card-subtitle">定义本章需要达成的目标，支持添加多个目标</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="objectives-container">
+                    <table class="objectives-table" id="objectives-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 120px;">目标类型</th>
+                                <th style="width: 40%;">目标描述</th>
+                                <th style="width: 120px;">必须完成</th>
+                                <th style="width: 28%;">完成奖励描述</th>
+                                <th style="width: 50px;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="objective-row">
+                                <td>
+                                    <select class="objective-type-select form-select">
+                                        <option value="main" selected>主线目标</option>
+                                        <option value="side">支线目标</option>
+                                        <option value="hidden">隐藏目标</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea class="objective-textarea" placeholder="描述这个目标要做什么，比如：找到村庄里的神秘老人"></textarea>
+                                </td>
+                                <td>
+                                    <label class="objective-required-toggle">
+                                        <input type="checkbox" checked>
+                                        <span class="objective-required-slider"></span>
+                                        <span class="objective-required-label">是</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="text" class="objective-reward-input form-input" placeholder="例如：100金币、技能书">
+                                </td>
+                                <td>
+                                    <button class="action-btn delete delete-objective-btn delete-objective" style="width: 28px; height: 28px;">🗑️</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn-add-row" id="add-objective-btn">
+                        <span>➕</span>
+                        添加章节目标
+                    </button>
+                </div>
+                <div class="info-box" style="margin-top: 16px;">
+                    <span class="info-icon">ℹ️</span>
+                    <p class="info-text">章节目标会在游戏过程中展示给玩家。<strong>主线目标</strong>是必须完成的剧情目标，<strong>支线目标</strong>是可选探索，<strong>隐藏目标</strong>需要特定条件才会显示。</p>
                 </div>
             </div>
         </div>
@@ -687,24 +1056,58 @@
 
         // 章节目标管理
         document.getElementById('add-objective-btn').addEventListener('click', function() {
-            const objectivesList = document.querySelector('.objectives-list');
-            const newItem = document.createElement('div');
-            newItem.className = 'objective-item';
-            newItem.innerHTML = `
-                <textarea class="form-textarea objective-text" rows="2" placeholder="输入一个章节目标"></textarea>
-                <button class="action-btn delete delete-objective" style="width: 28px; height: 28px;">🗑️</button>
+            const tableBody = document.querySelector('#objectives-table tbody');
+            const newRow = document.createElement('tr');
+            newRow.className = 'objective-row';
+            newRow.innerHTML = `
+                <td>
+                    <select class="objective-type-select form-select">
+                        <option value="main">主线目标</option>
+                        <option value="side">支线目标</option>
+                        <option value="hidden">隐藏目标</option>
+                    </select>
+                </td>
+                <td>
+                    <textarea class="objective-textarea" placeholder="描述这个目标要做什么，比如：找到村庄里的神秘老人"></textarea>
+                </td>
+                <td>
+                    <label class="objective-required-toggle">
+                        <input type="checkbox" checked>
+                        <span class="objective-required-slider"></span>
+                        <span class="objective-required-label">是</span>
+                    </label>
+                </td>
+                <td>
+                    <input type="text" class="objective-reward-input form-input" placeholder="例如：100金币、技能书">
+                </td>
+                <td>
+                    <button class="action-btn delete delete-objective-btn delete-objective" style="width: 28px; height: 28px;">🗑️</button>
+                </td>
             `;
-            objectivesList.appendChild(newItem);
+            tableBody.appendChild(newRow);
             // 绑定删除事件
-            newItem.querySelector('.delete-objective').addEventListener('click', function() {
-                newItem.remove();
+            newRow.querySelector('.delete-objective').addEventListener('click', function() {
+                newRow.remove();
+            });
+            // 绑定切换事件更新标签文字
+            newRow.querySelector('.objective-required-toggle input').addEventListener('change', function() {
+                const label = this.parentElement.querySelector('.objective-required-label');
+                label.textContent = this.checked ? '是' : '否';
             });
         });
 
         // 绑定初始删除按钮事件
         document.querySelectorAll('.delete-objective').forEach(btn => {
             btn.addEventListener('click', function() {
-                this.closest('.objective-item').remove();
+                this.closest('.objective-row').remove();
+            });
+        });
+
+        // 绑定初始切换事件
+        document.querySelectorAll('.objective-required-toggle input').forEach(input => {
+            input.addEventListener('change', function() {
+                const label = this.parentElement.querySelector('.objective-required-label');
+                label.textContent = this.checked ? '是' : '否';
             });
         });
     </script>
