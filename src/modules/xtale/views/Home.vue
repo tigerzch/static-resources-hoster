@@ -1,178 +1,181 @@
 <template>
-  <div class="container">
-    <div class="main-layout">
-      <main>
-        <!-- 轮播Banner -->
-        <section class="banner-section">
-          <div class="banner-container" id="banner">
-            <div
-              v-for="(slide, index) in banners"
-              :key="index"
-              class="banner-slide"
-              :class="{ active: currentBanner === index }"
-            >
-              <div class="banner-bg" :class="`banner-gradient-${index + 1}`"></div>
-              <div class="banner-bg-overlay"></div>
-              <div class="banner-content">
-                <span class="banner-badge">{{ slide.badge }}</span>
-                <h2 class="banner-title">{{ slide.title }}</h2>
-                <p class="banner-desc">{{ slide.description }}</p>
-                <div class="banner-tags">
-                  <span class="banner-tag" v-for="tag in slide.tags" :key="tag">{{ tag }}</span>
+  <div class="page">
+    <div class="grain"></div>
+    <div class="wrapper">
+      <div class="grid">
+        <!-- 左侧主内容区 -->
+        <div class="main">
+          <!-- 轮播Banner -->
+          <div class="banner-block">
+            <div class="banner">
+              <div
+                v-for="(slide, i) in banners"
+                :key="i"
+                class="banner-slide"
+                :class="{ active: currentSlide === i }"
+              >
+                <div class="banner-bg" :class="`bg-${i + 1}`">
+                  <div class="bg-pattern"></div>
                 </div>
-                <Button variant="default" class="btn-read">
-                  <a href="#">立即阅读 →</a>
-                </Button>
+                <div class="banner-content">
+                  <span class="badge">{{ slide.badge }}</span>
+                  <h1 class="title">{{ slide.title }}</h1>
+                  <p class="desc">{{ slide.description }}</p>
+                  <div class="tags">
+                    <span v-for="tag in slide.tags" :key="tag" class="tag">{{ tag }}</span>
+                  </div>
+                  <button class="cta">
+                    <a href="#">立即阅读</a>
+                    <span class="arrow">→</span>
+                  </button>
+                </div>
+              </div>
+              <div class="dots">
+                <span
+                  v-for="(_, i) in banners"
+                  :key="i"
+                  class="dot"
+                  :class="{ active: currentSlide === i }"
+                  @click="goTo(i)"
+                ></span>
               </div>
             </div>
-            <div class="banner-indicators">
-              <span
-                v-for="(slide, index) in banners"
-                :key="index"
-                class="indicator"
-                :class="{ active: currentBanner === index }"
-                @click="goToBanner(index)"
-              ></span>
+          </div>
+
+          <!-- 分类 -->
+          <div class="section">
+            <div class="section-header">
+              <h2 class="section-title">
+                <span class="deco"></span>
+                探索分类
+              </h2>
+            </div>
+            <div class="categories">
+              <button
+                v-for="(cat, i) in categories"
+                :key="i"
+                class="category-btn"
+                :class="{ active: activeCat === i }"
+                @click="activeCat = i"
+              >
+                {{ cat }}
+              </button>
             </div>
           </div>
-        </section>
 
-        <!-- 分类导航 -->
-        <section>
-          <div class="category-bar">
-            <div
-              v-for="(cat, index) in categories"
-              :key="index"
-              class="cat-item"
-              :class="{ active: activeCategory === index }"
-              @click="activeCategory = index"
-            >{{ cat }}</div>
-          </div>
-        </section>
-
-        <!-- 推荐故事 -->
-        <section class="content-section">
-          <div class="section-header">
-            <h2 class="section-title">推荐故事</h2>
-            <a href="#" class="more-link">查看全部
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
-            </a>
-          </div>
-          <div class="story-grid">
-            <StoryCard
-              v-for="story in recommendedStories"
-              :key="story.id"
-              :story="story"
-              @click="goToStory(story.id)"
-            />
-          </div>
-        </section>
-
-        <!-- 最新更新 -->
-        <section class="content-section">
-          <div class="section-header">
-            <h2 class="section-title">最新更新</h2>
-            <a href="#" class="more-link">查看更多
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
-            </a>
-          </div>
-          <div class="story-grid">
-            <StoryCard
-              v-for="story in latestStories"
-              :key="story.id"
-              :story="story"
-              @click="goToStory(story.id)"
-            />
-          </div>
-        </section>
-
-        <!-- 热门精选 -->
-        <section class="content-section">
-          <div class="section-header">
-            <h2 class="section-title">热门精选</h2>
-            <a href="#" class="more-link">查看全部
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
-            </a>
-          </div>
-          <div class="story-grid">
-            <StoryCard
-              v-for="story in hotStories"
-              :key="story.id"
-              :story="story"
-              @click="goToStory(story.id)"
-            />
-          </div>
-        </section>
-      </main>
-
-      <!-- 侧边栏 -->
-      <aside class="sidebar">
-        <!-- 热门排行榜 -->
-        <div class="side-card">
-          <h3 class="side-title">排行榜</h3>
-          <div class="rank-list">
-            <div
-              v-for="(item, index) in ranking"
-              :key="index"
-              class="rank-item"
-            >
-              <div class="rank-number" :class="getRankClass(index + 1)">
-                {{ index + 1 }}
+          <!-- 推荐故事 -->
+          <div class="section">
+            <div class="card">
+              <div class="section-header">
+                <h2 class="section-title">
+                  <span class="deco"></span>
+                  推荐故事
+                </h2>
+                <a href="#" class="view-more">查看全部 →</a>
               </div>
-              <div class="rank-info">
-                <div class="rank-title">{{ item.title }}</div>
-                <div class="rank-stats">{{ item.stats }}</div>
+              <div class="stories-grid">
+                <StoryCard
+                  v-for="story in recommended"
+                  :key="story.id"
+                  :story="story"
+                  @click="goToStory(story.id)"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- 双栏列表 -->
+          <div class="two-col">
+            <div class="card">
+              <div class="section-header">
+                <h3 class="section-title small">
+                  <span class="deco"></span>
+                  最新更新
+                </h3>
+              </div>
+              <div class="list">
+                <div
+                  v-for="item in latest.slice(0, 4)"
+                  :key="item.id"
+                  class="list-item"
+                  @click="goToStory(item.id)"
+                >
+                  <span class="emoji">{{ item.emoji }}</span>
+                  <div class="info">
+                    <div class="name">{{ item.title }}</div>
+                    <div class="meta">{{ item.author }} · {{ item.category }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="section-header">
+                <h3 class="section-title small">
+                  <span class="deco"></span>
+                  热门精选
+                </h3>
+              </div>
+              <div class="list">
+                <div
+                  v-for="item in hot.slice(0, 4)"
+                  :key="item.id"
+                  class="list-item"
+                  @click="goToStory(item.id)"
+                >
+                  <span class="emoji">{{ item.emoji }}</span>
+                  <div class="info">
+                    <div class="name">{{ item.title }}</div>
+                    <div class="meta">{{ item.author }} · {{ item.category }}</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 热门标签 -->
-        <div class="side-card">
-          <h3 class="side-title">热门标签</h3>
-          <div class="tag-cloud">
-            <span
-              v-for="tag in popularTags"
-              :key="tag"
-              class="tag-cloud-item"
-            >{{ tag }}</span>
+        <!-- 右侧边栏 - 严格对齐 -->
+        <aside class="sidebar">
+          <!-- 排行榜 - 高度与Banner完全匹配 -->
+          <div class="ranking-card">
+            <div class="ranking-header">
+              <h3 class="ranking-title">热门排行榜</h3>
+            </div>
+            <div class="ranking-list">
+              <div
+                v-for="(item, i) in ranking"
+                :key="i"
+                class="ranking-item"
+                :class="`rank-${i + 1}`"
+              >
+                <div class="rank-num" :class="rankClass(i + 1)">
+                  {{ i + 1 }}
+                </div>
+                <div class="rank-info">
+                  <div class="rank-name">{{ item.title }}</div>
+                  <div class="rank-reads">{{ item.reads }}</div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <!-- 创作入口 -->
-        <router-link to="/story-manager" style="text-decoration: none;">
-          <div class="create-card">
-            <div class="create-icon">+</div>
-            <div class="create-title">开始创作</div>
-            <div class="create-desc">创作你的专属故事</div>
+          <!-- 热门标签 -->
+          <div class="side-card">
+            <h3 class="side-title">热门标签</h3>
+            <div class="tags-cloud">
+              <span v-for="tag in tags" :key="tag" class="tag-item">{{ tag }}</span>
+            </div>
           </div>
-        </router-link>
 
-        <!-- 动态 -->
-        <div class="side-card">
-          <h3 class="side-title">最新动态</h3>
-          <div class="activity-feed">
-            <div class="activity-item">
-              <div class="activity-title">云游子 更新了《青冥之上》</div>
-              <div class="activity-desc">新增章节：第三十五章</div>
+          <!-- 创作入口 -->
+          <router-link to="/story-manager" class="create-link">
+            <div class="create-card">
+              <div class="create-icon">✦</div>
+              <div class="create-title">开始创作</div>
+              <div class="create-desc">创作你的专属故事</div>
             </div>
-            <div class="activity-item">
-              <div class="activity-title">夏小眠 发布了新作品</div>
-              <div class="activity-desc">《夏至未至》上线啦</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-title">系统更新</div>
-              <div class="activity-desc">支持章节目标功能</div>
-            </div>
-          </div>
-        </div>
-      </aside>
+          </router-link>
+        </aside>
+      </div>
     </div>
   </div>
 </template>
@@ -181,31 +184,29 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import StoryCard from '../components/StoryCard.vue'
-import Button from '@/components/ui/button/Button.vue'
-import { storyStore } from '../store/state'
 
 const router = useRouter()
-const currentBanner = ref(0)
-const activeCategory = ref(0)
-let bannerInterval = null
+const currentSlide = ref(0)
+const activeCat = ref(0)
+let autoplay = null
 
 const banners = [
   {
     badge: '🔥 热门推荐',
     title: '尘缘仙途',
-    description: '一个凡夫俗子意外踏入修真世界，靠着奇遇与坚持，一步步走出属于自己的仙路传奇。这是一个关于修行、情缘与争鸣的故事。',
+    description: '一个凡夫俗子意外踏入修真世界，靠着奇遇与坚持，一步步走出属于自己的仙路传奇。',
     tags: ['仙侠', '长篇', '连载中']
   },
   {
     badge: '⭐ 新作上线',
     title: '城市异闻录',
-    description: '繁华都市的阴影下，隐藏着不为人知的秘密。平凡上班族意外卷入超凡事件，揭开了一个潜藏在现代社会下的超凡世界。',
+    description: '繁华都市的阴影下，隐藏着不为人知的秘密。平凡上班族意外卷入超凡事件。',
     tags: ['都市', '悬疑', '新人新作']
   },
   {
     badge: '💖 虐心爱恋',
     title: '玫瑰往事',
-    description: '多年后的重逢，勾起了青春年少的回忆。那段被时光掩埋的秘密，那段无法言说的爱恋，该如何面对？',
+    description: '多年后的重逢，勾起了青春年少的回忆。那段被时光掩埋的秘密，该如何面对？',
     tags: ['言情', '完结', '经典']
   }
 ]
@@ -214,8 +215,7 @@ const categories = [
   '全部', '仙侠', '都市', '言情', '悬疑', '科幻', '历史', '校园', '玄幻', '武侠'
 ]
 
-// 示例数据
-const recommendedStories = [
+const recommended = [
   {
     id: '1',
     title: '青冥之上',
@@ -266,7 +266,7 @@ const recommendedStories = [
   }
 ]
 
-const latestStories = [
+const latest = [
   {
     id: '101',
     title: '夏至未至',
@@ -298,26 +298,10 @@ const latestStories = [
     category: '校园',
     author: '梧桐',
     emoji: '🏫'
-  },
-  {
-    id: '105',
-    title: '阴阳杂货铺',
-    description: '一间隐藏在都市小巷的杂货铺，卖着一些不寻常的东西。',
-    category: '灵异',
-    author: '掌柜',
-    emoji: '🔮'
-  },
-  {
-    id: '106',
-    title: '铁血南北朝',
-    description: '五胡乱华，汉家儿郎在血与火中抗争，延续华夏血脉。',
-    category: '历史',
-    author: '执戟郎',
-    emoji: '⚔️'
   }
 ]
 
-const hotStories = [
+const hot = [
   {
     id: '201',
     title: '剑啸江湖',
@@ -349,51 +333,39 @@ const hotStories = [
     category: '时空',
     author: '时间旅行者',
     emoji: '⏳'
-  },
-  {
-    id: '205',
-    title: '午夜狂飙',
-    description: '地下赛车手的极速人生，在速度与激情中寻找自我。',
-    category: '赛车',
-    author: '追风者',
-    emoji: '🚗'
-  },
-  {
-    id: '206',
-    title: '都市迷案',
-    description: '连环凶杀案背后隐藏着巨大的阴谋，侦探能否找出真相？',
-    category: '侦探',
-    author: '大侦探',
-    emoji: '🔍'
   }
 ]
 
 const ranking = [
-  { title: '尘缘仙途', stats: '12.5万 阅读' },
-  { title: '剑啸江湖', stats: '10.8万 阅读' },
-  { title: '深空彼岸', stats: '8.9万 阅读' },
-  { title: '城市异闻录', stats: '7.6万 阅读' },
-  { title: '玫瑰往事', stats: '6.2万 阅读' }
+  { title: '尘缘仙途', reads: '12.5万 阅读' },
+  { title: '剑啸江湖', reads: '10.8万 阅读' },
+  { title: '深空彼岸', reads: '8.9万 阅读' },
+  { title: '城市异闻录', reads: '7.6万 阅读' },
+  { title: '玫瑰往事', reads: '6.2万 阅读' }
 ]
 
-const popularTags = [
+const tags = [
   '仙侠', '都市', '言情', '悬疑', '科幻', '武侠', '校园', '历史', '末世', '甜宠', '虐恋', '穿越'
 ]
 
-function goToBanner(index) {
-  currentBanner.value = index
-  clearInterval(bannerInterval)
-  bannerInterval = setInterval(nextBanner, 5000)
+function goTo(i) {
+  currentSlide.value = i
+  resetTimer()
 }
 
-function nextBanner() {
-  currentBanner.value = (currentBanner.value + 1) % banners.length
+function next() {
+  currentSlide.value = (currentSlide.value + 1) % banners.length
 }
 
-function getRankClass(rank) {
-  if (rank === 1) return 'top1'
-  if (rank === 2) return 'top2'
-  if (rank === 3) return 'top3'
+function resetTimer() {
+  clearInterval(autoplay)
+  autoplay = setInterval(next, 5000)
+}
+
+function rankClass(rank) {
+  if (rank === 1) return 'first'
+  if (rank === 2) return 'second'
+  if (rank === 3) return 'third'
   return 'other'
 }
 
@@ -402,52 +374,75 @@ function goToStory(id) {
 }
 
 onMounted(() => {
-  bannerInterval = setInterval(nextBanner, 5000)
+  autoplay = setInterval(next, 5000)
 })
 
 onUnmounted(() => {
-  clearInterval(bannerInterval)
+  clearInterval(autoplay)
 })
 </script>
 
 <style scoped>
-:root {
-  --bg-primary: #0a0a12;
-  --bg-secondary: #161628;
-  --bg-card: #1f1f35;
-  --text-primary: #ffffff;
-  --text-secondary: #e2e2f0;
-  --text-muted: #a8a8c8;
-  --accent-purple: #a855f7;
-  --accent-pink: #ec4899;
-  --border-subtle: rgba(255, 255, 255, 0.20);
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
 }
 
-.container {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 0 24px;
+* {
+  box-sizing: border-box;
 }
 
-.main-layout {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 48px;
-  padding: 24px 0;
-}
-
-.banner-section {
-  margin-bottom: 48px;
-}
-
-.banner-container {
+.page {
+  min-height: 100vh;
+  background: radial-gradient(ellipse at top right, rgba(212, 175, 55, 0.15) 0%, transparent 50%), radial-gradient(ellipse at bottom left, rgba(90, 45, 130, 0.25) 0%, #0d0916 60%);
   position: relative;
-  height: 420px;
-  border-radius: 16px;
+}
+
+.grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.02;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 32px;
+}
+
+/* 核心网格布局 - 确保顶部对齐 */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 28px;
+  align-items: start;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* === Banner 轮播 === */
+.banner-block {
+  margin: 0;
+}
+
+.banner {
+  position: relative;
+  height: 360px;
+  border-radius: 20px;
   overflow: hidden;
-  background: var(--bg-secondary);
-  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
 }
 
 .banner-slide {
@@ -457,9 +452,9 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .banner-slide.active {
@@ -474,26 +469,25 @@ onUnmounted(() => {
   height: 100%;
 }
 
-.banner-bg-overlay {
+.bg-pattern {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, transparent 60%);
-  z-index: 1;
+  background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
 }
 
-.banner-gradient-1 {
-  background: linear-gradient(135deg, #2c1840 0%, #6b21a8 50%, #a855f7 100%);
+.bg-1 {
+  background: linear-gradient(135deg, #160a28 0%, #4a2072 50%, #6a3a98 100%);
 }
 
-.banner-gradient-2 {
-  background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 50%, #0ea5e9 100%);
+.bg-2 {
+  background: linear-gradient(135deg, #0a1628 0%, #204072 50%, #3a5a98 100%);
 }
 
-.banner-gradient-3 {
-  background: linear-gradient(135deg, #4c1d2e 0%, #be185d 50%, #ec4899 100%);
+.bg-3 {
+  background: linear-gradient(135deg, #280a16 0%, #722040 50%, #983a5a 100%);
 }
 
 .banner-content {
@@ -501,125 +495,194 @@ onUnmounted(() => {
   z-index: 2;
   padding: 48px;
   max-width: 60%;
+  animation: slideIn 0.8s ease-out;
 }
 
-.banner-badge {
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.badge {
   display: inline-block;
-  padding: 8px 20px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  padding: 6px 18px;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 24px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  margin-bottom: 20px;
+  color: #d4af37;
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
 }
 
-.banner-title {
-  font-family: 'Noto Serif SC', serif;
+.banner-content .title {
+  font-family: 'Playfair Display', 'Noto Serif SC', serif;
   font-size: 48px;
   font-weight: 700;
-  margin-bottom: 16px;
-  line-height: 1.2;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-  color: var(--text-primary);
+  line-height: 1.1;
+  color: #f8f5e6;
+  margin: 0 0 16px;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
 }
 
-.banner-desc {
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 28px;
+.banner-content .desc {
+  font-size: 16px;
   line-height: 1.7;
-  max-width: 80%;
+  color: rgba(248, 245, 230, 0.85);
+  margin: 0 0 22px;
+  max-width: 90%;
 }
 
-.banner-tags {
+.banner-content .tags {
   display: flex;
   gap: 10px;
   margin-bottom: 28px;
 }
 
-.banner-tag {
-  padding: 6px 14px;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 6px;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.95);
+.banner-content .tags .tag {
+  padding: 6px 16px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 18px;
+  font-size: 12px;
+  color: rgba(248, 245, 230, 0.9);
 }
 
-.btn-read {
+.cta {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   padding: 14px 36px;
-  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-  border-radius: 28px;
-  color: white;
-  text-decoration: none;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(212, 175, 55, 0.25);
+}
+
+.cta a {
+  color: #0d0916;
   font-weight: 600;
   font-size: 15px;
-  transition: all 0.3s ease;
-  border: none;
-  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.3);
+  text-decoration: none;
 }
 
-.btn-read:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 32px rgba(168, 85, 247, 0.5);
+.cta .arrow {
+  color: #0d0916;
+  font-size: 18px;
 }
 
-.banner-indicators {
+.dots {
   position: absolute;
-  bottom: 28px;
-  right: 28px;
+  bottom: 24px;
+  right: 24px;
   display: flex;
-  gap: 10px;
+  gap: 8px;
   z-index: 3;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
 }
 
-.indicator {
-  width: 12px;
-  height: 12px;
+.dot {
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(248, 245, 230, 0.35);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.indicator.active {
-  background: white;
-  width: 28px;
-  border-radius: 6px;
+.dot.active {
+  background: #d4af37;
+  width: 24px;
+  border-radius: 5px;
 }
 
-.category-bar {
+/* === 分类区域 === */
+.section {
+  margin: 0;
+}
+
+.section-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', 'Noto Serif SC', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #f8f5e6;
+  display: flex;
+  align-items: center;
   gap: 12px;
-  margin-bottom: 36px;
+  margin: 0;
+}
+
+.section-title.small {
+  font-size: 20px;
+}
+
+.section-title .deco {
+  width: 4px;
+  height: 24px;
+  background: linear-gradient(180deg, #d4af37, #5a2d82);
+  border-radius: 2px;
+}
+
+.view-more {
+  color: #d4c9a8;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.view-more:hover {
+  color: #d4af37;
+}
+
+.categories {
+  display: flex;
+  gap: 10px;
   overflow-x: auto;
-  padding-bottom: 12px;
+  padding: 8px;
+  background: #1a1428;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 16px;
 }
 
-.category-bar::-webkit-scrollbar {
-  height: 6px;
+.categories::-webkit-scrollbar {
+  height: 4px;
 }
 
-.category-bar::-webkit-scrollbar-thumb {
-  background: var(--accent-purple);
-  border-radius: 3px;
+.categories::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 2px;
 }
 
-.category-bar::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-  border-radius: 3px;
+.categories::-webkit-scrollbar-track {
+  background: #251d3a;
+  border-radius: 2px;
 }
 
-.cat-item {
-  padding: 12px 24px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: 28px;
-  color: var(--text-secondary);
+.category-btn {
+  padding: 10px 22px;
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 24px;
+  color: #d4c9a8;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -627,157 +690,228 @@ onUnmounted(() => {
   transition: all 0.3s ease;
 }
 
-.cat-item:hover {
-  border-color: var(--accent-purple);
-  color: var(--accent-purple);
+.category-btn:hover {
+  border-color: #d4af37;
+  color: #d4af37;
+  background: rgba(212, 175, 55, 0.05);
   transform: translateY(-1px);
 }
 
-.cat-item.active {
-  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+.category-btn.active {
+  background: linear-gradient(135deg, #d4af37, #b8860b);
   border-color: transparent;
-  color: white;
-  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+  color: #0d0916;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
 }
 
-.content-section {
-  margin-bottom: 56px;
+/* === 卡片 === */
+.card {
+  background: #1a1428;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
 }
 
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 32px;
-}
-
-.section-title {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 30px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--text-primary);
-}
-
-.section-title::before {
+.card::before {
   content: '';
-  width: 4px;
-  height: 26px;
-  background: linear-gradient(180deg, var(--accent-purple), var(--accent-pink));
-  border-radius: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #d4af37, #5a2d82);
 }
 
-.more-link {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s;
-}
-
-.more-link:hover {
-  color: var(--accent-purple);
-  transform: translateX(2px);
-}
-
-.story-grid {
+/* 故事网格 */
+.stories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+/* 双栏布局 */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 24px;
 }
 
-/* 侧边栏 */
-.sidebar {
+.list {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 10px;
 }
 
-.side-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: var(--shadow-card);
-}
-
-.side-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-primary);
-}
-
-.side-title::before {
-  content: '';
-  width: 3px;
-  height: 18px;
-  background: linear-gradient(180deg, var(--accent-purple), var(--accent-pink));
-  border-radius: 2px;
-}
-
-.rank-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.rank-item {
+.list-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--border-subtle);
+  padding: 12px;
+  background: #171225;
+  border-radius: 10px;
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
-.rank-item:last-child {
-  border-bottom: none;
+.list-item:hover {
+  border-color: #d4af37;
+  transform: translateX(4px);
+  background: #251d3a;
 }
 
-.rank-item:hover {
-  padding-left: 8px;
-}
-
-.rank-number {
-  width: 28px;
-  height: 28px;
+.list-item .emoji {
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
-  border-radius: 6px;
+  font-size: 20px;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
   flex-shrink: 0;
 }
 
-.rank-number.top1 {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  color: white;
-  box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
+.list-item .info {
+  flex: 1;
+  min-width: 0;
 }
 
-.rank-number.top2 {
+.list-item .name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #f8f5e6;
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-item .meta {
+  font-size: 12px;
+  color: #8a7f6e;
+}
+
+/* === 右侧边栏 === */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 排行榜卡片 - 精确高度匹配Banner */
+.ranking-card {
+  height: 360px;
+  background: #1a1428;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.ranking-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #d4af37, #5a2d82);
+}
+
+.ranking-header {
+  flex-shrink: 0;
+  margin-bottom: 16px;
+}
+
+.ranking-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #f8f5e6;
+  margin: 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.ranking-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 18px;
+  background: linear-gradient(180deg, #d4af37, #5a2d82);
+  border-radius: 2px;
+}
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ranking-item:hover {
+  background: rgba(212, 175, 55, 0.15);
+}
+
+.ranking-item.rank-1 {
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.2), transparent);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.rank-num {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.rank-num.first {
+  background: linear-gradient(135deg, #fbbf24, #d4af37);
+  color: #0d0916;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.5);
+}
+
+.rank-num.second {
   background: linear-gradient(135deg, #9ca3af, #6b7280);
-  color: white;
+  color: #0d0916;
 }
 
-.rank-number.top3 {
+.rank-num.third {
   background: linear-gradient(135deg, #b45309, #92400e);
-  color: white;
+  color: #ffffff;
 }
 
-.rank-number.other {
-  background: var(--bg-secondary);
-  color: var(--text-muted);
-  border: 1px solid var(--border-subtle);
+.rank-num.other {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+  color: #d4c9a8;
+  border: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 .rank-info {
@@ -785,183 +919,189 @@ onUnmounted(() => {
   min-width: 0;
 }
 
-.rank-title {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-primary);
+.rank-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f8f5e6;
+  margin-bottom: 2px;
+}
+
+.rank-reads {
+  font-size: 13px;
+  color: #8a7f6e;
+}
+
+/* 其他侧边卡片 */
+.side-card {
+  background: #1a1428;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  position: relative;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.rank-stats {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 4px;
+.side-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #d4af37, #5a2d82);
 }
 
-.tag-cloud {
+.side-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f8f5e6;
+  margin: 0 0 16px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.side-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 16px;
+  background: linear-gradient(180deg, #d4af37, #5a2d82);
+  border-radius: 2px;
+}
+
+.tags-cloud {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.tag-cloud-item {
-  padding: 8px 16px;
-  background: var(--bg-secondary);
-  border-radius: 20px;
-  font-size: 13px;
-  color: var(--text-secondary);
+.tag-item {
+  padding: 6px 14px;
+  background: #171225;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 16px;
+  font-size: 12px;
+  color: #d4c9a8;
   cursor: pointer;
   transition: all 0.2s ease;
-  border: 1px solid var(--border-subtle);
 }
 
-.tag-cloud-item:hover {
-  background: var(--accent-purple);
-  border-color: var(--accent-purple);
-  color: white;
+.tag-item:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: #d4af37;
+  color: #d4af37;
   transform: translateY(-1px);
 }
 
-.activity-feed {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.activity-item {
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.activity-item:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.activity-title {
-  font-size: 14px;
-  color: var(--text-primary);
-  margin-bottom: 4px;
-  line-height: 1.4;
-}
-
-.activity-desc {
-  font-size: 12px;
-  color: var(--text-muted);
+.create-link {
+  text-decoration: none;
+  display: block;
 }
 
 .create-card {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.20), rgba(236, 72, 153, 0.20));
-  border: 2px dashed rgba(168, 85, 247, 0.45);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(90, 45, 130, 0.15));
+  border: 2px dashed rgba(212, 175, 55, 0.4);
+  border-radius: 14px;
+  padding: 24px 20px;
   text-align: center;
-  padding: 36px 24px;
-  border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
+  outline-color: #d4af37;
 }
 
 .create-card:hover {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.30), rgba(236, 72, 153, 0.30));
-  border-color: var(--accent-purple);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.2);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(90, 45, 130, 0.25));
+  border-color: #d4af37;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
 }
 
 .create-icon {
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 16px;
-  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 12px;
+  background: linear-gradient(135deg, #d4af37, #5a2d82);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
-  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.4);
+  font-size: 28px;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
 }
 
 .create-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 8px;
-  color: var(--text-primary);
+  color: #f8f5e6;
+  margin-bottom: 6px;
 }
 
 .create-desc {
-  font-size: 14px;
-  color: var(--text-secondary);
+  font-size: 13px;
+  color: #d4c9a8;
 }
 
 /* 响应式 */
-@media (max-width: 1600px) {
-  .story-grid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  }
-}
-
 @media (max-width: 1200px) {
-  .main-layout {
+  .grid {
     grid-template-columns: 1fr;
   }
-  .sidebar {
-    display: none;
+  .ranking-card {
+    height: auto;
   }
-  .story-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .ranking-list {
+    gap: 8px;
+  }
+  .stories-grid {
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  }
+  .banner-content {
+    max-width: 100%;
   }
 }
 
 @media (max-width: 900px) {
-  .story-grid {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+  .stories-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .container {
-    padding: 0 16px;
+  .wrapper {
+    padding: 16px;
+  }
+  .banner, .ranking-card {
+    height: 320px;
   }
   .banner-content {
-    padding: 24px;
-    max-width: 100%;
+    padding: 28px;
   }
-  .banner-title {
-    font-size: 28px;
+  .banner-content .title {
+    font-size: 36px;
   }
-  .banner-desc {
-    font-size: 14px;
-    max-width: 100%;
+  .card {
+    padding: 20px;
   }
-  .banner-container {
-    height: 280px;
-  }
-  .story-grid {
+  .stories-grid {
     grid-template-columns: 1fr;
   }
-  .main-layout {
-    gap: 32px;
-  }
 }
 
-/* 进入动画 */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* 入场动画 */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.content-section {
-  animation: fadeInUp 0.6s ease both;
-}
-
-.side-card {
-  animation: fadeInUp 0.6s ease both;
-}
+.banner-block { animation: fadeUp 0.5s ease both; }
+.section { animation: fadeUp 0.6s ease both; }
+.ranking-card { animation: fadeUp 0.5s ease both; }
+.side-card { animation: fadeUp 0.6s ease both; }
 </style>

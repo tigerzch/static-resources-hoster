@@ -38,3 +38,5 @@ This is a static resource hosting portal - a Vue.js frontend application that se
 ## 代码编辑原则
 - 忽略dist目录，这个目录是构建目录，我让你构建的时候再构建
 - 在每次会话没有明确我们在进行哪个项目的编辑时，询问我
+- 尽量用shadcn-vue的组件+tailwindcss来绘制页面
+- 加载frontend-design 这个skill
