@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XTALE - 故事阅读平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="home/css.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-inner">
+                <div class="nav-left">
+                    <div class="nav-brand">
+                        <span class="nav-logo">XTALE</span>
+                    </div>
+                    <div class="nav-search">
+                        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <input type="text" placeholder="搜索故事、作者、标签..." class="search-input">
+                    </div>
+                </div>
+                <div class="nav-right">
+                    <div class="nav-links">
+                        <a href="#" class="nav-link active">首页</a>
+                    </div>
+                    <div class="nav-actions">
+                        <button class="btn-primary">登录</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Main Layout: Left + Right -->
+            <div class="main-layout-grid">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Hero Carousel -->
+                    <section class="hero-carousel-section">
+                        <div class="hero-banner">
+                            <div class="hero-inner">
+                                <div class="hero-cover">
+                                    <div class="hero-cover-placeholder">
+                                        <span>🏔️</span>
+                                    </div>
+                                </div>
+                                <div class="hero-content">
+                                    <div class="hero-badge"></div>
+                                    <h1 class="hero-title">尘缘仙途</h1>
+                                    <p class="hero-desc">一个凡夫俗子意外踏入修真世界，靠着奇遇与坚持，一步步走出属于自己的仙路传奇。</p>
+                                    <div class="hero-tags">
+                                        <span class="tag">仙侠</span>
+                                        <span class="tag">长篇</span>
+                                        <span class="tag">连载中</span>
+                                    </div>
+                                    <div class="hero-actions">
+                                        <button class="btn-primary btn-large">立即阅读</button>
+                                        <button class="btn-secondary btn-large">收藏</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-dots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </section>
+
+                    <!-- Category Tabs -->
+                    <section class="category-section">
+                        <div class="category-header">
+                            <h2 class="section-title">分类浏览</h2>
+                            <a href="#" class="section-link">全部分类 →</a>
+                        </div>
+                        <div class="category-tabs">
+                            <button class="category-tab active">全部</button>
+                            <button class="category-tab">仙侠</button>
+                            <button class="category-tab">都市</button>
+                            <button class="category-tab">言情</button>
+                            <button class="category-tab">悬疑</button>
+                            <button class="category-tab">科幻</button>
+                            <button class="category-tab">历史</button>
+                            <button class="category-tab">校园</button>
+                            <button class="category-tab">玄幻</button>
+                            <button class="category-tab">武侠</button>
+                        </div>
+                    </section>
+
+                    <!-- Featured Stories -->
+                    <section class="stories-section">
+                        <div class="section-header">
+                            <div class="section-title-wrap">
+                                <span class="section-icon">🔥</span>
+                                <h2 class="section-title">推荐故事</h2>
+                            </div>
+                            <a href="#" class="section-link">查看全部 →</a>
+                        </div>
+                        <div class="stories-grid">
+                            <div class="story-card">
+                                <div class="story-cover">
+                                    <div class="cover-placeholder" style="background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);">
+                                        <span>⛰️</span>
+                                    </div>
+                                    <div class="story-badge">热门</div>
+                                </div>
+                                <div class="story-info">
+                                    <h3 class="story-title">青冥之上</h3>
+                                    <p class="story-desc">少年苦修，走出大荒，在这一个浩大的世界里展开波澜壮阔的画卷。</p>
+                                    <div class="story-meta">
+                                        <span class="meta-tag">仙侠</span>
+                                        <span class="meta-tag">连载</span>
+                                        <span class="meta-views">128.5w</span>
+                                    </div>
+                                    <div class="story-footer">
+                                        <div class="story-stats">
+                                            <span>❤️ 3.2w</span>
+                                        </div>
+                                        <button class="btn-outline">继续阅读</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="story-card">
+                                <div class="story-cover">
+                                    <div class="cover-placeholder" style="background: linear-gradient(135deg, #5f1e1e 0%, #2a0f0f 100%);">
+                                        <span>🏙️</span>
+                                    </div>
+                                    <div class="story-badge">新作</div>
+                                </div>
+                                <div class="story-info">
+                                    <h3 class="story-title">霓虹灯下</h3>
+                                    <p class="story-desc">繁华大都市，小人物的挣扎史，从一无所有到商业巨鳄，一路上的酸甜苦辣。</p>
+                                    <div class="story-meta">
+                                        <span class="meta-tag">都市</span>
+                                        <span class="meta-tag">完结</span>
+                                        <span class="meta-views">89.2w</span>
+                                    </div>
+                                    <div class="story-footer">
+                                        <div class="story-stats">
+                                            <span>❤️ 2.1w</span>
+                                        </div>
+                                        <button class="btn-outline">开始阅读</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="story-card">
+                                <div class="story-cover">
+                                    <div class="cover-placeholder" style="background: linear-gradient(135deg, #1e4f5f 0%, #0f2a2a 100%);">
+                                        <span>🚀</span>
+                                    </div>
+                                </div>
+                                <div class="story-info">
+                                    <h3 class="story-title">深空彼岸</h3>
+                                    <p class="story-desc">星辰大海的征途，探索宇宙深处的未知文明，揭开人类起源的秘密。</p>
+                                    <div class="story-meta">
+                                        <span class="meta-tag">科幻</span>
+                                        <span class="meta-tag">连载</span>
+                                        <span class="meta-views">76.8w</span>
+                                    </div>
+                                    <div class="story-footer">
+                                        <div class="story-stats">
+                                            <span>❤️ 1.8w</span>
+                                        </div>
+                                        <button class="btn-outline">继续阅读</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="story-card">
+                                <div class="story-cover">
+                                    <div class="cover-placeholder" style="background: linear-gradient(135deg, #4f1e5f 0%, #2a0f2a 100%);">
+                                        <span>👻</span>
+                                    </div>
+                                </div>
+                                <div class="story-info">
+                                    <h3 class="story-title">深瞳诡影</h3>
+                                    <p class="story-desc">大侦探时代，诡异案件接连发生，寻找线索中的线索，解开谜团中的谜团。</p>
+                                    <div class="story-meta">
+                                        <span class="meta-tag">悬疑</span>
+                                        <span class="meta-tag">连载</span>
+                                        <span class="meta-views">65.3w</span>
+                                    </div>
+                                    <div class="story-footer">
+                                        <div class="story-stats">
+                                            <span>❤️ 1.5w</span>
+                                        </div>
+                                        <button class="btn-outline">继续阅读</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="story-card">
+                                <div class="story-cover">
+                                    <div class="cover-placeholder" style="background: linear-gradient(135deg, #3d5f1e 0%, #1a2a0f 100%);">
+                                        <span>⚔️</span>
+                                    </div>
+                                </div>
+                                <div class="story-info">
+                                    <h3 class="story-title">拳镇</h3>
+                                    <p class="story-desc">乱世争雄一步步打属于自己的王座，铁血战斗与柔情故事交织。</p>
+                                    <div class="story-meta">
+                                        <span class="meta-tag">武侠</span>
+                                        <span class="meta-tag">完结</span>
+                                        <span class="meta-views">58.9w</span>
+                                    </div>
+                                    <div class="story-footer">
+                                        <div class="story-stats">
+                                            <span>❤️ 1.2w</span>
+                                        </div>
+                                        <button class="btn-outline">开始阅读</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="story-card">
+                                <div class="story-cover">
+                                    <div class="cover-placeholder" style="background: linear-gradient(135deg, #5f3d1e 0%, #2a1a0f 100%);">
+                                        <span>🧛</span>
+                                    </div>
+                                </div>
+                                <div class="story-info">
+                                    <h3 class="story-title">暗夜血族</h3>
+                                    <p class="story-desc">永生并非恩赐，有人在寻找黎明可以战胜永恒的诅咒，重获新生。</p>
+                                    <div class="story-meta">
+                                        <span class="meta-tag">玄幻</span>
+                                        <span class="meta-tag">连载</span>
+                                        <span class="meta-views">52.1w</span>
+                                    </div>
+                                    <div class="story-footer">
+                                        <div class="story-stats">
+                                            <span>❤️ 9865</span>
+                                        </div>
+                                        <button class="btn-outline">继续阅读</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Bottom Sections -->
+                    <div class="bottom-sections">
+                        <section class="updates-section">
+                            <div class="section-header">
+                                <div class="section-title-wrap">
+                                    <span class="section-icon">📚</span>
+                                    <h2 class="section-title">最新更新</h2>
+                                </div>
+                            </div>
+                            <div class="updates-list">
+                                <div class="update-item">
+                                    <div class="update-icon">📖</div>
+                                    <div class="update-content">
+                                        <h4 class="update-title">夏至未央的季节，多年后的再次相遇，当初的容颜是否依旧？</h4>
+                                        <span class="update-time">2分钟前</span>
+                                    </div>
+                                </div>
+                                <div class="update-item">
+                                    <div class="update-icon">📖</div>
+                                    <div class="update-content">
+                                        <h4 class="update-title">沉睡的真相——探索最后的遗迹，一个被遗忘的时代，真相究竟是什么？</h4>
+                                        <span class="update-time">15分钟前</span>
+                                    </div>
+                                </div>
+                                <div class="update-item">
+                                    <div class="update-icon">📖</div>
+                                    <div class="update-content">
+                                        <h4 class="update-title">山外人家 山林中隐居，每每日出日落都温馨的故事。</h4>
+                                        <span class="update-time">32分钟前</span>
+                                    </div>
+                                </div>
+                                <div class="update-item">
+                                    <div class="update-icon">📖</div>
+                                    <div class="update-content">
+                                        <h4 class="update-title">铁骑南下，天子守国门，君王死社稷的挽歌。</h4>
+                                        <span class="update-time">1小时前</span>
+                                    </div>
+                                </div>
+                                <div class="update-item">
+                                    <div class="update-icon">📖</div>
+                                    <div class="update-content">
+                                        <h4 class="update-title">星海学院，废柴的崛起之路，强者为尊的世界里努力生存。</h4>
+                                        <span class="update-time">2小时前</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="featured-section">
+                            <div class="section-header">
+                                <div class="section-title-wrap">
+                                    <span class="section-icon">✨</span>
+                                    <h2 class="section-title">热门精选</h2>
+                                </div>
+                            </div>
+                            <div class="featured-list">
+                                <div class="featured-item">
+                                    <span class="featured-icon">⚔️</span>
+                                    <div class="featured-text">
+                                        <h4>争锋江湖</h4>
+                                        <p>一入江湖深似海，回望已是百年身，展开江湖的波澜岁月。</p>
+                                    </div>
+                                </div>
+                                <div class="featured-item">
+                                    <span class="featured-icon">🏰</span>
+                                    <div class="featured-text">
+                                        <h4>权谋时代</h4>
+                                        <p>在历史的洪流中挣扎，再无人喝彩的舞台上独舞。</p>
+                                    </div>
+                                </div>
+                                <div class="featured-item">
+                                    <span class="featured-icon">🔬</span>
+                                    <div class="featured-text">
+                                        <h4>超新时代</h4>
+                                        <p>生物技术与人工智能的冲突，科技与人文伦理的思考。</p>
+                                    </div>
+                                </div>
+                                <div class="featured-item">
+                                    <span class="featured-icon">💕</span>
+                                    <div class="featured-text">
+                                        <h4>暗恋物语</h4>
+                                        <p>青春懵懂的悸动，藏在情书里的秘密，那些年的纯真爱恋。</p>
+                                    </div>
+                                </div>
+                                <div class="featured-item">
+                                    <span class="featured-icon">⏰</span>
+                                    <div class="featured-text">
+                                        <h4>时光之墟</h4>
+                                        <p>穿越时空的羁绊，在无数的时间线中寻找自我。</p>
+                                    </div>
+                                </div>
+                                <div class="featured-item">
+                                    <span class="featured-icon">🎭</span>
+                                    <div class="featured-text">
+                                        <h4>戏台春秋</h4>
+                                        <p>人生如戏，全靠演技，幕后的故事比舞台上更精彩。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- Right Column (Sticky) -->
+                <aside class="right-column">
+                    <div class="sticky-wrapper">
+                        <!-- Ranking -->
+                        <div class="sidebar-card">
+                            <div class="sidebar-header">
+                                <span class="sidebar-icon">🏆</span>
+                                <h3 class="sidebar-title">热门排行榜</h3>
+                            </div>
+                            <div class="ranking-list">
+                                <div class="ranking-item rank-1">
+                                    <span class="rank-num">1</span>
+                                    <div class="rank-content">
+                                        <h4 class="rank-title">尘缘仙途</h4>
+                                        <div class="rank-bar" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                <div class="ranking-item rank-2">
+                                    <span class="rank-num">2</span>
+                                    <div class="rank-content">
+                                        <h4 class="rank-title">青冥之上</h4>
+                                        <div class="rank-bar" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="ranking-item rank-3">
+                                    <span class="rank-num">3</span>
+                                    <div class="rank-content">
+                                        <h4 class="rank-title">深空彼岸</h4>
+                                        <div class="rank-bar" style="width: 72%"></div>
+                                    </div>
+                                </div>
+                                <div class="ranking-item">
+                                    <span class="rank-num">4</span>
+                                    <div class="rank-content">
+                                        <h4 class="rank-title">深瞳诡影</h4>
+                                        <div class="rank-bar" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                <div class="ranking-item">
+                                    <span class="rank-num">5</span>
+                                    <div class="rank-content">
+                                        <h4 class="rank-title">玫瑰契约</h4>
+                                        <div class="rank-bar" style="width: 52%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hot Tags -->
+                        <div class="sidebar-card">
+                            <div class="sidebar-header">
+                                <span class="sidebar-icon">🏷️</span>
+                                <h3 class="sidebar-title">热门标签</h3>
+                            </div>
+                            <div class="tags-cloud">
+                                <span class="hot-tag">玄幻</span>
+                                <span class="hot-tag">仙侠</span>
+                                <span class="hot-tag">都市</span>
+                                <span class="hot-tag">言情</span>
+                                <span class="hot-tag">悬疑</span>
+                                <span class="hot-tag">科幻</span>
+                                <span class="hot-tag">历史</span>
+                                <span class="hot-tag">校园</span>
+                                <span class="hot-tag">游戏</span>
+                                <span class="hot-tag">竞技</span>
+                            </div>
+                        </div>
+
+                        <!-- Create CTA -->
+                        <div class="sidebar-card create-card">
+                            <div class="create-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                </svg>
+                            </div>
+                            <h3 class="create-title">开始创作</h3>
+                            <p class="create-desc">写下你的故事，让世界看到</p>
+                            <a href="story-manager.html" class="btn-primary btn-large" style="width: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none;">立即创作</a>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="sidebar-card stats-card">
+                            <div class="sidebar-header">
+                                <span class="sidebar-icon">📊</span>
+                                <h3 class="sidebar-title">站点数据</h3>
+                            </div>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number">128</div>
+                                    <div class="stat-label">故事总数</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">86</div>
+                                    <div class="stat-label">作者人数</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">2500k+</div>
+                                    <div class="stat-label">总阅读量</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">150k+</div>
+                                    <div class="stat-label">收藏次数</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">帮助中心</a>
+                <a href="#">用户协议</a>
+                <a href="#">隐私政策</a>
+            </div>
+            <p class="footer-copyright">© 2025 XTALE. 专注于优质故事创作与分享. All rights reserved.</p>
+            <p class="footer-back">返回主站首页</p>
+        </div>
+    </footer>
+
+    <script src="home/js.js"></script>
+</body>
+</html>

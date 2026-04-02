@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XTALE - 故事编辑</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="story-detail/css.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <main class="detail-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="detail-header">
+                <div class="detail-header-left">
+                    <h1 class="detail-title">小雷音寺</h1>
+                    <div class="detail-badges">
+                        <button class="detail-badge-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </button>
+                        <span class="detail-badge">仙侠武林</span>
+                    </div>
+                </div>
+                <div class="detail-header-right">
+                    <button class="btn-back">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                        返回
+                    </button>
+                    <button class="btn-save">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                            <polyline points="17 21 17 13 7 13 7 21"/>
+                            <polyline points="7 3 7 8 15 8"/>
+                        </svg>
+                        保存
+                    </button>
+                </div>
+            </div>
+
+            <!-- Story Info Card -->
+            <div class="info-card">
+                <div class="info-card-main">
+                    <div class="info-row">
+                        <div class="info-field">
+                            <label class="info-label">所属世界观 <span class="required">*</span></label>
+                            <select class="info-select">
+                                <option>仙侠武林</option>
+                                <option>修仙大世界</option>
+                                <option>都市异能</option>
+                                <option>星际未来</option>
+                            </select>
+                        </div>
+                        <div class="info-field">
+                            <label class="info-label">创作状态 <span class="required">*</span></label>
+                            <select class="info-select">
+                                <option>草稿</option>
+                                <option>连载中</option>
+                                <option>已完结</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="info-field">
+                        <label class="info-label">故事背景</label>
+                        <textarea class="info-textarea" rows="4" placeholder="输入故事背景...">唐僧师徒四人西天取经，误入小雷音寺，黄眉老怪设下陷阱，孙悟空如何才能破局？</textarea>
+                        <div class="char-count">32 / 500</div>
+                    </div>
+                </div>
+                <div class="info-card-side">
+                    <div class="cover-upload">
+                        <label class="cover-label">故事封面</label>
+                        <div class="cover-area">
+                            <div class="cover-placeholder">
+                                <div class="cover-icon">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                                    </svg>
+                                </div>
+                                <span class="cover-text">点击上传封面</span>
+                                <span class="cover-hint">推荐 3:4 比例</span>
+                            </div>
+                        </div>
+                        <div class="cover-footer">
+                            <span class="cover-footer-text">墨香共丹青，画卷展乾坤</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chapters Section -->
+            <div class="chapters-section">
+                <div class="chapters-header">
+                    <h2 class="chapters-title">章节管理</h2>
+                    <button class="btn-add-chapter">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        新增章节
+                    </button>
+                </div>
+                <div class="chapters-grid">
+                    <!-- Chapter Card 1 -->
+                    <div class="chapter-card">
+                        <div class="chapter-top">
+                            <span class="chapter-number">第一章</span>
+                        </div>
+                        <div class="chapter-content">
+                            <h3 class="chapter-title">误入小雷音</h3>
+                            <p class="chapter-desc">唐僧师徒四人来到小雷音寺...</p>
+                            <div class="chapter-meta">
+                                <span class="chapter-words">3,245 字</span>
+                                <span class="chapter-status chapter-status-published">已发布</span>
+                            </div>
+                            <div class="chapter-date">2026-03-17 18:20</div>
+                        </div>
+                        <div class="chapter-actions">
+                            <button class="chapter-action-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                            <button class="chapter-action-btn chapter-action-edit">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                </svg>
+                            </button>
+                            <button class="chapter-action-btn chapter-action-delete">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chapter Card 2 -->
+                    <div class="chapter-card">
+                        <div class="chapter-top">
+                            <span class="chapter-number">第二章</span>
+                        </div>
+                        <div class="chapter-content">
+                            <h3 class="chapter-title">弥勒佛降临</h3>
+                            <p class="chapter-desc">正当孙悟空一筹莫展之时...</p>
+                            <div class="chapter-meta">
+                                <span class="chapter-words">2,876 字</span>
+                                <span class="chapter-status chapter-status-draft">草稿</span>
+                            </div>
+                            <div class="chapter-date">2026-03-17 20:15</div>
+                        </div>
+                        <div class="chapter-actions">
+                            <button class="chapter-action-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                            <button class="chapter-action-btn chapter-action-edit">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                </svg>
+                            </button>
+                            <button class="chapter-action-btn chapter-action-delete">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="story-detail/js.js"></script>
+</body>
+</html>

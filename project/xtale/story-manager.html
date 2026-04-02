@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XTALE - 故事创作工坊</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="story-manager/css.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+
+    <main class="workshop-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">故事创作工坊</h1>
+                    <p class="page-subtitle">管理和创作你的故事作品</p>
+                </div>
+                <button class="btn-primary btn-large">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    创建新故事
+                </button>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-search">
+                    <svg class="filter-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" placeholder="搜索故事名称或描述..." class="filter-input">
+                </div>
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <span class="filter-label">状态:</span>
+                        <select class="filter-select">
+                            <option>所有状态</option>
+                            <option>连载中</option>
+                            <option>已完结</option>
+                            <option>草稿</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">世界观:</span>
+                        <select class="filter-select">
+                            <option>全部世界观</option>
+                            <option>修仙大世界</option>
+                            <option>都市异能</option>
+                            <option>星际未来</option>
+                        </select>
+                    </div>
+                    <button class="btn-outline filter-reset">重置</button>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-label">总故事数</span>
+                    <span class="stat-value">4</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">连载中</span>
+                    <span class="stat-value stat-value-green">1</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">已完结</span>
+                    <span class="stat-value stat-value-blue">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">草稿</span>
+                    <span class="stat-value stat-value-gray">3</span>
+                </div>
+            </div>
+
+            <!-- Stories Grid -->
+            <div class="workshop-stories-grid">
+                <!-- Story Card 1 -->
+                <div class="workshop-story-card">
+                    <div class="workshop-card-left">
+                        <div class="workshop-story-cover">
+                            <div class="workshop-cover-placeholder" style="background: linear-gradient(135deg, #1e1e2e 0%, #2d1f3d 100%);">
+                                <span>📖</span>
+                            </div>
+                        </div>
+                        <button class="workshop-status-btn workshop-status-draft">
+                            <span class="status-dot"></span>
+                            草稿
+                        </button>
+                    </div>
+                    <div class="workshop-card-right">
+                        <h3 class="workshop-story-title">尘缘仙途</h3>
+                        <p class="workshop-story-desc">一个凡夫俗子意外踏入修真世界，靠着奇遇与坚持，一步步走出属于自己的仙路传奇。</p>
+                        <div class="workshop-story-meta">
+                            <div class="world-tag">
+                                <span class="world-dot"></span>
+                                修仙大世界
+                            </div>
+                            <div class="workshop-story-author">云游子</div>
+                        </div>
+                        <div class="workshop-story-tags">
+                            <span class="workshop-tag">#仙侠</span>
+                            <span class="workshop-tag">#修真</span>
+                            <span class="workshop-tag">#长篇</span>
+                        </div>
+                        <div class="workshop-story-actions">
+                            <button class="btn-action">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                详情
+                            </button>
+                            <button class="btn-action btn-action-delete">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Story Card 2 -->
+                <div class="workshop-story-card workshop-card-active">
+                    <div class="workshop-card-left">
+                        <div class="workshop-story-cover">
+                            <div class="workshop-cover-placeholder" style="background: linear-gradient(135deg, #1e2e2e 0%, #1f3d2d 100%);">
+                                <span>📖</span>
+                            </div>
+                        </div>
+                        <button class="workshop-status-btn workshop-status-published">
+                            <span class="status-dot"></span>
+                            连载中
+                        </button>
+                    </div>
+                    <div class="workshop-card-right">
+                        <h3 class="workshop-story-title">城市异闻录</h3>
+                        <p class="workshop-story-desc">繁华都市的阴影下，隐藏着不为人知的秘密。平凡上班族意外卷入超凡事件。</p>
+                        <div class="workshop-story-meta">
+                            <div class="world-tag">
+                                <span class="world-dot"></span>
+                                修仙大世界
+                            </div>
+                            <div class="workshop-story-author">城南旧梦</div>
+                        </div>
+                        <div class="workshop-story-tags">
+                            <span class="workshop-tag">#都市</span>
+                            <span class="workshop-tag">#悬疑</span>
+                            <span class="workshop-tag">#新人新作</span>
+                        </div>
+                        <div class="workshop-story-actions">
+                            <button class="btn-action">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                详情
+                            </button>
+                            <button class="btn-action btn-action-delete">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Story Card 3 -->
+                <div class="workshop-story-card">
+                    <div class="workshop-card-left">
+                        <div class="workshop-story-cover">
+                            <div class="workshop-cover-placeholder" style="background: linear-gradient(135deg, #2e1e2e 0%, #3d1f2d 100%);">
+                                <span>📖</span>
+                            </div>
+                        </div>
+                        <button class="workshop-status-btn workshop-status-draft">
+                            <span class="status-dot"></span>
+                            草稿
+                        </button>
+                    </div>
+                    <div class="workshop-card-right">
+                        <h3 class="workshop-story-title">玫瑰往事</h3>
+                        <p class="workshop-story-desc">多年后的重逢，勾起了青春年少的回忆。那段被时光掩埋的秘密，该如何面对？</p>
+                        <div class="workshop-story-meta">
+                            <div class="world-tag">
+                                <span class="world-dot"></span>
+                                修仙大世界
+                            </div>
+                            <div class="workshop-story-author">夜微凉</div>
+                        </div>
+                        <div class="workshop-story-tags">
+                            <span class="workshop-tag">#言情</span>
+                            <span class="workshop-tag">#完结</span>
+                            <span class="workshop-tag">#经典</span>
+                        </div>
+                        <div class="workshop-story-actions">
+                            <button class="btn-action">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                详情
+                            </button>
+                            <button class="btn-action btn-action-delete">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Story Card 4 -->
+                <div class="workshop-story-card">
+                    <div class="workshop-card-left">
+                        <div class="workshop-story-cover">
+                            <div class="workshop-cover-placeholder" style="background: linear-gradient(135deg, #1e1e3e 0%, #1f2d4d 100%);">
+                                <span>📖</span>
+                            </div>
+                        </div>
+                        <button class="workshop-status-btn workshop-status-draft">
+                            <span class="status-dot"></span>
+                            草稿
+                        </button>
+                    </div>
+                    <div class="workshop-card-right">
+                        <h3 class="workshop-story-title">深空彼岸</h3>
+                        <p class="workshop-story-desc">星辰舰长的冒险之旅，探索宇宙深处的未知文明，揭开人类起源的秘密。</p>
+                        <div class="workshop-story-meta">
+                            <div class="world-tag">
+                                <span class="world-dot"></span>
+                                星际牛仔
+                            </div>
+                        </div>
+                        <div class="workshop-story-tags">
+                            <span class="workshop-tag">#科幻</span>
+                            <span class="workshop-tag">#探险</span>
+                            <span class="workshop-tag">#宇宙</span>
+                        </div>
+                        <div class="workshop-story-actions">
+                            <button class="btn-action">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                详情
+                            </button>
+                            <button class="btn-action btn-action-delete">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="pagination-btn pagination-prev">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    上一页
+                </button>
+                <div class="pagination-numbers">
+                    <button class="pagination-number active">1</button>
+                </div>
+                <button class="pagination-btn pagination-next">
+                    下一页
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="pagination-info">
+                第 1 / 1 页 · 共 4 个故事
+            </div>
+        </div>
+    </main>
+
+    <script src="story-manager/js.js"></script>
+</body>
+</html>
