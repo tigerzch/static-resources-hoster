@@ -17,34 +17,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Add goal row
-    const addGoalBtn = document.querySelector('.goals-table + .btn-add-row');
-    const goalsTable = document.querySelector('.goals-table');
+    // Add goal card
+    const addGoalBtn = document.querySelector('.goal-add-btn');
+    const goalsGrid = document.querySelector('.goals-grid');
 
-    if (addGoalBtn && goalsTable) {
+    if (addGoalBtn && goalsGrid) {
         addGoalBtn.addEventListener('click', function() {
-            const goalRow = document.createElement('div');
-            goalRow.className = 'goal-row';
-            goalRow.innerHTML = `
-                <div class="col-desc">
-                    <textarea class="form-textarea-inline" rows="2" placeholder="描述这个目标要做什么"></textarea>
+            const addCard = goalsGrid.querySelector('.goal-card-add');
+            const goalCard = document.createElement('div');
+            goalCard.className = 'goal-card';
+            goalCard.innerHTML = `
+                <div class="goal-card-content">
+                    <textarea class="goal-card-input" placeholder="输入目标描述"></textarea>
                 </div>
-                <div class="col-required">
-                    <label class="toggle-switch">
+                <div class="goal-card-footer">
+                    <label class="goal-card-toggle">
                         <input type="checkbox">
-                        <span class="slider"></span>
+                        <span class="goal-card-toggle-slider"></span>
+                        <span class="goal-card-toggle-label">必须完成</span>
                     </label>
-                </div>
-                <div class="col-action">
-                    <button class="btn-icon" onclick="deleteRow(this)">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <button class="goal-card-delete" onclick="deleteGoal(this)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="3 6 5 6 21 6"/>
                             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                         </svg>
                     </button>
                 </div>
             `;
-            goalsTable.appendChild(goalRow);
+            goalsGrid.insertBefore(goalCard, addCard);
         });
     }
 
@@ -124,13 +124,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Delete row function
 function deleteRow(btn) {
-    const row = btn.closest('.goal-row, .param-row');
+    const row = btn.closest('.param-row');
     if (row) {
         row.style.opacity = '0';
         row.style.transform = 'translateX(-20px)';
         row.style.transition = 'all 0.2s ease';
         setTimeout(() => {
             row.remove();
+        }, 200);
+    }
+}
+
+// Delete goal function
+function deleteGoal(btn) {
+    const goalCard = btn.closest('.goal-card');
+    if (goalCard) {
+        goalCard.style.opacity = '0';
+        goalCard.style.transform = 'scale(0.95)';
+        goalCard.style.transition = 'all 0.2s ease';
+        setTimeout(() => {
+            goalCard.remove();
         }, 200);
     }
 }

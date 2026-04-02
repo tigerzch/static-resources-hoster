@@ -100,39 +100,35 @@
                     <p class="section-desc">定义本章需要达成的目标，支持添加多个目标</p>
                 </div>
                 <div class="section-content">
-                    <div class="goals-table">
-                        <div class="table-header">
-                            <span class="col-desc">目标描述</span>
-                            <span class="col-required">必须完成</span>
-                            <span class="col-action">操作</span>
-                        </div>
-                        <div class="goal-row">
-                            <div class="col-desc">
-                                <textarea class="form-textarea-inline" rows="2" placeholder="描述这个目标要做什么，比如：找到村庄里的神秘老人"></textarea>
+                    <div class="goals-grid">
+                        <div class="goal-card">
+                            <div class="goal-card-content">
+                                <textarea class="goal-card-input" placeholder="输入目标描述">找到村庄里的神秘老人</textarea>
                             </div>
-                            <div class="col-required">
-                                <label class="toggle-switch">
+                            <div class="goal-card-footer">
+                                <label class="goal-card-toggle">
                                     <input type="checkbox" checked>
-                                    <span class="slider"></span>
+                                    <span class="goal-card-toggle-slider"></span>
+                                    <span class="goal-card-toggle-label">必须完成</span>
                                 </label>
-                            </div>
-                            <div class="col-action">
-                                <button class="btn-icon">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <button class="goal-card-delete">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <polyline points="3 6 5 6 21 6"/>
                                         <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                                     </svg>
                                 </button>
                             </div>
                         </div>
+                        <div class="goal-card goal-card-add">
+                            <button class="goal-add-btn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <span>添加目标</span>
+                            </button>
+                        </div>
                     </div>
-                    <button class="btn-add-row">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                        </svg>
-                        添加章节目标
-                    </button>
                     <div class="info-tip">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
