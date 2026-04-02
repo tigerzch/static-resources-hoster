@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XTALE - 世界观管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="world-list/css.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <main class="world-list-content">
+        <div class="container">
+            <!-- Back Navigation -->
+            <div class="back-nav">
+                <a href="story-manager.html" class="back-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    返回创作工坊
+                </a>
+            </div>
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">世界观管理</h1>
+                    <p class="page-subtitle">管理和维护所有故事世界观设定，统一世界背景数据</p>
+                </div>
+                <button class="btn-primary btn-large">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    新增世界观
+                </button>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-search">
+                    <svg class="filter-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" placeholder="搜索世界观名称..." class="filter-input">
+                </div>
+                <div class="filter-controls">
+                    <select class="filter-select">
+                        <option>全部状态</option>
+                        <option>启用中</option>
+                        <option>草稿</option>
+                        <option>已关闭</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>排序方式</option>
+                        <option>最新更新</option>
+                        <option>名称排序</option>
+                        <option>数据量</option>
+                    </select>
+                    <button class="btn-outline filter-reset">重置筛选</button>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-label">世界观总数</span>
+                        <span class="stat-icon stat-icon-blue">🗄️</span>
+                    </div>
+                    <div class="stat-value">36</div>
+                    <div class="stat-change stat-change-up">↑ 3 较上月</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-label">启用中</span>
+                        <span class="stat-icon stat-icon-green">✓</span>
+                    </div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-change stat-change-up">↑ 2 较上月</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-label">草稿</span>
+                        <span class="stat-icon stat-icon-yellow">⬜</span>
+                    </div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-change stat-change-up">↑ 1 较上月</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-label">总数据字段</span>
+                        <span class="stat-icon stat-icon-red">—</span>
+                    </div>
+                    <div class="stat-value">2,847</div>
+                    <div class="stat-change stat-change-up">↑ 12.5% 较上月</div>
+                </div>
+            </div>
+
+            <!-- World Cards Grid -->
+            <div class="world-grid">
+                <!-- World Card 1 -->
+                <div class="world-card">
+                    <div class="world-cover" style="background: linear-gradient(135deg, #3d2466 0%, #1a1a2e 100%);">
+                        <span class="world-emoji">🌌</span>
+                        <span class="world-badge world-badge-active">启用中</span>
+                    </div>
+                    <div class="world-content">
+                        <h3 class="world-title">仙侠修真世界</h3>
+                        <p class="world-desc">一个以修真悟道为核心的古典仙侠世界，包含完整的修炼体系、仙家门派、法宝丹药等设定。</p>
+                        <div class="world-stats">
+                            <div class="world-stat">
+                                <span class="world-stat-num">286</span>
+                                <span class="world-stat-label">角色</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">152</span>
+                                <span class="world-stat-label">地点</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">98</span>
+                                <span class="world-stat-label">物品</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">45</span>
+                                <span class="world-stat-label">事件</span>
+                            </div>
+                        </div>
+                        <div class="world-footer">
+                            <div class="world-author">
+                                <span class="author-icon">👤</span>
+                                <span>创世笔主</span>
+                            </div>
+                            <div class="world-actions">
+                                <span class="world-date">更新于 2026-03-28</span>
+                                <button class="btn-world-edit">编辑</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- World Card 2 -->
+                <div class="world-card">
+                    <div class="world-cover" style="background: linear-gradient(135deg, #1a3a4a 0%, #1a2a3a 100%);">
+                        <span class="world-emoji">🚀</span>
+                        <span class="world-badge world-badge-active">启用中</span>
+                    </div>
+                    <div class="world-content">
+                        <h3 class="world-title">星际科幻宇宙</h3>
+                        <p class="world-desc">未来星际殖民时代，多个星际文明在银河中争霸，人类联邦探索未知星域，发现远古遗迹。</p>
+                        <div class="world-stats">
+                            <div class="world-stat">
+                                <span class="world-stat-num">164</span>
+                                <span class="world-stat-label">角色</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">89</span>
+                                <span class="world-stat-label">地点</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">127</span>
+                                <span class="world-stat-label">物品</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">63</span>
+                                <span class="world-stat-label">事件</span>
+                            </div>
+                        </div>
+                        <div class="world-footer">
+                            <div class="world-author">
+                                <span class="author-icon">👤</span>
+                                <span>银河舰长</span>
+                            </div>
+                            <div class="world-actions">
+                                <span class="world-date">更新于 2026-03-25</span>
+                                <button class="btn-world-edit">编辑</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- World Card 3 -->
+                <div class="world-card">
+                    <div class="world-cover" style="background: linear-gradient(135deg, #4a3424 0%, #2a201a 100%);">
+                        <span class="world-emoji">⚔️</span>
+                        <span class="world-badge world-badge-draft">草稿</span>
+                    </div>
+                    <div class="world-content">
+                        <h3 class="world-title">江湖武侠世界</h3>
+                        <p class="world-desc">江湖恩怨，武林争霸，各大门派纷争不断，一个少年侠客的成长之路。</p>
+                        <div class="world-stats">
+                            <div class="world-stat">
+                                <span class="world-stat-num">95</span>
+                                <span class="world-stat-label">角色</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">68</span>
+                                <span class="world-stat-label">地点</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">87</span>
+                                <span class="world-stat-label">物品</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">32</span>
+                                <span class="world-stat-label">事件</span>
+                            </div>
+                        </div>
+                        <div class="world-footer">
+                            <div class="world-author">
+                                <span class="author-icon">👤</span>
+                                <span>刀光剑影</span>
+                            </div>
+                            <div class="world-actions">
+                                <span class="world-date">更新于 2026-03-20</span>
+                                <button class="btn-world-edit">编辑</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- World Card 4 -->
+                <div class="world-card">
+                    <div class="world-cover" style="background: linear-gradient(135deg, #1a4a3a 0%, #1a2a2a 100%);">
+                        <span class="world-emoji">🏙️</span>
+                        <span class="world-badge world-badge-active">启用中</span>
+                    </div>
+                    <div class="world-content">
+                        <h3 class="world-title">现代都市异能</h3>
+                        <p class="world-desc">现代都市中隐藏着超凡能力者，主角意外觉醒能力，卷入一场跨越百年的阴谋。</p>
+                        <div class="world-stats">
+                            <div class="world-stat">
+                                <span class="world-stat-num">128</span>
+                                <span class="world-stat-label">角色</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">47</span>
+                                <span class="world-stat-label">地点</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">63</span>
+                                <span class="world-stat-label">物品</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">41</span>
+                                <span class="world-stat-label">事件</span>
+                            </div>
+                        </div>
+                        <div class="world-footer">
+                            <div class="world-author">
+                                <span class="author-icon">👤</span>
+                                <span>都市异人</span>
+                            </div>
+                            <div class="world-actions">
+                                <span class="world-date">更新于 2026-03-18</span>
+                                <button class="btn-world-edit">编辑</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- World Card 5 -->
+                <div class="world-card">
+                    <div class="world-cover" style="background: linear-gradient(135deg, #4a2424 0%, #2a1a1a 100%);">
+                        <span class="world-emoji">🧟</span>
+                        <span class="world-badge world-badge-closed">已关闭</span>
+                    </div>
+                    <div class="world-content">
+                        <h3 class="world-title">末世丧尸求生</h3>
+                        <p class="world-desc">病毒爆发，世界沦为废墟，幸存者在废墟中挣扎求生，寻找人类的未来。</p>
+                        <div class="world-stats">
+                            <div class="world-stat">
+                                <span class="world-stat-num">76</span>
+                                <span class="world-stat-label">角色</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">34</span>
+                                <span class="world-stat-label">地点</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">59</span>
+                                <span class="world-stat-label">物品</span>
+                            </div>
+                            <div class="world-stat">
+                                <span class="world-stat-num">28</span>
+                                <span class="world-stat-label">事件</span>
+                            </div>
+                        </div>
+                        <div class="world-footer">
+                            <div class="world-author">
+                                <span class="author-icon">👤</span>
+                                <span>末日行者</span>
+                            </div>
+                            <div class="world-actions">
+                                <span class="world-date">更新于 2026-02-15</span>
+                                <button class="btn-world-edit">编辑</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-wrapper">
+                <div class="pagination-info">
+                    显示 1 到 5 条，共 36 条记录
+                </div>
+                <div class="pagination-center">
+                    <button class="pagination-btn pagination-prev">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <div class="pagination-numbers">
+                        <button class="pagination-number active">1</button>
+                        <button class="pagination-number">2</button>
+                        <button class="pagination-number">3</button>
+                        <button class="pagination-number">4</button>
+                        <button class="pagination-number">5</button>
+                        <span class="pagination-dots">...</span>
+                        <button class="pagination-number">6</button>
+                    </div>
+                    <button class="pagination-btn pagination-next">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                <div class="pagination-select">
+                    <span class="pagination-select-label">每页显示</span>
+                    <select class="pagination-select-input">
+                        <option>6</option>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>50</option>
+                    </select>
+                    <span class="pagination-select-label">条</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="world-list/js.js"></script>
+</body>
+</html>
