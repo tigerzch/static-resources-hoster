@@ -12,45 +12,46 @@
     <div class="bg-gradient"></div>
 
     <main class="chapter-edit-content">
-        <div class="container">
-            <!-- Back Navigation -->
-            <div class="back-nav">
-                <a href="story-manager.html" class="back-btn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                    返回创作工坊
-                </a>
-            </div>
-
-            <!-- Page Header -->
-            <div class="page-header">
-                <h1 class="page-title">章节编辑</h1>
-                <div class="header-actions">
-                    <button class="btn-outline header-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.07-7.07l-1.41 1.41M8.34 15.66l-1.41 1.41m12.14 0l-1.41-1.41M8.34 8.34L6.93 6.93"/>
-                        </svg>
-                        数据申报
-                    </button>
-                    <button class="btn-secondary header-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                            <polyline points="17 21 17 13 7 13 7 21"/>
-                            <polyline points="7 3 7 8 15 8"/>
-                        </svg>
-                        保存草稿
-                    </button>
-                    <button class="btn-primary header-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                            <polyline points="7 10 12 15 17 10"/>
-                            <line x1="12" y1="15" x2="12" y2="3"/>
-                        </svg>
-                        章节发布
-                    </button>
+        <!-- Page Header (Sticky) -->
+        <div class="page-header-wrapper">
+            <div class="container">
+                <div class="page-header">
+                    <h1 class="page-title">章节编辑</h1>
+                    <div class="header-actions">
+                        <a href="story-detail.html" class="btn-outline header-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                            返回
+                        </a>
+                        <button class="btn-outline header-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.07-7.07l-1.41 1.41M8.34 15.66l-1.41 1.41m12.14 0l-1.41-1.41M8.34 8.34L6.93 6.93"/>
+                            </svg>
+                            数据申报
+                        </button>
+                        <button class="btn-secondary header-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                                <polyline points="17 21 17 13 7 13 7 21"/>
+                                <polyline points="7 3 7 8 15 8"/>
+                            </svg>
+                            保存草稿
+                        </button>
+                        <button class="btn-primary header-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            章节发布
+                        </button>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <div class="container">
 
             <!-- Two Column Layout -->
             <div class="two-columns-grid">
@@ -364,6 +365,41 @@
                             <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
                         </svg>
                         故事变量用于控制剧情中的动态环境和数值。玩家在游戏过程中，这些变量会影响场景表现、角色状态和事件触发。
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Plot Section -->
+            <section class="edit-section">
+                <div class="section-header">
+                    <h2 class="section-title">关键情节</h2>
+                    <p class="section-desc">用 # 标记角色、地点，一行一个情节</p>
+                </div>
+                <div class="section-content">
+                    <div class="key-plot-wide">
+                        <!-- Plot Lines -->
+                        <div class="plot-lines-wide" id="plotLines"></div>
+
+                        <!-- Input Area -->
+                        <div class="plot-input-wide-wrapper">
+                            <div class="plot-input-wide-line">
+                                <span class="plot-input-wide-num" id="nextLineNum">1</span>
+                                <input type="text" class="plot-input-wide" id="plotInput" placeholder="输入情节，用 # 标记实体...">
+                                <button class="plot-add-wide-btn" id="addPlotBtn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                    添加
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Entities -->
+                        <div class="entities-wide-bar" id="entitiesBar">
+                            <span class="entities-wide-label">本章实体</span>
+                            <div class="entities-wide-list" id="entitiesList"></div>
+                        </div>
                     </div>
                 </div>
             </section>

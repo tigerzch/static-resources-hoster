@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XTALE - 世界观导入 - 步骤1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="world-import/css.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <main class="world-import-content">
+        <div class="container">
+            <!-- Page Header with Back -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">世界观导入</h1>
+                    <p class="page-subtitle">通过AI智能分析，快速导入世界观设定</p>
+                </div>
+                <a href="world-list.html" class="btn-outline btn-large">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    返回
+                </a>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="step-item step-active" data-step="1">
+                    <div class="step-circle">
+                        <span class="step-number">1</span>
+                        <svg class="step-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="step-label">
+                        <span class="step-title">资料分析</span>
+                        <span class="step-status">进行中</span>
+                    </div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-item" data-step="2">
+                    <div class="step-circle">
+                        <span class="step-number">2</span>
+                        <svg class="step-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="step-label">
+                        <span class="step-title">实体分类</span>
+                        <span class="step-status">未开始</span>
+                    </div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-item" data-step="3">
+                    <div class="step-circle">
+                        <span class="step-number">3</span>
+                        <svg class="step-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="step-label">
+                        <span class="step-title">完成导入</span>
+                        <span class="step-status">未开始</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: File Upload & Analysis -->
+            <div class="step-content step-content-active">
+                <!-- Upload Section -->
+                <section class="import-section">
+                    <div class="section-header">
+                        <h2 class="section-title">文件上传</h2>
+                        <p class="section-desc">上传需要处理的世界观文档，支持多文件格式</p>
+                    </div>
+                    <div class="section-content">
+                        <!-- Upload Instructions -->
+                        <div class="upload-instructions">
+                            <div class="instruction-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 16 12 12 12 8"></polyline>
+                                </svg>
+                            </div>
+                            <div class="instruction-content">
+                                <h3 class="instruction-title">上传说明</h3>
+                                <ul class="instruction-list">
+                                    <li>支持多文件批量上传，单次最多上传20个文件</li>
+                                    <li>支持的文件格式：TXT、PDF、WORD（.doc/.docx）</li>
+                                    <li>单个文件大小不超过100MB，总上传大小不超过500MB</li>
+                                    <li>文件上传后将自动进入AI处理队列，无需人工值守</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Upload Area -->
+                        <div class="upload-area-wrapper">
+                            <div class="upload-area" id="uploadArea">
+                                <input type="file" id="fileInput" multiple accept=".txt,.pdf,.doc,.docx" hidden>
+                                <div class="upload-dropzone">
+                                    <div class="upload-icon">
+                                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </div>
+                                    <p class="upload-text">拖拽文件到此处上传</p>
+                                    <p class="upload-hint">或者点击下方按钮选择文件</p>
+                                    <button class="btn-primary btn-upload" id="selectFileBtn">
+                                        选择文件
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- File List -->
+                            <div class="file-list-section">
+                                <div class="file-list-header">
+                                    <span class="file-list-title">已上传文件 (<span id="fileCount">0</span>个)</span>
+                                    <button class="btn-clear-files" id="clearFilesBtn">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                        </svg>
+                                        清空列表
+                                    </button>
+                                </div>
+                                <div class="file-list" id="fileList">
+                                    <!-- File items will be added here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Start Analysis Button -->
+                        <div class="action-bar">
+                            <a href="world-import-step2.html" class="btn-primary btn-large btn-start-analysis" id="startAnalysisBtn" disabled>
+                                开始分析
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analysis Progress Section (initially hidden) -->
+                <section class="import-section analysis-section" id="analysisSection" style="display: none;">
+                    <div class="section-header">
+                        <h2 class="section-title">AI分析进行中</h2>
+                        <p class="section-desc">系统正在对上传的文件进行智能分析，请耐心等待...</p>
+                    </div>
+                    <div class="section-content">
+                        <!-- Analysis Progress Items -->
+                        <div class="analysis-progress-list">
+                            <div class="analysis-progress-item">
+                                <div class="analysis-progress-header">
+                                    <div class="analysis-progress-icon analysis-icon-blue">
+                                        <span>📖</span>
+                                    </div>
+                                    <div class="analysis-progress-info">
+                                        <h3 class="analysis-progress-title">资料学习</h3>
+                                        <p class="analysis-progress-desc">正在读取和解析文档中的内容...</p>
+                                    </div>
+                                    <div class="analysis-progress-status">
+                                        <span class="analysis-status-text">处理中</span>
+                                        <div class="spinner"></div>
+                                    </div>
+                                </div>
+                                <div class="analysis-progress-bar">
+                                    <div class="analysis-progress-fill" id="progress1" style="width: 0%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="analysis-progress-item">
+                                <div class="analysis-progress-header">
+                                    <div class="analysis-progress-icon analysis-icon-purple">
+                                        <span>🧬</span>
+                                    </div>
+                                    <div class="analysis-progress-info">
+                                        <h3 class="analysis-progress-title">实体抽取</h3>
+                                        <p class="analysis-progress-desc">智能识别文档中的实体和关系...</p>
+                                    </div>
+                                    <div class="analysis-progress-status">
+                                        <span class="analysis-status-text analysis-status-purple">等待中</span>
+                                    </div>
+                                </div>
+                                <div class="analysis-progress-bar">
+                                    <div class="analysis-progress-fill" id="progress2" style="width: 0%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="analysis-progress-item">
+                                <div class="analysis-progress-header">
+                                    <div class="analysis-progress-icon analysis-icon-green">
+                                        <span>🗃️</span>
+                                    </div>
+                                    <div class="analysis-progress-info">
+                                        <h3 class="analysis-progress-title">实体整理</h3>
+                                        <p class="analysis-progress-desc">对抽取的实体进行整理和去重...</p>
+                                    </div>
+                                    <div class="analysis-progress-status">
+                                        <span class="analysis-status-text analysis-status-green">等待中</span>
+                                    </div>
+                                </div>
+                                <div class="analysis-progress-bar">
+                                    <div class="analysis-progress-fill" id="progress3" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Next Step Button -->
+                        <div class="action-bar" style="margin-top: 1.5rem;">
+                            <a href="world-import-step2.html" class="btn-primary btn-large" id="nextStepFrom1Btn" style="display: none;">
+                                下一步：实体分类
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="world-import-step1/js.js"></script>
+</body>
+</html>

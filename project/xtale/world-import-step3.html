@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XTALE - 世界观导入 - 步骤3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="world-import/css.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <main class="world-import-content">
+        <div class="container">
+            <!-- Page Header with Back -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">世界观导入</h1>
+                    <p class="page-subtitle">通过AI智能分析，快速导入世界观设定</p>
+                </div>
+                <a href="world-list.html" class="btn-outline btn-large">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    返回
+                </a>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="step-item step-complete" data-step="1">
+                    <div class="step-circle">
+                        <span class="step-number">1</span>
+                        <svg class="step-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="step-label">
+                        <span class="step-title">资料分析</span>
+                        <span class="step-status">已完成</span>
+                    </div>
+                </div>
+                <div class="step-line line-complete"></div>
+                <div class="step-item step-complete" data-step="2">
+                    <div class="step-circle">
+                        <span class="step-number">2</span>
+                        <svg class="step-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="step-label">
+                        <span class="step-title">实体分类</span>
+                        <span class="step-status">已完成</span>
+                    </div>
+                </div>
+                <div class="step-line line-complete"></div>
+                <div class="step-item step-active" data-step="3">
+                    <div class="step-circle">
+                        <span class="step-number">3</span>
+                        <svg class="step-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="step-label">
+                        <span class="step-title">完成导入</span>
+                        <span class="step-status">进行中</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Complete Import -->
+            <div class="step-content step-content-active">
+                <!-- Import Summary -->
+                <section class="import-section">
+                    <div class="section-header">
+                        <h2 class="section-title">世界观导入结果</h2>
+                        <p class="section-desc">AI分析和分类操作已完成，正在导入到世界观数据库</p>
+                    </div>
+                    <div class="section-content">
+                        <!-- Summary Stats -->
+                        <div class="import-summary-stats">
+                            <div class="import-stat-card">
+                                <div class="import-stat-label">角色表数据</div>
+                                <div class="import-stat-value import-stat-orange">28,542</div>
+                                <div class="import-stat-desc">全新导入：25,432条 · 合并更新：3,110条</div>
+                            </div>
+                            <div class="import-stat-card">
+                                <div class="import-stat-label">人物表数据</div>
+                                <div class="import-stat-value import-stat-blue">29,542</div>
+                                <div class="import-stat-desc">全新导入：27,231条 · 合并更新：2,311条</div>
+                            </div>
+                            <div class="import-stat-card">
+                                <div class="import-stat-label">物品表数据</div>
+                                <div class="import-stat-value import-stat-green">46,217</div>
+                                <div class="import-stat-desc">全新导入：42,541条 · 合并更新：3,676条</div>
+                            </div>
+                            <div class="import-stat-card">
+                                <div class="import-stat-label">物体表数据</div>
+                                <div class="import-stat-value import-stat-purple">62,845</div>
+                                <div class="import-stat-desc">全新导入：58,123条 · 合并更新：4,722条</div>
+                            </div>
+                            <div class="import-stat-card">
+                                <div class="import-stat-label">事件表数据</div>
+                                <div class="import-stat-value import-stat-yellow">12,789</div>
+                                <div class="import-stat-desc">全新导入：10,543条 · 合并更新：2,246条</div>
+                            </div>
+                            <div class="import-stat-card">
+                                <div class="import-stat-label">种族表数据</div>
+                                <div class="import-stat-value import-stat-red">5,624</div>
+                                <div class="import-stat-desc">全新导入：5,102条 · 合并更新：522条</div>
+                            </div>
+                        </div>
+
+                        <!-- Import Progress -->
+                        <div class="import-progress-section">
+                            <div class="import-progress-item">
+                                <div class="import-progress-header">
+                                    <span class="import-progress-title">正在把数据传向服务器...</span>
+                                </div>
+                                <div class="import-progress-bar">
+                                    <div class="import-progress-fill import-progress-blue" style="width: 60%;"></div>
+                                </div>
+                                <p class="import-progress-desc">正在写入：正在写入人物表的46,217条数据...</p>
+                            </div>
+
+                            <div class="import-progress-item import-progress-complete">
+                                <div class="import-progress-header">
+                                    <svg class="import-progress-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span class="import-progress-title">实体抽取和分类入库完成</span>
+                                </div>
+                                <div class="import-progress-bar">
+                                    <div class="import-progress-fill import-progress-green" style="width: 100%;"></div>
+                                </div>
+                                <p class="import-progress-desc">分析完成：共完成数据的处理和导入入库，用时2小时34分46秒</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Processing/Complete State -->
+                <section class="import-section import-result-section">
+                    <div class="section-content import-result-content">
+                        <!-- Complete State -->
+                        <div class="import-complete" id="importComplete">
+                            <div class="complete-icon">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                            </div>
+                            <h3 class="complete-title">恭喜，世界观完成导入！</h3>
+                            <p class="complete-desc">您的世界观文档已经成功通过AI和人工辅助完成导入</p>
+
+                            <div class="complete-details">
+                                <div class="complete-detail-item">
+                                    <div class="complete-detail-icon">
+                                        <span>📋</span>
+                                    </div>
+                                    <div class="complete-detail-content">
+                                        <h4>世界观基本信息</h4>
+                                        <p>世界观名称：仙侠修真世界 · 文档数量：5个</p>
+                                    </div>
+                                </div>
+                                <div class="complete-detail-item">
+                                    <div class="complete-detail-icon">
+                                        <span>📊</span>
+                                    </div>
+                                    <div class="complete-detail-content">
+                                        <h4>导入数据概览</h4>
+                                        <p>提取描述：这是一个...<span class="text-blue-400">修仙世界观</span>，包含了大量的...<span class="text-blue-400">人物，物品，以及大量的修仙功法设定</span>，构建了一个...<span class="text-blue-400">完整的修真世界</span>。</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="complete-actions">
+                                <a href="world-edit.html" class="btn-primary btn-large" id="goToWorldEditBtn">
+                                    进入世界观编辑
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer Info -->
+                <div class="import-footer">
+                    <span class="import-footer-left">上次更新时间：5分钟前 · 文档版本：v1.0.2</span>
+                    <span class="import-footer-right">总计导入：5个文档 · 总计更新：185,421条</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="world-import-step3/js.js"></script>
+</body>
+</html>

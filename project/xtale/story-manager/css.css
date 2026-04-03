@@ -3,30 +3,6 @@
     padding: 1.5rem 0 3rem;
 }
 
-/* Back Navigation */
-.back-nav {
-    margin-bottom: 1rem;
-    animation: fadeInUp 0.5s ease 0.05s backwards;
-}
-
-.back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    padding: 0.5rem 0.75rem;
-    border-radius: var(--radius-md);
-    transition: all 0.2s ease;
-}
-
-.back-btn:hover {
-    color: var(--text-primary);
-    background: var(--bg-tertiary);
-}
-
 /* User Avatar */
 .user-avatar {
     width: 40px;
@@ -75,6 +51,12 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+.page-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
 /* Filter Bar */
@@ -524,8 +506,14 @@
         gap: 1rem;
     }
 
-    .page-header .btn-large {
+    .page-header-actions {
         width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .page-header-actions .btn-large {
+        flex: 1;
+        min-width: fit-content;
         justify-content: center;
     }
 

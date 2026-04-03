@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XTALE - 世界观导入 - 步骤2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="world-import/css.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <main class="world-import-content">
+        <div class="container">
+            <!-- Page Header with Back -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">世界观导入</h1>
+                    <p class="page-subtitle">通过AI智能分析，快速导入世界观设定</p>
+                </div>
+                <a href="world-list.html" class="btn-outline btn-large">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    返回
+                </a>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="step-item step-complete" data-step="1">
+                    <div class="step-circle">
+                        <span class="step-number">1</span>
+                        <svg class="step-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="step-label">
+                        <span class="step-title">资料分析</span>
+                        <span class="step-status">已完成</span>
+                    </div>
+                </div>
+                <div class="step-line line-complete"></div>
+                <div class="step-item step-active" data-step="2">
+                    <div class="step-circle">
+                        <span class="step-number">2</span>
+                        <svg class="step-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="step-label">
+                        <span class="step-title">实体分类</span>
+                        <span class="step-status">进行中</span>
+                    </div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-item" data-step="3">
+                    <div class="step-circle">
+                        <span class="step-number">3</span>
+                        <svg class="step-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="step-label">
+                        <span class="step-title">完成导入</span>
+                        <span class="step-status">未开始</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Entity Classification -->
+            <div class="step-content step-content-active">
+                <div class="classification-layout">
+                    <!-- Left: Categories -->
+                    <div class="category-panel">
+                        <div class="panel-header">
+                            <div class="panel-tabs">
+                                <button class="panel-tab panel-tab-active">分类投放区</button>
+                                <button class="panel-tab">AI自动分类</button>
+                            </div>
+                            <button class="btn-toggle-auto">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                                继续右侧卡片的浏览到对应分类来完成批量分类
+                            </button>
+                        </div>
+
+                        <!-- Category List -->
+                        <div class="category-list">
+                            <!-- Main Category -->
+                            <div class="category-item category-item-main category-item-active">
+                                <div class="category-header">
+                                    <div class="category-icon-wrapper" style="background: rgba(59, 130, 246, 0.15);">
+                                        <span class="category-icon">🗂️</span>
+                                    </div>
+                                    <div class="category-info">
+                                        <h3 class="category-name">待分类数据池</h3>
+                                        <p class="category-count">共1条数据 · 521,452条</p>
+                                    </div>
+                                    <button class="btn-category-quick">快捷整理</button>
+                                </div>
+                                <div class="category-progress-wrapper">
+                                    <div class="category-progress">
+                                        <div class="category-progress-fill" style="width: 30%;"></div>
+                                    </div>
+                                    <div class="category-progress-info">
+                                        <span>已分类：150,393条</span>
+                                        <span>完成度：27.2%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Other Categories -->
+                            <div class="category-group">
+                                <div class="category-item">
+                                    <div class="category-header">
+                                        <div class="category-icon-wrapper" style="background: rgba(16, 185, 129, 0.15);">
+                                            <span class="category-icon">👤</span>
+                                        </div>
+                                        <div class="category-info">
+                                            <h3 class="category-name">物品</h3>
+                                            <p class="category-count">已分类：62,845条</p>
+                                        </div>
+                                        <button class="btn-category-quick">快捷整理</button>
+                                        <button class="btn-category-view">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="category-item">
+                                    <div class="category-header">
+                                        <div class="category-icon-wrapper" style="background: rgba(139, 92, 246, 0.15);">
+                                            <span class="category-icon">👥</span>
+                                        </div>
+                                        <div class="category-info">
+                                            <h3 class="category-name">人物</h3>
+                                            <p class="category-count">已分类：46,217条</p>
+                                        </div>
+                                        <button class="btn-category-quick">快捷整理</button>
+                                        <button class="btn-category-view">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="category-item">
+                                    <div class="category-header">
+                                        <div class="category-icon-wrapper" style="background: rgba(245, 158, 11, 0.15);">
+                                            <span class="category-icon">👥</span>
+                                        </div>
+                                        <div class="category-info">
+                                            <h3 class="category-name">种族</h3>
+                                            <p class="category-count">已分类：12,789条</p>
+                                        </div>
+                                        <button class="btn-category-quick">快捷整理</button>
+                                        <button class="btn-category-view">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Wastebin -->
+                            <div class="category-item category-item-waste">
+                                <div class="category-header">
+                                    <div class="category-icon-wrapper" style="background: rgba(239, 68, 68, 0.15);">
+                                        <span class="category-icon">🗑️</span>
+                                    </div>
+                                    <div class="category-info">
+                                        <h3 class="category-name">作废箱</h3>
+                                        <p class="category-count">拖拽无效数据到此处</p>
+                                    </div>
+                                    <div class="waste-count">已作废：218条</div>
+                                    <button class="btn-empty-waste">快捷清理 全槽</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Data Pool -->
+                    <div class="data-pool-panel">
+                        <div class="panel-header">
+                            <div class="panel-header-left">
+                                <h3 class="panel-title">待分类数据池</h3>
+                                <span class="panel-badge">总计：552,412条</span>
+                            </div>
+                            <div class="panel-header-right">
+                                <div class="pool-search">
+                                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <path d="m21 21-4.35-4.35"></path>
+                                    </svg>
+                                    <input type="text" placeholder="搜索数据名称或关键词" class="pool-search-input">
+                                </div>
+                                <button class="btn-icon-small">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="4" y1="21" x2="4" y2="14"></line>
+                                        <line x1="4" y1="10" x2="4" y2="3"></line>
+                                        <line x1="12" y1="21" x2="12" y2="12"></line>
+                                        <line x1="12" y1="8" x2="12" y2="3"></line>
+                                        <line x1="20" y1="21" x2="20" y2="16"></line>
+                                        <line x1="20" y1="12" x2="20" y2="3"></line>
+                                    </svg>
+                                </button>
+                                <button class="btn-icon-small">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="pool-selection-info">
+                            <span>已选中 <strong>12</strong> 条 / 共 <strong>500</strong> 条</span>
+                            <span class="pool-pagination">第 1 页 / 共 252 页</span>
+                        </div>
+
+                        <!-- Data Cards -->
+                        <div class="data-cards-grid">
+                            <div class="data-card data-card-selected">
+                                <div class="data-card-checkbox">
+                                    <label class="table-checkbox">
+                                        <input type="checkbox" checked>
+                                        <span class="table-checkbox-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="data-card-content">
+                                    <h4 class="data-card-title">李小明</h4>
+                                    <p class="data-card-desc">技术部高级工程师，32岁，负责系统架构设计和核心代码开发，拥有8年开发经验</p>
+                                </div>
+                            </div>
+
+                            <div class="data-card">
+                                <div class="data-card-checkbox">
+                                    <label class="table-checkbox">
+                                        <input type="checkbox">
+                                        <span class="table-checkbox-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="data-card-content">
+                                    <h4 class="data-card-title">王小红</h4>
+                                    <p class="data-card-desc">市场部经理，28岁，负责品牌推广和市场营销，主导过多个成功营销活动</p>
+                                </div>
+                            </div>
+
+                            <div class="data-card">
+                                <div class="data-card-checkbox">
+                                    <label class="table-checkbox">
+                                        <input type="checkbox">
+                                        <span class="table-checkbox-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="data-card-content">
+                                    <h4 class="data-card-title">张小强</h4>
+                                    <p class="data-card-desc">产品经理，30岁，负责产品规划和需求管理，拥有5年互联网产品经验</p>
+                                </div>
+                            </div>
+
+                            <div class="data-card data-card-disabled">
+                                <div class="data-card-content">
+                                    <h4 class="data-card-title">MacBook Pro 16</h4>
+                                    <p class="data-card-desc">16英寸笔记本电脑，M2 Pro芯片，16GB内存，1TB固态硬盘，2023款</p>
+                                </div>
+                            </div>
+
+                            <div class="data-card data-card-disabled">
+                                <div class="data-card-content">
+                                    <h4 class="data-card-title">精灵族</h4>
+                                    <p class="data-card-desc">长耳朵种族，平均寿命500年，擅长弓箭和自然魔法，居住在森林深处</p>
+                                </div>
+                            </div>
+
+                            <div class="data-card data-card-disabled">
+                                <div class="data-card-content">
+                                    <h4 class="data-card-title">管理员角色</h4>
+                                    <p class="data-card-desc">系统最高权限角色，拥有所有模块访问权限，可以管理用户和配置系统参数</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="pool-pagination-bar">
+                            <div class="pagination-numbers">
+                                <button class="pagination-number pagination-number-nav">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                    </svg>
+                                </button>
+                                <button class="pagination-number active">1</button>
+                                <button class="pagination-number">2</button>
+                                <button class="pagination-number">3</button>
+                                <span class="pagination-dots">...</span>
+                                <button class="pagination-number">252</button>
+                                <button class="pagination-number pagination-number-nav">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="pagination-per-page">
+                                <span>每页显示：</span>
+                                <select class="pagination-select">
+                                    <option>500</option>
+                                    <option>1000</option>
+                                    <option>2000</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Actions -->
+                <div class="classification-actions">
+                    <a href="world-import-step1.html" class="btn-outline" id="prevStepBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                        撤销上一步
+                    </a>
+                    <div class="classification-actions-right">
+                        <button class="btn-outline">保存分类进度</button>
+                        <a href="world-import-step3.html" class="btn-primary" id="nextStepBtn">确认所有分类表</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="world-import-step2/js.js"></script>
+</body>
+</html>

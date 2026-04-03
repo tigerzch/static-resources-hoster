@@ -120,6 +120,111 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Key Plot functionality - Wide
+    const plotLines = document.getElementById('plotLines');
+    const plotInput = document.getElementById('plotInput');
+    const addPlotBtn = document.getElementById('addPlotBtn');
+    const nextLineNum = document.getElementById('nextLineNum');
+    const entitiesList = document.getElementById('entitiesList');
+
+    let plots = [
+        '#李慕尘 在 #城镇中心 醒来',
+        '#苏清颜 出现并提供帮助',
+        '两人前往 #森林区域 寻找 #神秘老人'
+    ];
+
+    function renderPlots() {
+        if (!plotLines) return;
+
+        plotLines.innerHTML = plots.map((text, index) => {
+            const highlightedText = text.replace(/#[^\s#，。！？,.!?]+/g, function(match) {
+                return `<span class="plot-line-entity">${match}</span>`;
+            });
+            return `
+                <div class="plot-line-item" data-index="${index}">
+                    <div class="plot-line-num">${index + 1}</div>
+                    <div class="plot-line-text">${highlightedText}</div>
+                    <div class="plot-line-actions">
+                        <button class="plot-line-btn" onclick="editPlot(${index})">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </button>
+                        <button class="plot-line-btn delete" onclick="deletePlot(${index})">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"/>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        if (nextLineNum) nextLineNum.textContent = plots.length + 1;
+        renderEntities();
+    }
+
+    function renderEntities() {
+        if (!entitiesList) return;
+
+        const allText = plots.join(' ');
+        const entityMatches = allText.match(/#[^\s#，。！？,.!?]+/g) || [];
+
+        const entityCount = {};
+        entityMatches.forEach(e => {
+            entityCount[e] = (entityCount[e] || 0) + 1;
+        });
+
+        const sortedEntities = Object.entries(entityCount).sort((a, b) => b[1] - a[1]);
+
+        entitiesList.innerHTML = sortedEntities.map(([entity, count]) =>
+            `<span class="entity-chip">${entity.substring(1)}<span class="entity-chip-count">${count}</span></span>`
+        ).join('');
+    }
+
+    function addPlot() {
+        if (!plotInput) return;
+        const text = plotInput.value.trim();
+        if (!text) return;
+
+        plots.push(text);
+        plotInput.value = '';
+        renderPlots();
+    }
+
+    window.deletePlot = function(index) {
+        plots.splice(index, 1);
+        renderPlots();
+    };
+
+    window.editPlot = function(index) {
+        const text = plots[index];
+        if (plotInput) {
+            plotInput.value = text;
+            plotInput.focus();
+            plots.splice(index, 1);
+            renderPlots();
+        }
+    };
+
+    if (addPlotBtn) {
+        addPlotBtn.addEventListener('click', addPlot);
+    }
+
+    if (plotInput) {
+        plotInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addPlot();
+            }
+        });
+    }
+
+    // Initial render
+    renderPlots();
 });
 
 // Delete row function
