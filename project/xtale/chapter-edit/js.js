@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="goal-card-delete" onclick="deleteGoal(this)">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 0 0 1-2-2V6m3 0V4a2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"/>
                         </svg>
                     </button>
                 </div>
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="btn-icon" onclick="deleteRow(this)">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"/>
                         </svg>
                     </button>
                 </div>
@@ -88,8 +88,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const mapTabs = document.querySelectorAll('.map-tab');
     mapTabs.forEach(tab => {
         tab.addEventListener('click', function() {
+            const targetTab = this.dataset.tab;
             mapTabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
+
+            // Show/hide tab content
+            document.querySelectorAll('.map-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('tab-' + targetTab).classList.add('active');
         });
     });
 
@@ -155,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <button class="plot-line-btn delete" onclick="deletePlot(${index})">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="3 6 5 6 21 6"/>
-                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"/>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"/>
                             </svg>
                         </button>
                     </div>
@@ -225,6 +232,96 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial render
     renderPlots();
+
+    // Chapter Characters functionality
+    const selectFromWorldBtn = document.getElementById('selectFromWorldBtn');
+    const createCharBtn = document.getElementById('createCharBtn');
+    const chapterCharsGrid = document.getElementById('chapterCharsGrid');
+
+    const charEmojis = ['🧑‍🦰', '👩', '🧙', '🦹', '🧑‍💼', '👨‍⚕️', '🕵️', '🧛', '🤖', '🧔', '💃', '👮'];
+
+    function addCharacterCard(name = '', source = '本章自创') {
+        if (!chapterCharsGrid) return;
+
+        const addCard = chapterCharsGrid.querySelector('.chapter-char-card-add');
+        const emoji = charEmojis[Math.floor(Math.random() * charEmojis.length)];
+        const isWorld = source === '世界观角色';
+
+        const charCard = document.createElement('div');
+        charCard.className = 'chapter-char-card ' + (isWorld ? 'chapter-char-card-world' : 'chapter-char-card-local');
+        charCard.innerHTML = `
+            <button class="char-delete-btn" onclick="deleteCharCard(this)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"/>
+                </svg>
+            </button>
+            <div class="char-avatar">
+                <span class="char-emoji">${emoji}</span>
+                <input type="text" class="char-name-input" value="${name || '新角色'}" placeholder="角色名">
+                <span class="char-source-badge ${isWorld ? '' : 'char-source-badge-local'}">${isWorld ? '世界观' : '自创'}</span>
+            </div>
+            <div class="char-meta">
+                <select class="char-source-select">
+                    <option ${isWorld ? 'selected' : ''}>世界观角色</option>
+                    <option ${isWorld ? '' : 'selected'}>本章自创</option>
+                </select>
+            </div>
+        `;
+        chapterCharsGrid.insertBefore(charCard, addCard);
+    }
+
+    window.deleteCharCard = function(btn) {
+        const charCard = btn.closest('.chapter-char-card');
+        if (charCard) {
+            charCard.style.opacity = '0';
+            charCard.style.transform = 'scale(0.95)';
+            charCard.style.transition = 'all 0.2s ease';
+            setTimeout(() => {
+                charCard.remove();
+            }, 200);
+        }
+    };
+
+    if (createCharBtn) {
+        createCharBtn.addEventListener('click', function() {
+            addCharacterCard();
+        });
+    }
+
+    if (selectFromWorldBtn) {
+        selectFromWorldBtn.addEventListener('click', function() {
+            // Mock: Add some predefined characters from "world"
+            addCharacterCard('夜无殇', '世界观角色');
+            addCharacterCard('月灵', '世界观角色');
+        });
+    }
+
+    // Update badge when source select changes
+    if (chapterCharsGrid) {
+        chapterCharsGrid.addEventListener('change', function(e) {
+            if (e.target.classList.contains('char-source-select')) {
+                const card = e.target.closest('.chapter-char-card');
+                const badge = card.querySelector('.char-source-badge');
+                const source = e.target.value;
+                if (badge) {
+                    const isWorld = source === '世界观角色';
+                    badge.textContent = isWorld ? '世界观' : '自创';
+
+                    // Update badge style and card class
+                    if (isWorld) {
+                        badge.classList.remove('char-source-badge-local');
+                        card.classList.remove('chapter-char-card-local');
+                        card.classList.add('chapter-char-card-world');
+                    } else {
+                        badge.classList.add('char-source-badge-local');
+                        card.classList.remove('chapter-char-card-world');
+                        card.classList.add('chapter-char-card-local');
+                    }
+                }
+            }
+        });
+    }
 });
 
 // Delete row function
@@ -252,3 +349,140 @@ function deleteGoal(btn) {
         }, 200);
     }
 }
+
+// Map & Initialization Functions
+const objectEmojis = ['🗄️', '🪑', '🕯️', '📜', '⚱️', '🗝️', '📦', '🖼️', '🗡️', '🛡️', '🔮', '📚'];
+
+// Add Entrance
+window.addEntrance = function() {
+    const entranceTable = document.querySelector('#tab-entrances .entrance-table');
+    if (!entranceTable) return;
+
+    const entranceRow = document.createElement('div');
+    entranceRow.className = 'entrance-row';
+    entranceRow.innerHTML = `
+        <div class="col-ename">
+            <input type="text" class="form-input-inline" value="新出入口">
+        </div>
+        <div class="col-target">
+            <input type="text" class="form-input-inline" value="未知区域">
+        </div>
+        <div class="col-estatus">
+            <span class="status-label">关闭</span>
+            <label class="toggle-switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+            <span class="status-label">开启</span>
+        </div>
+        <div class="col-action">
+            <button class="btn-icon" onclick="deleteEntrance(this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 0 0 1 2 2h4a2 0 0 1 2 2v2"/>
+                </svg>
+            </button>
+        </div>
+    `;
+    entranceTable.appendChild(entranceRow);
+};
+
+// Delete Entrance
+window.deleteEntrance = function(btn) {
+    const row = btn.closest('.entrance-row');
+    if (row) {
+        row.style.opacity = '0';
+        row.style.transform = 'translateX(-20px)';
+        row.style.transition = 'all 0.2s ease';
+        setTimeout(() => {
+            row.remove();
+        }, 200);
+    }
+};
+
+// Add Object
+window.addObject = function() {
+    const objectsGrid = document.querySelector('.map-objects-grid');
+    if (!objectsGrid) return;
+
+    const addCard = objectsGrid.querySelector('.init-object-card-add');
+    const emoji = objectEmojis[Math.floor(Math.random() * objectEmojis.length)];
+
+    const objectCard = document.createElement('div');
+    objectCard.className = 'init-object-card';
+    objectCard.innerHTML = `
+        <button class="variable-delete-btn" onclick="deleteObject(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 0 0 1 2 2h4a2 0 0 1 2 2v2"/>
+            </svg>
+        </button>
+        <div class="variable-icon">
+            <span class="variable-emoji">${emoji}</span>
+            <input type="text" class="variable-name-input" value="新物体">
+            <span class="object-type-badge">物体</span>
+        </div>
+        <div class="object-event-config">
+            <label class="form-label">调查事件</label>
+            <textarea class="form-textarea" rows="3" placeholder="玩家调查此物体时触发的事件描述"></textarea>
+        </div>
+    `;
+    objectsGrid.insertBefore(objectCard, addCard);
+};
+
+// Delete Object
+window.deleteObject = function(btn) {
+    const objectCard = btn.closest('.init-object-card');
+    if (objectCard) {
+        objectCard.style.opacity = '0';
+        objectCard.style.transform = 'scale(0.95)';
+        objectCard.style.transition = 'all 0.2s ease';
+        setTimeout(() => {
+            objectCard.remove();
+        }, 200);
+    }
+};
+
+// Add Init Character
+window.addInitChar = function() {
+    const charsGrid = document.querySelector('.map-chars-grid');
+    if (!charsGrid) return;
+
+    const addCard = charsGrid.querySelector('.init-char-card-add');
+    const emoji = charEmojis[Math.floor(Math.random() * charEmojis.length)];
+    const isWorld = Math.random() > 0.5;
+
+    const charCard = document.createElement('div');
+    charCard.className = 'init-char-card';
+    charCard.innerHTML = `
+        <button class="variable-delete-btn" onclick="deleteInitChar(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 0 0 1 2 2h4a2 0 0 1 2 2v2"/>
+            </svg>
+        </button>
+        <div class="char-avatar">
+            <span class="char-emoji">${emoji}</span>
+            <input type="text" class="char-name-input" value="新角色">
+            <span class="char-source-badge ${isWorld ? '' : 'char-source-badge-local'}">${isWorld ? '世界观' : '自创'}</span>
+        </div>
+        <div class="char-event-config">
+            <label class="form-label">默认对话事件</label>
+            <textarea class="form-textarea" rows="3" placeholder="玩家与该角色对话时触发的默认内容"></textarea>
+        </div>
+    `;
+    charsGrid.insertBefore(charCard, addCard);
+};
+
+// Delete Init Character
+window.deleteInitChar = function(btn) {
+    const charCard = btn.closest('.init-char-card');
+    if (charCard) {
+        charCard.style.opacity = '0';
+        charCard.style.transform = 'scale(0.95)';
+        charCard.style.transition = 'all 0.2s ease';
+        setTimeout(() => {
+            charCard.remove();
+        }, 200);
+    }
+};
